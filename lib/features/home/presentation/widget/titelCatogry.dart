@@ -13,36 +13,27 @@ class titelcatogrey extends StatelessWidget {
   final void Function() onPressed;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 14),
-            child: Text(
-              titel,
-              style: const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w600,
-                fontSize: 28,
-              ),
-            ),
-          ),
+    return ListTile(
+      title: Text(
+        titel,
+        style: const TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.w600,
+          fontSize: 28,
         ),
-        Center(
-            child: TextButton(
-                style: const ButtonStyle(
-                    padding: MaterialStatePropertyAll(EdgeInsets.all(0))),
-                onPressed: onPressed,
-                child: const Text(
-                  "See more",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 11,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ))),
-      ],
+      ),
+      trailing: TextButton(
+          style: const ButtonStyle(
+              padding: MaterialStatePropertyAll(EdgeInsets.all(0))),
+          onPressed: onPressed,
+          child: const Text(
+            "See more",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 11,
+              fontWeight: FontWeight.normal,
+            ),
+          )),
     );
   }
 }

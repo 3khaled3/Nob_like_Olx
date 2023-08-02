@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nob/features/home/presentation/widget/homeCatogrey.dart';
 import 'package:nob/features/home/presentation/widget/titelCatogry.dart';
 
 import 'widget/saleListview.dart';
@@ -13,22 +14,29 @@ class homeView extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
-        child: Column(children: [
-          // HomeCategory(
-          //     categoriesProductmap: categoriesProductmap,
-          //     categorieslist: categorieslist),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
           SafeArea(
-            child: SizedBox(
-              height: MediaQuery.sizeOf(context).height * .03,
+            child: titelcatogrey(
+              titel: "hi",
+              onPressed: () {
+                // GoRouter.of(context).push(AppRouter.kallproductsView,
+                //     extra: "${categorieslist[index]}");
+              },
             ),
           ),
+          HomeCategory(
+              //     // categoriesProductmap: categoriesProductmap,
+              //     // categorieslist: categorieslist),
+              ),
           ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 10,
             shrinkWrap: true,
             itemBuilder: (context, index) {
               return Padding(
-                padding: const EdgeInsets.only(left:16,top:16,right:16 ),
+                padding: const EdgeInsets.only(top: 8, bottom: 8),
                 child: Column(
                   children: [
                     titelcatogrey(
@@ -38,8 +46,11 @@ class homeView extends StatelessWidget {
                         //     extra: "${categorieslist[index]}");
                       },
                     ),
-                    saleListView(
-                      // products: List.empty(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: saleListView(
+                          // products: List.empty(),
+                          ),
                     ),
                     SizedBox(
                       height: MediaQuery.sizeOf(context).height * .01,

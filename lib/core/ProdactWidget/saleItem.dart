@@ -23,7 +23,7 @@ class SaleItem extends StatelessWidget {
           child: Stack(
             children: [
               Container(
-                height: MediaQuery.sizeOf(context).height * .3,
+                height: MediaQuery.sizeOf(context).height * .35,
                 width: MediaQuery.sizeOf(context).width * .43,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
@@ -105,6 +105,34 @@ class SaleItem extends StatelessWidget {
                                   fontSize: 11,
                                   fontWeight: FontWeight.w600),
                             ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.sizeOf(context).width * .3,
+                          child: Text(
+                            "Gulberg Phase 4, LahGulberg Phase Gulberg Phase Gulberg Phase   ",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Text(
+                            "22 Sep",
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400),
                           ),
                         ),
                       ],
