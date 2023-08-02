@@ -22,17 +22,6 @@ class circleIconButtom extends StatelessWidget {
     return Container(
       width: 30,
       height: 30,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            spreadRadius: 2,
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
       child: Material(
         color: colorbottom,
         shape: const CircleBorder(),

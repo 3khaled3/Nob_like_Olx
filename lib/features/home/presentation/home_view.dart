@@ -19,7 +19,7 @@ class homeView extends StatelessWidget {
           children: [
           SafeArea(
             child: titelcatogrey(
-              titel: "hi",
+              titel: "Browse Categories",
               onPressed: () {
                 // GoRouter.of(context).push(AppRouter.kallproductsView,
                 //     extra: "${categorieslist[index]}");
