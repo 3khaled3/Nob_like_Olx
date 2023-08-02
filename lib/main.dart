@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:async';
 import 'package:camera/camera.dart';
+import 'features/home/presentation/home_view.dart';
 import 'firebase_options.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -39,7 +40,7 @@ Future<void> main() async {
       // ),
     // ],
     // child:
-     MaterialApp(home:Scaffold() ,
+     MaterialApp(home:homeView() ,
       debugShowCheckedModeBanner: false,
 
     ));
