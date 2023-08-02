@@ -23,8 +23,8 @@ class titelcatogrey extends StatelessWidget {
               titel,
               style: const TextStyle(
                 color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 34,
+                fontWeight: FontWeight.w600,
+                fontSize: 28,
               ),
             ),
           ),
@@ -35,7 +35,7 @@ class titelcatogrey extends StatelessWidget {
                     padding: MaterialStatePropertyAll(EdgeInsets.all(0))),
                 onPressed: onPressed,
                 child: const Text(
-                  "view all",
+                  "See more",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 11,
