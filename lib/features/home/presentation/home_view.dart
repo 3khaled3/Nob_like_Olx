@@ -10,6 +10,7 @@ class homeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(children: [
@@ -26,22 +27,25 @@ class homeView extends StatelessWidget {
             itemCount: 10,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  titelcatogrey(
-                    titel: "hi",
-                    onPressed: () {
-                      // GoRouter.of(context).push(AppRouter.kallproductsView,
-                      //     extra: "${categorieslist[index]}");
-                    },
-                  ),
-                  saleListView(
-                    products: List.empty(),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.sizeOf(context).height * .01,
-                  ),
-                ],
+              return Padding(
+                padding: const EdgeInsets.only(left:16,top:16,right:16 ),
+                child: Column(
+                  children: [
+                    titelcatogrey(
+                      titel: "hi",
+                      onPressed: () {
+                        // GoRouter.of(context).push(AppRouter.kallproductsView,
+                        //     extra: "${categorieslist[index]}");
+                      },
+                    ),
+                    saleListView(
+                      // products: List.empty(),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.sizeOf(context).height * .01,
+                    ),
+                  ],
+                ),
               );
             },
           )
