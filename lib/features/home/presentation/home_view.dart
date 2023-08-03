@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nob/core/widget/customtextFaild.dart';
 import 'package:nob/features/home/presentation/widget/homeCatogrey.dart';
 import 'package:nob/features/home/presentation/widget/titelCatogry.dart';
 
@@ -11,20 +12,32 @@ class homeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("home"),
+      ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-          SafeArea(
-            child: titelcatogrey(
-              titel: "Browse Categories",
-              onPressed: () {
-                // GoRouter.of(context).push(AppRouter.kallproductsView,
-                //     extra: "${categorieslist[index]}");
-              },
+        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: customTextfaild(
+              labelText: "Gulberg Phase 4 , Lahore",
+              inithialText: "Gulberg Phase 4 , Lahore",
+              prefixIcon: Icon(Icons.location_on_outlined),
+              suffixIcon: Icon(
+                Icons.arrow_forward_ios,
+                size: 18,
+              ),
             ),
+          ),
+          titelcatogrey(
+            titelfontSize: 18,
+            titel: "Browse Categories",
+            onPressed: () {
+              // GoRouter.of(context).push(AppRouter.kallproductsView,
+              //     extra: "${categorieslist[index]}");
+            },
           ),
           HomeCategory(
               //     // categoriesProductmap: categoriesProductmap,
