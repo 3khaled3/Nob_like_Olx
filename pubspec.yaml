@@ -50,6 +50,7 @@ dependencies:
   easy_localization: ^3.0.2
   alt_sms_autofill: ^1.0.0
   dartz: ^0.10.1
+  fluttertoast: ^8.2.2
 
 
 dev_dependencies:
