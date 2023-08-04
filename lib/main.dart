@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:nob/features/main/presentation/MainView.dart';
-import 'features/home/presentation/home_view.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'firebase_options.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -45,5 +46,8 @@ Future<void> main() async {
       debugShowCheckedModeBanner: false,
 
     ));
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.white, // Change this color to your desired color
+  ));
   // ));
 }
