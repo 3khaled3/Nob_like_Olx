@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nob/core/utils/Cubits/RegisterCubit/register_cubit.dart';
 import 'package:nob/features/home/presentation/home_view.dart';
+import 'package:nob/features/main/presentation/MainView.dart';
 
 class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key});
@@ -94,9 +95,9 @@ class _OTPScreenState extends State<OTPScreen> {
                           final state =
                               BlocProvider.of<RegisterCubit>(context).state;
                           if (state is Success) {
-                            Navigator.push(context, MaterialPageRoute(
+                            Navigator.pushReplacement(context, MaterialPageRoute(
                               builder: (context) {
-                                return const homeView();
+                                return const MainView();
                               },
                             ));
                           }

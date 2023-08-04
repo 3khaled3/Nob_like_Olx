@@ -14,6 +14,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       print("---------------------------------------------------");
       verificationCompleted(AuthCredential phoneAuthCredential) {
         _auth.signInWithCredential(phoneAuthCredential);
+        emit(Success());
       }
 
       verificationFailed(FirebaseAuthException authException) {
@@ -22,7 +23,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
       codeSent(String verificationId, [int? forceResendingToken]) async {
         _verificationId = verificationId;
-        emit(Success());
+        
       }
 
       codeAutoRetrievalTimeout(String verificationId) {
@@ -38,7 +39,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         codeSent: codeSent,
         codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
       );
-      emit(Success());
+      
     } catch (e) {
       emit(Error(e.toString()));
       print("=============================${e.toString()}");
