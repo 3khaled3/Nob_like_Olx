@@ -7,6 +7,8 @@ import 'package:nob/features/login/presintaion/otb.dart';
 import 'package:nob/features/main/presentation/MainView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'core/utils/Cubits/RegisterCubit/register_cubit.dart';
+import 'features/login/presintaion/validation.dart';
 import 'firebase_options.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -27,8 +29,8 @@ Future<void> main() async {
 
   cameras = await availableCameras();
   runApp(
-    // MultiBlocProvider(
-    // providers: [
+    MultiBlocProvider(
+    providers: [
       // BlocProvider(
       //   create: (context) => UserCubit(),
       // ),
@@ -38,17 +40,18 @@ Future<void> main() async {
       // BlocProvider(
       //   create: (context) => BagCubit(),
       // ),
-      // BlocProvider(
-      //   create: (context) => FavCubit(),
-      // ),
-    // ],
-    // child:
+      BlocProvider(
+        create: (context) => RegisterCubit(),
+      ),
+    ],
+    child:
      MaterialApp(home:
+    //  OTPScreen(),
      PhoneSignInScreen(),
     //  MainView() ,
       debugShowCheckedModeBanner: false,
 
-    ));
+    )));
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.white, // Change this color to your desired color
   ));

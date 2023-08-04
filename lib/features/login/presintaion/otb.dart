@@ -1,117 +1,92 @@
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:nob/core/utils/Cubits/RegisterCubit/register_cubit.dart';
+import 'package:nob/features/login/presintaion/validation.dart';
 
 class PhoneSignInScreen extends StatefulWidget {
+  const PhoneSignInScreen({super.key});
+
   @override
   _PhoneSignInScreenState createState() => _PhoneSignInScreenState();
 }
 
 class _PhoneSignInScreenState extends State<PhoneSignInScreen> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  String _verificationId = '';
-  String _smsCode = '';
   final TextEditingController _phoneFiledController = TextEditingController();
   String countryCode = "+20";
-
-  Future<void> _verifyPhoneNumber() async {
-    try {
-      print("---------------------------------------------------");
-      final PhoneVerificationCompleted verificationCompleted =
-          (AuthCredential phoneAuthCredential) {
-        _auth.signInWithCredential(phoneAuthCredential);
-      };
-
-      final PhoneVerificationFailed verificationFailed =
-          (FirebaseAuthException authException) {
-        print('Phone number verification failed: ${authException.message}');
-      };
-
-      final PhoneCodeSent codeSent =
-          (String verificationId, [int? forceResendingToken]) async {
-        _verificationId = verificationId;
-      };
-
-      final PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout =
-          (String verificationId) {
-        _verificationId = verificationId;
-      };
-
-      await _auth.verifyPhoneNumber(
-        phoneNumber: '+201273793869', // Replace with the user's phone number
-        timeout: const Duration(seconds: 60),
-        verificationCompleted: verificationCompleted,
-        verificationFailed: verificationFailed,
-        codeSent: codeSent,
-        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
-      );
-    } catch (e) {
-      print("=============================${e.toString()}");
-    }
-  }
-
-  Future<void> _signInWithPhoneNumber() async {
-    final AuthCredential credential = PhoneAuthProvider.credential(
-      verificationId: _verificationId,
-      smsCode: _smsCode,
-    );
-
-    final UserCredential authResult =
-        await _auth.signInWithCredential(credential);
-
-    final User user = authResult.user!;
-    print('User signed in: ${user.uid}');
-  }
-
+  String phonenum = "0";
+  GlobalKey<FormState> formkey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Phone Authentication'),
-      ),
-      body: ListView(
-
-        children: [
-          SizedBox(height: MediaQuery.sizeOf(context).height*.5,child: SvgPicture.asset("assets/mobile-auth-pic.svg")),
-
-          Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: IntlPhoneField(
-                controller: _phoneFiledController,
-                initialCountryCode: "EG",
-                onCountryChanged: (value) {
-                  countryCode = value.dialCode;
-                },
-                showDropdownIcon: false, // Hide the country dropdown icon
-                showCountryFlag: true, // Hide the country flag
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Enter your phone number",
-                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                ),
-              )),
-          ElevatedButton(
-            onPressed: _verifyPhoneNumber,
-            child: Text('Verify Phone Number'),
+    return BlocBuilder<RegisterCubit, RegisterState>(
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            toolbarHeight: 0,
+            elevation: 0,
+            title: const Text('Phone Authentication'),
           ),
-          SizedBox(height: 16),
-          // TextField(
-          //   onChanged: (value) {
-          //     _smsCode = value;
-          //   },
-          //   decoration: InputDecoration(
-          //     labelText: 'Enter SMS Code',
-          //   ),
-          // ),
-          // SizedBox(height: 16),
-          // ElevatedButton(
-          //   onPressed: _signInWithPhoneNumber,
-          //   child: Text('Sign In'),
-          // ),
-        ],
-      ),
+          body: Form(
+            key: formkey,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: ListView(
+                children: [
+                  SvgPicture.asset("assets/mobile-auth-pic.svg",
+                      height: MediaQuery.sizeOf(context).height * .4),
+                  IntlPhoneField(
+                    validator: (p0) {
+                      if (phonenum=="0"||phonenum==null) {
+                        return 'Please enter a valid Phone Number';
+                      }
+                      return null;
+                    },
+                    controller: _phoneFiledController,
+                    initialCountryCode: "EG",
+                    onCountryChanged: (value) {
+                      countryCode = value.dialCode;
+                    },
+                    showDropdownIcon: false, // Hide the country dropdown icon
+                    showCountryFlag: true, // Hide the country flag
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Enter your phone number",
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                    ),
+                    onChanged: (value) {
+                      print(value);
+                      phonenum = value.completeNumber ;
+                      print(phonenum);
+                    },
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (formkey.currentState!.validate()) {
+                        await BlocProvider.of<RegisterCubit>(context)
+                            .verifyPhoneNumber("$phonenum");
+                        var state =
+                            BlocProvider.of<RegisterCubit>(context).state;
+                        if (state is Success) {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return const OTPScreen();
+                            },
+                          ));
+                        }
+                      }
+                    },
+                    child: const Text('Verify Phone Number'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
