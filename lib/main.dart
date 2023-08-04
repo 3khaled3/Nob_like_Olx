@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:async';
 import 'package:camera/camera.dart';
+import 'package:nob/features/login/presintaion/otb.dart';
 import 'package:nob/features/main/presentation/MainView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -42,7 +43,9 @@ Future<void> main() async {
       // ),
     // ],
     // child:
-     MaterialApp(home:MainView() ,
+     MaterialApp(home:
+     PhoneSignInScreen(),
+    //  MainView() ,
       debugShowCheckedModeBanner: false,
 
     ));

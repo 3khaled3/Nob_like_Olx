@@ -3,7 +3,6 @@ import 'package:nob/core/widget/customtextFaild.dart';
 import 'package:nob/features/home/presentation/widget/homeCatogrey.dart';
 import 'package:nob/features/home/presentation/widget/titelCatogry.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'widget/iconButtom.dart';
 import 'widget/saleListview.dart';
 
@@ -14,7 +13,11 @@ class homeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(toolbarHeight: 0, backgroundColor: Colors.white,shadowColor:Colors.white,elevation: 0),
+      appBar: AppBar(
+          toolbarHeight: 0,
+          backgroundColor: Colors.white,
+          shadowColor: Colors.white,
+          elevation: 0),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
