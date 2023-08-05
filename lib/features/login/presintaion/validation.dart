@@ -94,6 +94,7 @@ class _OTPScreenState extends State<OTPScreen> {
                               .signInWithPhoneNumber(enteredOTP);
                           final state =
                               BlocProvider.of<RegisterCubit>(context).state;
+                              
                           if (state is Success) {
                             Navigator.pushReplacement(context, MaterialPageRoute(
                               builder: (context) {

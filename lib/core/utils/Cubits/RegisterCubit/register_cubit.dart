@@ -1,6 +1,13 @@
-import 'package:bloc/bloc.dart';
+// ignore_for_file: unused_local_variable, depend_on_referenced_packages
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:meta/meta.dart';
+
+import '../../../../features/login/presintaion/validation.dart';
+import '../../../widget/tossetMassage.dart';
 
 part 'register_state.dart';
 
@@ -8,41 +15,44 @@ class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(RegisterInitial());
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String _verificationId = '';
-  Future<void> verifyPhoneNumber(phoneNumber) async {
+  var box = Hive.box('myBox');
+
+  Future<void> verifyPhoneNumber(phoneNumber, context) async {
     emit(Waitting());
     try {
-      print("---------------------------------------------------");
       verificationCompleted(AuthCredential phoneAuthCredential) {
         _auth.signInWithCredential(phoneAuthCredential);
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
+            return const OTPScreen();
+          },
+        ));
         emit(Success());
-      }
-
-      verificationFailed(FirebaseAuthException authException) {
-        print('Phone number verification failed: ${authException.message}');
       }
 
       codeSent(String verificationId, [int? forceResendingToken]) async {
         _verificationId = verificationId;
-        
       }
 
       codeAutoRetrievalTimeout(String verificationId) {
         _verificationId = verificationId;
+        showToastMessage("code Timeout", Colors.red);
         emit(Error("code Timeout"));
       }
 
       await _auth.verifyPhoneNumber(
         phoneNumber: phoneNumber, // Replace with the user's phone number
-        timeout: const Duration(seconds: 60),
         verificationCompleted: verificationCompleted,
-        verificationFailed: verificationFailed,
+        verificationFailed: (FirebaseAuthException authException) {
+          showToastMessage("${authException.message}", Colors.red);
+          emit(Error(
+              "Phone number verification failed: ${authException.message}"));
+        },
         codeSent: codeSent,
         codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
       );
-      
     } catch (e) {
       emit(Error(e.toString()));
-      print("=============================${e.toString()}");
     }
   }
 
@@ -54,11 +64,30 @@ class RegisterCubit extends Cubit<RegisterState> {
         smsCode: smsCode,
       );
 
+      // Store user data in Hive
+      box.put('verificationId', _verificationId);
+      box.put('sms', smsCode);
+      emit(Success());
+    } catch (e) {
+      emit(Error(e.toString()));
+    }
+  }
+
+  Future<void> autoLogin() async {
+    emit(Waitting());
+
+    try {
+      final storedsmsCode = box.get('sms');
+      final storedverificationId = box.get('verificationId');
+      final AuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: storedverificationId,
+        smsCode: storedsmsCode,
+      );
+
       final UserCredential authResult =
           await _auth.signInWithCredential(credential);
 
-      final User user = authResult.user!;
-      print('User signed in: ${user.uid}');
+      // Store user data in Hive
       emit(Success());
     } catch (e) {
       emit(Error(e.toString()));
