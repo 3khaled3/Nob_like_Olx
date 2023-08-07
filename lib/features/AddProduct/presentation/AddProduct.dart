@@ -33,15 +33,16 @@ class addProductView extends StatelessWidget {
         }
         return Scaffold(
           backgroundColor: Colors.white,
-          appBar: AppBar(toolbarHeight: 0, elevation: 0),
           body: ListView(
             physics: const BouncingScrollPhysics(),
             children: [
-              Row(
-                children: [
-                  iconButtom(
-                      elvation: 2, icon: Icons.arrow_back_ios_new, onTap: () {})
-                ],
+              SafeArea(
+                child: Row(
+                  children: [
+                    iconButtom(
+                        elvation: 2, icon: Icons.arrow_back_ios_new, onTap: () {})
+                  ],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -54,12 +55,12 @@ class addProductView extends StatelessWidget {
                           padding: EdgeInsets.symmetric(vertical: 8.0),
                           child: Text(
                             "Product Titel",
-                            style: TextStyle(color: Colors.grey, fontSize: 16),
+                            style: TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)
                           ),
                         ),
                       ],
                     ),
-                    const customTextfaild(labelText: "Product Titel"),
+                    const customTextfaild(labelText: "Product Titel",elevation: 4),
                     const SizedBox(
                       height: 40,
                     ),
@@ -69,12 +70,12 @@ class addProductView extends StatelessWidget {
                           padding: EdgeInsets.symmetric(vertical: 8.0),
                           child: Text(
                             "Product Description",
-                            style: TextStyle(color: Colors.grey, fontSize: 16),
+                            style:TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)
                           ),
                         ),
                       ],
                     ),
-                    const customTextfaild(
+                    const customTextfaild(elevation: 4,
                       labelText: "Product Description",
                       maxLines: 4,
                     ),

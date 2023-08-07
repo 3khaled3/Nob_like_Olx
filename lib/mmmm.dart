@@ -1,7 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
-
 class CustomDrob extends StatefulWidget {
   final List<String> items;
   final String titel;
@@ -17,7 +16,7 @@ class CustomDrob extends StatefulWidget {
 }
 
 class _CustomDrobState extends State<CustomDrob> {
-    String? selectedValue; 
+  String? selectedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +39,14 @@ class _CustomDrobState extends State<CustomDrob> {
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Colors.grey,
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
         ),
-        items:  widget.items.map((String item) {
+        items: widget.items.map((String item) {
           return DropdownMenuItem<String>(
             value: item,
             child: IntrinsicWidth(
@@ -74,8 +73,7 @@ class _CustomDrobState extends State<CustomDrob> {
               ),
             ),
           );
-        })
-            .toList(),
+        }).toList(),
         value: selectedValue,
         onChanged: (String? value) {
           setState(() {
@@ -83,7 +81,6 @@ class _CustomDrobState extends State<CustomDrob> {
           });
           widget.onChanged?.call(value);
         },
-
         buttonStyleData: ButtonStyleData(
           height: 50,
           width: 160,

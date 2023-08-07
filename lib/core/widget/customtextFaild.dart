@@ -10,6 +10,8 @@ class customTextfaild extends StatelessWidget {
   final Widget? prefixIcon;
   final String? Function(String?)? validator;
   final int? maxLines;
+  final double elevation;
+  final TextStyle? labelStyle;
   const customTextfaild({
     Key? key,
     required this.labelText,
@@ -19,39 +21,47 @@ class customTextfaild extends StatelessWidget {
     this.suffixIcon,
     this.prefixIcon,
     this.maxLines,
+    this.elevation = 0,
+    this.labelStyle= const TextStyle(color: Colors.grey),
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      initialValue: inithialText,
-      validator: validator,
-      onChanged: onChanged,
-      maxLines:maxLines,
-      minLines: 1,
-      decoration: InputDecoration(suffixIcon: suffixIcon ,prefixIcon:  prefixIcon,
-        contentPadding: const EdgeInsets.only(left: 12, right: 12),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.grey),
+    return Material(
+      elevation: elevation,
+      borderRadius: BorderRadius.circular(8),
+      child: TextFormField(
+        initialValue: inithialText,        
+        validator: validator,
+        onChanged: onChanged,
+        maxLines: maxLines,
+        minLines: 1,
+        decoration: InputDecoration(
+          suffixIcon: suffixIcon,
+          prefixIcon: prefixIcon,
+          contentPadding: const EdgeInsets.only(left: 12, right: 12),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: Colors.grey),
+          ),
+          filled: true,
+          fillColor: Colors.white,
+          labelText: labelText,
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: Colors.red),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: Colors.white),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: Colors.grey),
+          ),
+          labelStyle: labelStyle,
+          floatingLabelBehavior: FloatingLabelBehavior.never,
         ),
-        filled: true,
-        fillColor: Colors.white,
-        labelText: labelText,
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.red),
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.white),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Colors.grey),
-        ),
-        labelStyle: const TextStyle(color: Colors.grey),
-        floatingLabelBehavior: FloatingLabelBehavior.never,
       ),
     );
   }
