@@ -46,11 +46,10 @@ dependencies:
   cached_network_image: ^3.2.3
   firebase_auth: ^4.7.2
   flutter_svg: ^2.0.7
-  intl_phone_field: ^3.2.0
   easy_localization: ^3.0.2
   alt_sms_autofill: ^1.0.0
-  dartz: ^0.10.1
   fluttertoast: ^8.2.2
+  intl_phone_field: ^3.2.0
 
 
 dev_dependencies:
@@ -78,7 +77,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
-  #   - images/a_dot_ham.jpeg
+    - assets/categories/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -3,27 +3,24 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nob/core/constant.dart';
 
 class HomeCategory extends StatelessWidget {
-  // final List categorieslist;
-  // final Map categoriesProductmap;
   const HomeCategory({
     super.key,
-    // required this.categorieslist,
-    // required this.categoriesProductmap,
   });
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> items = [];
-    for (var i = 0; i < 30; i++) {
+    for (var categoryData in categories) {
+      var categoryName = categoryData.keys.first;
+      var imagePath = categoryData.values.first;
       items.add(homeCard(
-          // categoriesProductmap: categoriesProductmap,
-          // categorieslist: categorieslist,
-          // i: i,
-          ));
+        categoriesImage: imagePath,
+        categoriesTitel: categoryName,
+      ));
     }
-
     return Row(
       children: [
         Expanded(
@@ -32,7 +29,7 @@ class HomeCategory extends StatelessWidget {
             width: double.infinity,
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
-              itemCount: 20,
+              itemCount: items.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return items[index];
@@ -48,21 +45,15 @@ class HomeCategory extends StatelessWidget {
 class homeCard extends StatelessWidget {
   const homeCard({
     super.key,
-    // required this.categoriesProductmap,
-    // required this.categorieslist,
-    // required this.i,
+    required this.categoriesTitel,
+    required this.categoriesImage,
   });
 
-  // final Map categoriesProductmap;
-  // final List categorieslist;
-  // final int i;
+  final String categoriesImage;
+  final String categoriesTitel;
 
   @override
   Widget build(BuildContext context) {
-    // if (!categoriesProductmap.containsKey(categorieslist[i])) {
-    //   return buildCircleIndicator();
-    // }
-
     return GestureDetector(
         onTap: () {
           // GoRouter.of(context)
@@ -73,12 +64,12 @@ class homeCard extends StatelessWidget {
           child: SizedBox(
             width: 68,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 ClipRRect(
                     borderRadius: BorderRadius.circular(120.0),
                     child: Image.asset(
-                      "assets/te.jpg",
+                      categoriesImage,
                       fit: BoxFit.cover,
                       width: 68,
                       height: 68,
@@ -95,11 +86,11 @@ class homeCard extends StatelessWidget {
                     //   fit: BoxFit.cover,
                     // ),
                     ),
-                const Text(
-                  "MobilesMobilesMobiles",
-                  maxLines: 2,
+                Text(
+                  categoriesTitel,
+                  maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w400,
                     fontSize: 16,

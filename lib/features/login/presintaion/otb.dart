@@ -7,7 +7,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:nob/core/utils/Cubits/RegisterCubit/register_cubit.dart';
 import 'package:nob/core/widget/tossetMassage.dart';
-import 'package:nob/features/login/presintaion/validation.dart';
 import 'package:nob/features/main/presentation/MainView.dart';
 
 class PhoneSignInScreen extends StatefulWidget {
@@ -25,15 +24,19 @@ class _PhoneSignInScreenState extends State<PhoneSignInScreen> {
 
   GlobalKey<FormState> formkey = GlobalKey();
   @override
-  void initState() {
-    autoLogin(context);
+    void initState() {
     super.initState();
+    _initializeState();
+  }
+
+  Future<void> _initializeState() async {
+    await autoLogin(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterCubit, RegisterState>(
-      builder: (context, state) {
+      builder: (context, state) {        
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(

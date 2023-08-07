@@ -51,6 +51,13 @@ class RegisterCubit extends Cubit<RegisterState> {
         codeSent: codeSent,
         codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
       );
+      //test
+      // Navigator.push(context, MaterialPageRoute(
+      //   builder: (context) {
+      //     return const OTPScreen();
+      //   },
+      // ));
+      // emit(Success());
     } catch (e) {
       emit(Error(e.toString()));
     }
