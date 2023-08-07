@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
 
 class AddImageButtom extends StatelessWidget {
   const AddImageButtom({
@@ -28,7 +32,10 @@ class AddImageButtom extends StatelessWidget {
                 10,
               ),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  
+ 
+                },
                 borderRadius: BorderRadius.circular(
                   10,
                 ),
