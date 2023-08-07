@@ -8,6 +8,7 @@ import 'package:nob/features/main/presentation/MainView.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'core/utils/Cubits/RegisterCubit/register_cubit.dart';
+import 'features/AddProduct/presentation/AddProduct.dart';
 import 'features/login/presintaion/validation.dart';
 import 'firebase_options.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -46,8 +47,9 @@ Future<void> main() async {
     ],
     child:
      MaterialApp(home:
+     addProductView(),
     //  OTPScreen(),
-     PhoneSignInScreen(),
+    //  PhoneSignInScreen(),
     //  MainView() ,
       debugShowCheckedModeBanner: false,
 

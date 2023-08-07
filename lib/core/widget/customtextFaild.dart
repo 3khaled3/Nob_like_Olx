@@ -9,6 +9,7 @@ class customTextfaild extends StatelessWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final String? Function(String?)? validator;
+  final int? maxLines;
   const customTextfaild({
     Key? key,
     required this.labelText,
@@ -17,6 +18,7 @@ class customTextfaild extends StatelessWidget {
     this.inithialText = "",
     this.suffixIcon,
     this.prefixIcon,
+    this.maxLines,
   }) : super(key: key);
 
   @override
@@ -25,7 +27,8 @@ class customTextfaild extends StatelessWidget {
       initialValue: inithialText,
       validator: validator,
       onChanged: onChanged,
-      
+      maxLines:maxLines,
+      minLines: 1,
       decoration: InputDecoration(suffixIcon: suffixIcon ,prefixIcon:  prefixIcon,
         contentPadding: const EdgeInsets.only(left: 12, right: 12),
         enabledBorder: OutlineInputBorder(
