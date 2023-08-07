@@ -4,13 +4,28 @@ import 'package:nob/core/utils/Cubits/AddProductCubit/add_product_cubit.dart';
 import 'package:nob/core/widget/customtextFaild.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
-
+import '../../../constant.dart';
+import '../../../mmmm.dart';
 import 'widget/AddImageButtom.dart';
 
-class addProductView extends StatelessWidget {
+class addProductView extends StatefulWidget {
   const addProductView({super.key});
 
   @override
+  State<addProductView> createState() => _addProductViewState();
+}
+
+class _addProductViewState extends State<addProductView> {
+  final List<String> categorie = [];
+  @override
+  void initState() {
+    for (var categoryData in categories) {
+      String categoryName = categoryData.keys.first;
+      categorie.add(categoryName);
+    }
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return BlocBuilder<AddProductCubit, AddProductState>(
       builder: (context, state) {
@@ -43,11 +58,26 @@ class addProductView extends StatelessWidget {
                 labelText: "Product Description",
                 maxLines: 4,
               ),
-              AddImageButtom(onTap: () async {
-                await BlocProvider.of<AddProductCubit>(context).uploadImageFromGallery();
-              },),ElevatedButton(onPressed: () async {
-                await BlocProvider.of<AddProductCubit>(context).uploadAds();
-              }, child:Text("Save")),
+              SizedBox(width: MediaQuery.sizeOf(context).width,
+                child: CustomDrob(
+                  items: categorie,
+                  titel: "Select  Category",
+                  onChanged: (p0) {
+                    print("a");
+                  },
+                ),
+              ),
+              AddImageButtom(
+                onTap: () async {
+                  await BlocProvider.of<AddProductCubit>(context)
+                      .uploadImageFromGallery();
+                },
+              ),
+              ElevatedButton(
+                  onPressed: () async {
+                    await BlocProvider.of<AddProductCubit>(context).uploadAds();
+                  },
+                  child: Text("Save")),
             ],
           ),
         );

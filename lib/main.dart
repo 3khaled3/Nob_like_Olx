@@ -50,8 +50,8 @@ Future<void> main() async {
     ],
     child:
      MaterialApp(home:
-     MyHomePage(),
-    //  addProductView(),
+    //  MyHomePage(),
+     addProductView(),
     //  OTPScreen(),
     //  PhoneSignInScreen(),
     //  MainView() ,
