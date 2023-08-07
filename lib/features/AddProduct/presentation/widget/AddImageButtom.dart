@@ -1,13 +1,16 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../../../core/utils/Cubits/AddProductCubit/add_product_cubit.dart';
 
 
 class AddImageButtom extends StatelessWidget {
-  final void Function()? onTap;
+  // final void Function()? onTap;
   const AddImageButtom({
-    required this.onTap,
+    // required this.onTap,
     super.key,
   });
 
@@ -35,7 +38,10 @@ class AddImageButtom extends StatelessWidget {
                   10,
                 ),
                 child: InkWell(
-                  onTap: onTap,
+                  onTap: () async {
+                      await BlocProvider.of<AddProductCubit>(context)
+                        .uploadImageFromGallery();
+                  },
                   borderRadius: BorderRadius.circular(
                     10,
                   ),

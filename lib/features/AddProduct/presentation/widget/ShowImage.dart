@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nob/core/widget/CustomcircleIconButtom.dart';
+
+import '../../../../core/utils/Cubits/AddProductCubit/add_product_cubit.dart';
 
 class ImageWithDeleteIcon extends StatelessWidget {
   final File imageFile;
@@ -33,8 +36,9 @@ class ImageWithDeleteIcon extends StatelessWidget {
 }
 
 class ImageLIst extends StatefulWidget {
-  final List<File?> imagelist;
-  const ImageLIst({super.key, required this.imagelist});
+  const ImageLIst({
+    super.key,
+  });
 
   @override
   State<ImageLIst> createState() => _ImageLIstState();
@@ -43,6 +47,7 @@ class ImageLIst extends StatefulWidget {
 class _ImageLIstState extends State<ImageLIst> {
   @override
   Widget build(BuildContext context) {
+    final imagelist = BlocProvider.of<AddProductCubit>(context).selectedImages;
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -51,12 +56,12 @@ class _ImageLIstState extends State<ImageLIst> {
         crossAxisSpacing: 8,
         mainAxisSpacing: 8,
       ),
-      itemCount: widget.imagelist.length,
+      itemCount: imagelist.length,
       itemBuilder: (context, index) {
         return ImageWithDeleteIcon(
-          imageFile: widget.imagelist[index]!,
+          imageFile: imagelist[index]!,
           onTap: () {
-            widget.imagelist.removeAt(index);
+            imagelist.removeAt(index);
             setState(() {});
           },
         );

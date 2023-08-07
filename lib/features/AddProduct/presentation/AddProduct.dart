@@ -1,42 +1,35 @@
+
+// ignore_for_file: camel_case_types, file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nob/core/utils/Cubits/AddProductCubit/add_product_cubit.dart';
 import 'package:nob/core/widget/customtextFaild.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:nob/features/AddProduct/presentation/widget/ShowImage.dart';
-
 import '../../../constant.dart';
 import '../../../mmmm.dart';
 import 'widget/AddImageButtom.dart';
 
-class addProductView extends StatefulWidget {
+class addProductView extends StatelessWidget {
   const addProductView({super.key});
 
   @override
-  State<addProductView> createState() => _addProductViewState();
-}
-
-class _addProductViewState extends State<addProductView> {
-  final List<String> categorie = [];
-  final List<String> rateing = [];
-  final List<String> status = ["New", "Used"];
-  @override
-  void initState() {
-    for (var i = 0; i < 9; i++) {
-      rateing.add("$i /10");
-    }
-    for (var categoryData in categories) {
-      String categoryName = categoryData.keys.first;
-      categorie.add(categoryName);
-    }
-    super.initState();
-  }
-
   Widget build(BuildContext context) {
     return BlocBuilder<AddProductCubit, AddProductState>(
       builder: (context, state) {
+        final List<String> categorie = [];
+        final List<String> rateing = [];
+        final List<String> status = ["New", "Used"];
+        for (var i = 1; i <= 10; i++) {
+          rateing.add("$i /10");
+        }
+        for (var categoryData in categories) {
+          String categoryName = categoryData.keys.first;
+          categorie.add(categoryName);
+        }
         if (state is Waitting) {
-          return Scaffold(body: Center(child: CircularProgressIndicator()));
+          return const Scaffold(
+              body: Center(child: CircularProgressIndicator()));
         }
         return Scaffold(
           backgroundColor: Colors.white,
@@ -44,16 +37,16 @@ class _addProductViewState extends State<addProductView> {
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ListView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               // mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
-                Row(
+                const Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      padding: EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
                         "Product Titel",
                         style: TextStyle(color: Colors.grey, fontSize: 16),
@@ -61,14 +54,14 @@ class _addProductViewState extends State<addProductView> {
                     ),
                   ],
                 ),
-                customTextfaild(labelText: "Product Titel"),
-                SizedBox(
+                const customTextfaild(labelText: "Product Titel"),
+                const SizedBox(
                   height: 40,
                 ),
-                Row(
+                const Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      padding: EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
                         "Product Description",
                         style: TextStyle(color: Colors.grey, fontSize: 16),
@@ -76,11 +69,11 @@ class _addProductViewState extends State<addProductView> {
                     ),
                   ],
                 ),
-                customTextfaild(
+                const customTextfaild(
                   labelText: "Product Description",
                   maxLines: 4,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 SizedBox(
@@ -88,12 +81,10 @@ class _addProductViewState extends State<addProductView> {
                   child: CustomDrob(
                     items: categorie,
                     titel: "Select  Category",
-                    onChanged: (p0) {
-                      print("a");
-                    },
+                    onChanged: (p0) {},
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 Row(
@@ -102,43 +93,27 @@ class _addProductViewState extends State<addProductView> {
                     CustomDrob(
                       items: rateing,
                       titel: "rateing",
-                      onChanged: (p0) {
-                        print("a");
-                      },
+                      onChanged: (p0) {},
                     ),
                     CustomDrob(
                       items: status,
                       titel: "status",
-                      onChanged: (p0) {
-                        print("a");
-                      },
+                      onChanged: (p0) {},
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 40,
-                ),
-                Column(
-                  children: [
-                    AddImageButtom(
-                      onTap: () async {
-                        await BlocProvider.of<AddProductCubit>(context)
-                            .uploadImageFromGallery();
-                      },
-                    ),
-                  ],
-                ),
-                ImageLIst(imagelist: 
-                    BlocProvider.of<AddProductCubit>(context).selectedImages),
+                const SizedBox(height: 40),
+                const AddImageButtom(),
+                const SizedBox(height: 40),
+                // ignore: prefer_const_constructors
+                ImageLIst(),
                 ElevatedButton(
                     onPressed: () async {
                       await BlocProvider.of<AddProductCubit>(context)
                           .uploadAds();
                     },
-                    child: Text("Save")),
-                SizedBox(
-                  height: 50,
-                ),
+                    child: const Text("Save")),
+                const SizedBox(height: 50),
               ],
             ),
           ),
@@ -147,4 +122,3 @@ class _addProductViewState extends State<addProductView> {
     );
   }
 }
- 
