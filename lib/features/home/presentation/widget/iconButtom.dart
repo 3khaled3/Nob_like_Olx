@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class iconButtom extends StatelessWidget {
   final void Function()? onTap;
   final IconData? icon;
+  final double elvation;
 
   const iconButtom({
     required this.icon,
     required this.onTap,
+    this.elvation=0,
     super.key,
   });
 
@@ -14,7 +16,9 @@ class iconButtom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
-      child: Container(
+      child:Material( // Wrap with Material to add elevation
+        elevation:elvation, // Adjust the elevation value as needed
+        borderRadius: BorderRadius.circular(10),child:  Container(
         width: 54,
         height: 54,
         decoration: BoxDecoration(
@@ -36,7 +40,7 @@ class iconButtom extends StatelessWidget {
             ),
           ),
         ),
-      ),
+      ),)
     );
   }
 }
