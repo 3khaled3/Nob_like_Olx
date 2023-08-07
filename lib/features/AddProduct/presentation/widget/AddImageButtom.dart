@@ -5,7 +5,9 @@ import 'package:image_picker/image_picker.dart';
 
 
 class AddImageButtom extends StatelessWidget {
+  final void Function()? onTap;
   const AddImageButtom({
+    required this.onTap,
     super.key,
   });
 
@@ -32,10 +34,7 @@ class AddImageButtom extends StatelessWidget {
                 10,
               ),
               child: InkWell(
-                onTap: () {
-                  
- 
-                },
+                onTap: onTap,
                 borderRadius: BorderRadius.circular(
                   10,
                 ),

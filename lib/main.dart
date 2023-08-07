@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:async';
 import 'package:camera/camera.dart';
+import 'package:nob/core/utils/Cubits/AddProductCubit/add_product_cubit.dart';
 import 'package:nob/features/login/presintaion/otb.dart';
 import 'package:nob/features/main/presentation/MainView.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,8 @@ import 'features/AddProduct/presentation/AddProduct.dart';
 import 'features/login/presintaion/validation.dart';
 import 'firebase_options.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+import 'mmmm.dart';
 
 
 
@@ -38,16 +41,17 @@ Future<void> main() async {
       // BlocProvider(
       //   create: (context) => ApiCubit(),
       // ),
-      // BlocProvider(
-      //   create: (context) => BagCubit(),
-      // ),
+      BlocProvider(
+        create: (context) =>AddProductCubit(),
+      ),
       BlocProvider(
         create: (context) => RegisterCubit(),
       ),
     ],
     child:
      MaterialApp(home:
-     addProductView(),
+     MyHomePage(),
+    //  addProductView(),
     //  OTPScreen(),
     //  PhoneSignInScreen(),
     //  MainView() ,
