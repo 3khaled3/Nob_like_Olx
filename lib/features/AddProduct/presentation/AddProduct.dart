@@ -17,8 +17,13 @@ class addProductView extends StatefulWidget {
 
 class _addProductViewState extends State<addProductView> {
   final List<String> categorie = [];
+  final List<String> rateing = [];
+  final List<String> status = ["New", "Used"];
   @override
   void initState() {
+    for (var i = 0; i < 9; i++) {
+      rateing.add("$i /10");
+    }
     for (var categoryData in categories) {
       String categoryName = categoryData.keys.first;
       categorie.add(categoryName);
@@ -32,53 +37,102 @@ class _addProductViewState extends State<addProductView> {
         if (state is Waitting) {
           return Scaffold(body: Center(child: CircularProgressIndicator()));
         }
-        return Scaffold(
-          appBar: AppBar(),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    "Product Titel",
-                    style: TextStyle(color: Colors.grey, fontSize: 16),
-                  ),
-                ],
-              ),
-              customTextfaild(labelText: "Product Titel"),
-              Row(
-                children: [
-                  Text(
-                    "Product Description",
-                    style: TextStyle(color: Colors.grey, fontSize: 16),
-                  ),
-                ],
-              ),
-              customTextfaild(
-                labelText: "Product Description",
-                maxLines: 4,
-              ),
-              SizedBox(width: MediaQuery.sizeOf(context).width,
-                child: CustomDrob(
-                  items: categorie,
-                  titel: "Select  Category",
-                  onChanged: (p0) {
-                    print("a");
-                  },
+        return Scaffold(backgroundColor: Colors.white,
+          appBar: AppBar(toolbarHeight: 0,elevation: 0),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: ListView(physics: BouncingScrollPhysics(),
+              // mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 40,
                 ),
-              ),
-              AddImageButtom(
-                onTap: () async {
-                  await BlocProvider.of<AddProductCubit>(context)
-                      .uploadImageFromGallery();
-                },
-              ),
-              ElevatedButton(
-                  onPressed: () async {
-                    await BlocProvider.of<AddProductCubit>(context).uploadAds();
-                  },
-                  child: Text("Save")),
-            ],
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(
+                        "Product Titel",
+                        style: TextStyle(color: Colors.grey, fontSize: 16),
+                      ),
+                    ),
+                  ],
+                ),
+                customTextfaild(labelText: "Product Titel"),
+                SizedBox(
+                  height: 40,
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(
+                        "Product Description",
+                        style: TextStyle(color: Colors.grey, fontSize: 16),
+                      ),
+                    ),
+                  ],
+                ),
+                customTextfaild(
+                  labelText: "Product Description",
+                  maxLines: 4,
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                SizedBox(
+                  width: MediaQuery.sizeOf(context).width,
+                  child: CustomDrob(
+                    items: categorie,
+                    titel: "Select  Category",
+                    onChanged: (p0) {
+                      print("a");
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomDrob(
+                      items: rateing,
+                      titel: "rateing",
+                      onChanged: (p0) {
+                        print("a");
+                      },
+                    ),
+                    CustomDrob(
+                      items: status,
+                      titel: "status",
+                      onChanged: (p0) {
+                        print("a");
+                      },
+                    ),
+                  ],
+                ),
+                  SizedBox(
+                  height: 40,
+                ),
+                Column(
+                  children: [
+                    AddImageButtom(
+                      onTap: () async {
+                        await BlocProvider.of<AddProductCubit>(context)
+                            .uploadImageFromGallery();
+                      },
+                    ),
+                  ],
+                ),
+                ElevatedButton(
+                    onPressed: () async {
+                      await BlocProvider.of<AddProductCubit>(context)
+                          .uploadAds();
+                    },
+                    child: Text("Save")),
+              ],
+            ),
           ),
         );
       },
