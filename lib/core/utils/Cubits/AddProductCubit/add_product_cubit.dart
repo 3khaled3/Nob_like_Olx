@@ -69,9 +69,10 @@ class AddProductCubit extends Cubit<AddProductState> {
           "AdImage": images
         });
 
-        await FirebaseFirestore.instance.collection('ads')
+        await FirebaseFirestore.instance
+            .collection('ads')
             .doc(FirebaseAuth.instance.currentUser!.uid)
-            .set({"ads":ads});
+            .set({"ads": ads});
         images.clear();
         emit(Success());
         return downloadUrl;

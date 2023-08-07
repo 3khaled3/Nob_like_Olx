@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nob/core/utils/Cubits/AddProductCubit/add_product_cubit.dart';
 import 'package:nob/core/widget/customtextFaild.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:nob/features/AddProduct/presentation/widget/ShowImage.dart';
 
 import '../../../constant.dart';
 import '../../../mmmm.dart';
@@ -37,11 +38,13 @@ class _addProductViewState extends State<addProductView> {
         if (state is Waitting) {
           return Scaffold(body: Center(child: CircularProgressIndicator()));
         }
-        return Scaffold(backgroundColor: Colors.white,
-          appBar: AppBar(toolbarHeight: 0,elevation: 0),
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(toolbarHeight: 0, elevation: 0),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: ListView(physics: BouncingScrollPhysics(),
+            child: ListView(
+              physics: BouncingScrollPhysics(),
               // mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
@@ -112,7 +115,7 @@ class _addProductViewState extends State<addProductView> {
                     ),
                   ],
                 ),
-                  SizedBox(
+                SizedBox(
                   height: 40,
                 ),
                 Column(
@@ -125,12 +128,17 @@ class _addProductViewState extends State<addProductView> {
                     ),
                   ],
                 ),
+                ImageLIst(imagelist: 
+                    BlocProvider.of<AddProductCubit>(context).selectedImages),
                 ElevatedButton(
                     onPressed: () async {
                       await BlocProvider.of<AddProductCubit>(context)
                           .uploadAds();
                     },
                     child: Text("Save")),
+                SizedBox(
+                  height: 50,
+                ),
               ],
             ),
           ),
@@ -139,3 +147,4 @@ class _addProductViewState extends State<addProductView> {
     );
   }
 }
+ 
