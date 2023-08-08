@@ -41,13 +41,9 @@ class addProductView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text("Product Titel",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16)),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text("Product Titel", style: widgetTitelStyle()),
                     ),
                     customTextfaild(
                       labelText: "Product Titel",
@@ -59,13 +55,10 @@ class addProductView extends StatelessWidget {
                     const SizedBox(
                       height: 40,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Text("Product Description",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16)),
+                          style: widgetTitelStyle()),
                     ),
                     customTextfaild(
                       elevation: 4,
@@ -112,28 +105,20 @@ class addProductView extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 40),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text("Product Price",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16)),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text("Product Price", style: widgetTitelStyle()),
                     ),
                     customTextfaild(
                       elevation: 4,
                       keyboardType: TextInputType.number,
-                      suffixIcon: const SizedBox(
+                      suffixIcon: SizedBox(
                         width: 20,
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: Padding(
-                            padding: EdgeInsets.only(right: 20.0),
-                            child: Text("L.E",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16)),
+                            padding: const EdgeInsets.only(right: 20.0),
+                            child: Text("L.E", style: widgetTitelStyle()),
                           ),
                         ),
                       ),
@@ -174,5 +159,10 @@ class addProductView extends StatelessWidget {
         );
       },
     );
+  }
+
+  TextStyle widgetTitelStyle() {
+    return const TextStyle(
+        color: Colors.black, fontWeight: FontWeight.w600, fontSize: 16);
   }
 }
