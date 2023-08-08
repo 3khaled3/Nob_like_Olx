@@ -51,9 +51,9 @@ Future<void> main() async {
     child:
      MaterialApp(home:
     //  MyHomePage(),
-     addProductView(),
+    //  addProductView(),
     //  OTPScreen(),
-    //  PhoneSignInScreen(),
+     PhoneSignInScreen(),
     //  MainView() ,
       debugShowCheckedModeBanner: false,
 

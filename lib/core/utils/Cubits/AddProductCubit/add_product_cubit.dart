@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:nob/features/home/data/product.dart';
 import 'package:path/path.dart';
 import 'package:meta/meta.dart';
 
@@ -16,6 +17,13 @@ class AddProductCubit extends Cubit<AddProductState> {
   AddProductCubit() : super(AddProductInitial());
   File? _selectedImage;
   List<File?> selectedImages = [];
+  UserDataModel user = UserDataModel(
+    uid: FirebaseAuth.instance.currentUser!.uid,
+    displayName: FirebaseAuth.instance.currentUser!.displayName,
+    phoneNumber: FirebaseAuth.instance.currentUser!.displayName,
+    profileImage: FirebaseAuth.instance.currentUser!.photoURL,
+  );
+
   Future<File?>? uploadImageFromGallery() async {
     final picker = ImagePicker();
     XFile? pickedImage = await picker.pickImage(source: ImageSource.gallery);
@@ -30,7 +38,7 @@ class AddProductCubit extends Cubit<AddProductState> {
     }
   }
 
-  Future<String?> uploadAds() async {
+  Future<String?> uploadAds({required ProductDataModel Product}) async {
     emit(Waitting());
     try {
       List<String> images = [];
@@ -46,7 +54,7 @@ class AddProductCubit extends Cubit<AddProductState> {
       }
 
       if (selectedImages.isNotEmpty) {
-        int adsNum = await CountAds();
+        CountAds(); //not important to await
         CollectionReference usersCollection =
             FirebaseFirestore.instance.collection('ads');
         final DocumentSnapshot Snaps = await usersCollection
@@ -59,13 +67,15 @@ class AddProductCubit extends Cubit<AddProductState> {
         }
 
         ads.add({
-          'titel': "hi",
-          'describiton': "hi",
-          'categore': "hi",
-          'uid': FirebaseAuth.instance.currentUser!.uid,
-          "displayName": FirebaseAuth.instance.currentUser!.displayName,
-          "phoneNumber": FirebaseAuth.instance.currentUser!.phoneNumber,
-          "profileimage": FirebaseAuth.instance.currentUser!.photoURL,
+          'titel': Product.title,
+          'describiton': Product.description,
+          'categore': Product.category,
+          'Price': Product.price,
+          'status': Product.status,
+          'uid': user.uid,
+          "displayName": user.displayName,
+          "phoneNumber": user.phoneNumber,
+          "profileimage": user.profileImage,
           "AdImage": images
         });
 

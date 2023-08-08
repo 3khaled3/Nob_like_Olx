@@ -12,6 +12,7 @@ class customTextfaild extends StatelessWidget {
   final int? maxLines;
   final double elevation;
   final TextStyle? labelStyle;
+  final TextInputType? keyboardType;
   const customTextfaild({
     Key? key,
     required this.labelText,
@@ -22,6 +23,7 @@ class customTextfaild extends StatelessWidget {
     this.prefixIcon,
     this.maxLines,
     this.elevation = 0,
+    this.keyboardType,
     this.labelStyle= const TextStyle(color: Colors.grey),
   }) : super(key: key);
 
@@ -35,7 +37,7 @@ class customTextfaild extends StatelessWidget {
         validator: validator,
         onChanged: onChanged,
         maxLines: maxLines,
-        minLines: 1,
+        minLines: 1,keyboardType:keyboardType ,
         decoration: InputDecoration(
           suffixIcon: suffixIcon,
           prefixIcon: prefixIcon,
@@ -81,27 +83,3 @@ class customTextfaild extends StatelessWidget {
 
 
 
-
-
-
-
-// class customSettingTextfaild extends StatelessWidget {
-//    final String labelText;
-//   final Function(String)? onChanged;
-//   final String inithialText;
-//   final String? Function(String?)? validator;
-//   const customSettingTextfaild({
-//     Key? key,
-//     required this.labelText,
-//     this.onChanged,
-//     this.validator,
-//     this.inithialText="",
-//   }) : super(key: key);
-
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return
-//
-//   }
-// }

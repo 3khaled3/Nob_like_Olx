@@ -16,7 +16,7 @@ class AddImageButtom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return SizedBox(width: MediaQuery.sizeOf(context).width,
       child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(

@@ -1,44 +1,31 @@
-class Product {
-  final int id;
+class ProductDataModel {
   final String title;
   final String description;
   final double price;
-  final double discountPercentage;
-  final double rating;
-  final int stock;
-  final String brand;
+  final double? rating;
   final String category;
-  final String thumbnail;
-  final List<String> images;
+  final String status;
 
-
-  Product({
-    required this.id,
+  ProductDataModel({
     required this.title,
     required this.description,
     required this.price,
-    required this.discountPercentage,
     required this.rating,
-    required this.stock,
-    required this.brand,
     required this.category,
-    required this.thumbnail,
-    required this.images,
+    required this.status,
   });
+}
 
-  factory Product.fromJson(Map<String, dynamic> json) {
-    return Product(
-      id: json['id'],
-      title: json['title'],
-      description: json['description'],
-      price: json['price'].toDouble(),
-      discountPercentage: json['discountPercentage'].toDouble(),
-      rating: json['rating'].toDouble(),
-      stock: json['stock'],
-      brand: json['brand'],
-      category: json['category'],
-      thumbnail: json['thumbnail'],
-      images: List<String>.from(json['images']),
-    );
-  }
+class UserDataModel {
+  final String uid;
+  final String? displayName;
+  final String? phoneNumber;
+  final String? profileImage;
+
+  const UserDataModel({
+    required this.uid,
+    required this.displayName,
+    required this.phoneNumber,
+    required this.profileImage,
+  });
 }

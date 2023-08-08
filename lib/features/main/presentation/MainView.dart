@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, file_names
 
 import 'package:flutter/material.dart';
+import 'package:nob/features/AddProduct/presentation/AddProduct.dart';
 import 'package:nob/features/home/presentation/home_view.dart';
 
 import 'widget/CustomNavItem.dart';
@@ -32,7 +33,11 @@ class _MainViewState extends State<MainView> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return addProductView();
+          }));
+        },
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomAppBar(
