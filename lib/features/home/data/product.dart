@@ -1,10 +1,10 @@
 class ProductDataModel {
-  final String title;
-  final String description;
-  final double price;
-  final String? rating;
-  final String category;
-  final String status;
+  late  String title;
+  late  String description;
+  late  double price;
+  late  String? rating;
+  late  String category;
+  late  String status;
 
   ProductDataModel({
     required this.title,
@@ -14,6 +14,14 @@ class ProductDataModel {
     required this.category,
     required this.status,
   });
+  // Constructor with some default values
+ ProductDataModel.empty()
+      : title = '',
+        description = '',
+        price = 0,
+        rating = null,
+        category = '',
+        status = '';
 }
 
 class UserDataModel {

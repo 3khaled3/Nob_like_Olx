@@ -1,12 +1,12 @@
-// ignore_for_file: camel_case_types, file_names
+// ignore_for_file: camel_case_types, file_names, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nob/core/utils/Cubits/AddProductCubit/add_product_cubit.dart';
 import 'package:nob/core/widget/customtextFaild.dart';
 import 'package:nob/features/AddProduct/presentation/widget/ShowImage.dart';
+import 'package:nob/features/AddProduct/presentation/widget/addProductAppBar.dart';
 import 'package:nob/features/home/data/product.dart';
-import 'package:nob/features/home/presentation/widget/iconButtom.dart';
 import '../../../constant.dart';
 import '../../../core/widget/CustomElvationBottom.dart';
 import '../../../mmmm.dart';
@@ -17,24 +17,14 @@ class addProductView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String title = "";
-    String description = "";
-    double price = 0;
-    String? rate = "0";
-    String categor = "";
-    String stat = "";
+    ProductDataModel product = ProductDataModel.empty();
     return BlocBuilder<AddProductCubit, AddProductState>(
       builder: (context, state) {
-        final List<String> categorie = [];
-        final List<String> rateing = [];
+        final List<String> categorie =
+            categories.map((categoryData) => categoryData.keys.first).toList();
+        final List<String> rateing =
+            List.generate(10, (index) => '${index + 1} / 10');
         final List<String> status = ["New", "Used"];
-        for (var i = 1; i <= 10; i++) {
-          rateing.add("$i /10");
-        }
-        for (var categoryData in categories) {
-          String categoryName = categoryData.keys.first;
-          categorie.add(categoryName);
-        }
         if (state is Waitting) {
           return const Scaffold(
               body: Center(child: CircularProgressIndicator()));
@@ -44,18 +34,7 @@ class addProductView extends StatelessWidget {
           body: ListView(
             physics: const BouncingScrollPhysics(),
             children: [
-              SafeArea(
-                child: Row(
-                  children: [
-                    iconButtom(
-                        elvation: 2,
-                        icon: Icons.arrow_back_ios_new,
-                        onTap: () {
-                          Navigator.pop(context);
-                        })
-                  ],
-                ),
-              ),
+              const SafeArea(child: addProductAppBar()),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
@@ -74,8 +53,7 @@ class addProductView extends StatelessWidget {
                       labelText: "Product Titel",
                       elevation: 4,
                       onChanged: (value) {
-                        title = value;
-                        print(title);
+                        product.title = value;
                       },
                     ),
                     const SizedBox(
@@ -94,9 +72,7 @@ class addProductView extends StatelessWidget {
                       labelText: "Product Description",
                       maxLines: 4,
                       onChanged: (value) {
-                        description = value;
-                                                    print(description );
-
+                        product.description = value;
                       },
                     ),
                     const SizedBox(
@@ -108,9 +84,7 @@ class addProductView extends StatelessWidget {
                         items: categorie,
                         titel: "Select Category",
                         onChanged: (value) {
-                          categor = value!;
-                                                      print(categor );
-
+                          product.category = value!;
                         },
                       ),
                     ),
@@ -125,17 +99,14 @@ class addProductView extends StatelessWidget {
                           items: rateing,
                           titel: "rateing",
                           onChanged: (value) {
-                            rate = value ;
-                                                        print(rate );
-
+                            product.rating = value;
                           },
                         ),
                         CustomDrob(
                           items: status,
                           titel: "status",
                           onChanged: (value) {
-                            stat = value!;
-                            print(stat );
+                            product.status = value!;
                           },
                         ),
                       ],
@@ -152,7 +123,8 @@ class addProductView extends StatelessWidget {
                     customTextfaild(
                       elevation: 4,
                       keyboardType: TextInputType.number,
-                      suffixIcon: const SizedBox(width: 20,
+                      suffixIcon: const SizedBox(
+                        width: 20,
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: Padding(
@@ -166,8 +138,7 @@ class addProductView extends StatelessWidget {
                         ),
                       ),
                       onChanged: (value) {
-                        price = double.parse(value)  ;
-                        print(value);
+                        product.price = double.parse(value);
                       },
                       labelText: "Product Price",
                       // maxLines: 4,
@@ -176,23 +147,21 @@ class addProductView extends StatelessWidget {
                     const AddImageButtom(),
                     const SizedBox(height: 20),
                     // ignore: prefer_const_constructors
-                    ImageLIst(),
+                    ImageLIst(
+                        selectedImages:
+                            BlocProvider.of<AddProductCubit>(context)
+                                .selectedImages),
                     SizedBox(
                       width: MediaQuery.sizeOf(context).width,
                       child: customElevationButtom(
                         text: "Save",
                         onPressed: () async {
-                          ProductDataModel product = ProductDataModel(
-                              title: title,
-                              description: description,
-                              price: price,
-                              rating: rate,
-                              category: categor,
-                              status: stat);
                           await BlocProvider.of<AddProductCubit>(context)
                               .uploadAds(Product: product);
-                          // ignore: use_build_context_synchronously
                           Navigator.pop(context);
+                          BlocProvider.of<AddProductCubit>(context)
+                              .selectedImages
+                              .clear();
                         },
                       ),
                     ),

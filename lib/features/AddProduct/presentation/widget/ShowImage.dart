@@ -1,16 +1,15 @@
+// ignore_for_file: file_names, prefer_typing_uninitialized_variables
+
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nob/core/widget/CustomcircleIconButtom.dart';
-
-import '../../../../core/utils/Cubits/AddProductCubit/add_product_cubit.dart';
 
 class ImageWithDeleteIcon extends StatelessWidget {
   final File imageFile;
   final VoidCallback onTap;
 
   const ImageWithDeleteIcon({
+    super.key,
     required this.imageFile,
     required this.onTap,
   });
@@ -19,13 +18,11 @@ class ImageWithDeleteIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // Display the image
         Positioned.fill(
             child: Image.file(
           imageFile,
           fit: BoxFit.cover,
         )),
-        // Positioned widget to place the delete icon in the top-right corner
         Positioned(
             top: 0,
             right: 0,
@@ -36,7 +33,10 @@ class ImageWithDeleteIcon extends StatelessWidget {
 }
 
 class ImageLIst extends StatefulWidget {
+  final List<File?> selectedImages;
+
   const ImageLIst({
+    required this.selectedImages,
     super.key,
   });
 
@@ -45,9 +45,15 @@ class ImageLIst extends StatefulWidget {
 }
 
 class _ImageLIstState extends State<ImageLIst> {
+  var imagelist;
+  @override
+  void initState() {
+    imagelist = widget.selectedImages;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final imagelist = BlocProvider.of<AddProductCubit>(context).selectedImages;
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,

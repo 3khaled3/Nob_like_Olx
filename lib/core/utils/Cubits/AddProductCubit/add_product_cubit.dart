@@ -86,6 +86,7 @@ class AddProductCubit extends Cubit<AddProductState> {
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .set({"ads": ads});
         images.clear();
+        print(images.length);
         emit(Success());
         return downloadUrl;
       } else {
