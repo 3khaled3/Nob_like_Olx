@@ -60,10 +60,12 @@ class AddProductCubit extends Cubit<AddProductState> {
         final DocumentSnapshot Snaps = await usersCollection
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .get();
-        List<Map<String, dynamic>?> ads = [];
+        List<dynamic> ads = [];
 
         if (Snaps.exists) {
-          ads.add(Snaps.data() as Map<String, dynamic>);
+          final Map<String, dynamic> data =
+              Snaps.data() as Map<String, dynamic>;
+          ads = data["ads"] as List<dynamic>;
         }
 
         ads.add({

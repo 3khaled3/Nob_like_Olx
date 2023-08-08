@@ -2,7 +2,7 @@ class ProductDataModel {
   final String title;
   final String description;
   final double price;
-  final double? rating;
+  final String? rating;
   final String category;
   final String status;
 

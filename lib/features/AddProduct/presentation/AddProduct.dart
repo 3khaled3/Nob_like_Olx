@@ -20,7 +20,7 @@ class addProductView extends StatelessWidget {
     String title = "";
     String description = "";
     double price = 0;
-    double? rate = 0;
+    String? rate = "0";
     String categor = "";
     String stat = "";
     return BlocBuilder<AddProductCubit, AddProductState>(
@@ -75,6 +75,7 @@ class addProductView extends StatelessWidget {
                       elevation: 4,
                       onChanged: (value) {
                         title = value;
+                        print(title);
                       },
                     ),
                     const SizedBox(
@@ -94,6 +95,8 @@ class addProductView extends StatelessWidget {
                       maxLines: 4,
                       onChanged: (value) {
                         description = value;
+                                                    print(description );
+
                       },
                     ),
                     const SizedBox(
@@ -106,6 +109,8 @@ class addProductView extends StatelessWidget {
                         titel: "Select Category",
                         onChanged: (value) {
                           categor = value!;
+                                                      print(categor );
+
                         },
                       ),
                     ),
@@ -120,7 +125,9 @@ class addProductView extends StatelessWidget {
                           items: rateing,
                           titel: "rateing",
                           onChanged: (value) {
-                            rate = value as double;
+                            rate = value ;
+                                                        print(rate );
+
                           },
                         ),
                         CustomDrob(
@@ -128,6 +135,7 @@ class addProductView extends StatelessWidget {
                           titel: "status",
                           onChanged: (value) {
                             stat = value!;
+                            print(stat );
                           },
                         ),
                       ],
@@ -144,22 +152,25 @@ class addProductView extends StatelessWidget {
                     customTextfaild(
                       elevation: 4,
                       keyboardType: TextInputType.number,
-                      suffixIcon: const Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: EdgeInsets.only(right: 20.0),
-                          child: Text("L.E",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16)),
+                      suffixIcon: const SizedBox(width: 20,
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 20.0),
+                            child: Text("L.E",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16)),
+                          ),
                         ),
                       ),
                       onChanged: (value) {
-                        price = value as double;
+                        price = double.parse(value)  ;
+                        print(value);
                       },
                       labelText: "Product Price",
-                      maxLines: 4,
+                      // maxLines: 4,
                     ),
                     const SizedBox(height: 20),
                     const AddImageButtom(),
