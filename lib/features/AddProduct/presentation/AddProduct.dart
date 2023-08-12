@@ -17,6 +17,7 @@ class addProductView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<FormState> Kform = GlobalKey();
     ProductDataModel product = ProductDataModel.empty();
     return BlocBuilder<AddProductCubit, AddProductState>(
       builder: (context, state) {
@@ -37,121 +38,164 @@ class addProductView extends StatelessWidget {
               const SafeArea(child: addProductAppBar()),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text("Product Titel", style: widgetTitelStyle()),
-                    ),
-                    customTextfaild(
-                      labelText: "Product Titel",
-                      elevation: 4,
-                      onChanged: (value) {
-                        product.title = value;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text("Product Description",
-                          style: widgetTitelStyle()),
-                    ),
-                    customTextfaild(
-                      elevation: 4,
-                      labelText: "Product Description",
-                      maxLines: 4,
-                      onChanged: (value) {
-                        product.description = value;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.sizeOf(context).width,
-                      child: CustomDrob(
-                        items: categorie,
-                        titel: "Select Category",
+                child: Form(
+                  key: Kform,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text("Product Titel", style: widgetTitelStyle()),
+                      ),
+                      customTextfaild(
+                        labelText: "Product Titel",
                         onChanged: (value) {
-                          product.category = value!;
+                          product.title = value;
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Product Titel is requird ";
+                          }
+                          return null;
                         },
                       ),
-                    ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text("Product Description",
+                            style: widgetTitelStyle()),
+                      ),
+                      customTextfaild(
+                        labelText: "Product Description",
+                        maxLines: 4,
+                        onChanged: (value) {
+                          product.description = value;
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Product Description is requird ";
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.sizeOf(context).width,
+                        child: CustomDrob(
+                          items: categorie,
+                          titel: "Select Category",
+                          onChanged: (value) {
+                            product.category = value!;
+                          },
+                          validator: (value) {
+                            if (value == null) {
+                              return 'please  Select Category .';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
 
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CustomDrob(
-                          items: rateing,
-                          titel: "rateing",
-                          onChanged: (value) {
-                            product.rating = value;
-                          },
-                        ),
-                        CustomDrob(
-                          items: status,
-                          titel: "status",
-                          onChanged: (value) {
-                            product.status = value!;
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 40),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text("Product Price", style: widgetTitelStyle()),
-                    ),
-                    customTextfaild(
-                      elevation: 4,
-                      keyboardType: TextInputType.number,
-                      suffixIcon: SizedBox(
-                        width: 20,
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 20.0),
-                            child: Text("L.E", style: widgetTitelStyle()),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomDrob(
+                              items: rateing,
+                              titel: "rateing",
+                              onChanged: (value) {
+                                product.rating = value;
+                              },
+                              validator: (value) {
+                                if (value == null) {
+                                  return "please  Select rateing ";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: CustomDrob(
+                              items: status,
+                              titel: "status",
+                              onChanged: (value) {
+                                product.status = value!;
+                              },
+                              validator: (value) {
+                                if (value == null) {
+                                  return "please  Select rateing ";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 40),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text("Product Price", style: widgetTitelStyle()),
+                      ),
+                      customTextfaild(
+                        keyboardType: TextInputType.number,
+                        suffixIcon: SizedBox(
+                          width: 20,
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 20.0),
+                              child: Text("L.E", style: widgetTitelStyle()),
+                            ),
                           ),
                         ),
-                      ),
-                      onChanged: (value) {
-                        product.price = double.parse(value);
-                      },
-                      labelText: "Product Price",
-                      // maxLines: 4,
-                    ),
-                    const SizedBox(height: 20),
-                    const AddImageButtom(),
-                    const SizedBox(height: 20),
-                    // ignore: prefer_const_constructors
-                    ImageLIst(
-                        selectedImages:
-                            BlocProvider.of<AddProductCubit>(context)
-                                .selectedImages),
-                    SizedBox(
-                      width: MediaQuery.sizeOf(context).width,
-                      child: customElevationButtom(
-                        text: "Save",
-                        onPressed: () async {
-                          await BlocProvider.of<AddProductCubit>(context)
-                              .uploadAds(Product: product);
-                          Navigator.pop(context);
-                          BlocProvider.of<AddProductCubit>(context)
-                              .selectedImages
-                              .clear();
+                        onChanged: (value) {
+                          product.price = double.parse(value);
+                        },
+                        labelText: "Product Price",
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Product Price is requird ";
+                          }
+                          return null;
                         },
                       ),
-                    ),
-                    const SizedBox(height: 50),
-                  ],
+                      const SizedBox(height: 20),
+                      const AddImageButtom(),
+                      const SizedBox(height: 20),
+                      // ignore: prefer_const_constructors
+                      ImageLIst(
+                          selectedImages:
+                              BlocProvider.of<AddProductCubit>(context)
+                                  .selectedImages),
+                      SizedBox(
+                        width: MediaQuery.sizeOf(context).width,
+                        child: customElevationButtom(
+                          text: "Save",
+                          onPressed: () async {
+                            if (Kform.currentState!.validate()) {
+                              await BlocProvider.of<AddProductCubit>(context)
+                                  .uploadAds(Product: product);
+                              Navigator.pop(context);
+                              BlocProvider.of<AddProductCubit>(context)
+                                  .selectedImages
+                                  .clear();
+                            }
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 50),
+                    ],
+                  ),
                 ),
               ),
             ],
