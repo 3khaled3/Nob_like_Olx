@@ -23,88 +23,61 @@ class homeView extends StatelessWidget {
             return buildCircleIndicator();
           } else if (snapshot.hasError) {
             return const Center(
-              child: Text('Error loading data'), // Handle the error case
+              child: Text('Error loading data'),
             );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(
-              child: Text(
-                  'No data available'), // Handle the case when no data is available
+              child: Text('No data available'),
             );
           } else {
             final Map<String, List> productsMap = snapshot.data!;
-            final List<String> categories = productsMap.keys.toList();
+            final List<String> categories =
+                productsMap.keys.toList(); //All categories
 
             return BlocBuilder<FitchProductCubit, FitchProductState>(
                 builder: (context, state) {
-              List<Map<String, List<Map<UserDataModel, ProductDataModel>>>>
-                  products = [];
+              List<List<Map<UserDataModel, ProductDataModel>>> finalOutput = [];
 
-              for (var i = 0; i < productsMap.length; i++) {
-                List<ProductDataModel> productData = [];
-                List<UserDataModel> userData = [];
-                for (var x = 0; x < productsMap[categories[i]]!.length; x++) {
-                  ProductDataModel a = ProductDataModel.empty();
-                  a.title = productsMap[categories[i]]![x]["product"]["titel"];
-                  a.description =
-                      productsMap[categories[i]]![x]["product"]["describiton"];
-                  a.category =
-                      productsMap[categories[i]]![x]["product"]["categore"];
-                  a.price = productsMap[categories[i]]![x]["product"]["Price"];
-                  a.status =
-                      productsMap[categories[i]]![x]["product"]["status"];
-                  a.images =
-                      productsMap[categories[i]]![x]["product"]["AdImage"];
-                  productData.add(a);
-                }
-                for (var x = 0; x < productsMap[categories[i]]!.length; x++) {
-                  UserDataModel a = UserDataModel(
-                    uid: productsMap[categories[i]]![x]["user"]["titel"],
-                    displayName: productsMap[categories[i]]![x]["user"]
-                        ["displayName"],
-                    phoneNumber: productsMap[categories[i]]![x]["user"]
-                        ["phoneNumber"],
-                    profileImage: productsMap[categories[i]]![x]["user"]
-                        ["profileimage"],
+// Iterate through each category
+              for (String category in categories) {
+                List<Map<UserDataModel, ProductDataModel>> categoryOutput = [];
+
+                // Iterate through the data points in the current category
+                for (var data in productsMap[category] ?? []) {
+                  Map<String, dynamic>? product = data['product'];
+                  Map<String, dynamic>? user = data['user'];
+
+                  // Skip this data point if either product or user is null
+                  if (product == null || user == null) {
+                    continue;
+                  }
+
+                  // Extract product data from the current data point
+                  ProductDataModel productData = ProductDataModel.empty()
+                    ..title = product['title'] ?? ''
+                    ..description = product['description'] ?? ''
+                    ..category = product['category'] ?? ''
+                    ..price = product['Price'] ?? 0
+                    ..status = product['status'] ?? ''
+                    ..images = product['AdImage'] ?? [];
+
+                  // Extract user data from the current data point
+                  UserDataModel userData = UserDataModel(
+                    uid: user['title'] ?? '',
+                    displayName: user['displayName'] ?? '',
+                    phoneNumber: user['phoneNumber'] ?? '',
+                    profileImage: user['profileImage'] ?? '',
                   );
 
-                  userData.add(a);
-                }
-                for (var x = 0; x < userData.length; x++) {
-// List<Map<String, List<Map<UserDataModel, ProductDataModel>>>>
-                  print({userData[x]: productData[x]});
-                  products.add({
-                    categories[i]: [
-                      {userData[x]: productData[x]}
-                    ]
+                  // Create a map with user data as the key and product data as the value
+                  categoryOutput.add({
+                    userData: productData,
                   });
-                  print("==================================================");
                 }
-                print(
-                    "************************************************************");
-                print(products);
+
+                // Add the list of user-product data pairs for the current category to the final output
+                finalOutput.add(categoryOutput);
               }
-              List<List<Map<UserDataModel, ProductDataModel>>> finalout = [];
-
-              for (var i = 0; i < categories.length; i++) {
-                List<Map<UserDataModel, ProductDataModel>> outputList = [];
-                products.forEach((map) {
-                  if (map.containsKey(categories[i])) {
-                    List<Map<UserDataModel, ProductDataModel>> vehicleList =
-                        map[categories[i]]!
-                            .map<Map<UserDataModel, ProductDataModel>>(
-                                (entry) => entry)
-                            .toList();
-                    outputList.addAll(vehicleList);
-                  }
-                });
-                finalout.add(outputList);
-              }
-
-              // print("\n\n\n\n============================================\n\n\n\n");
-              //  for (var i = 0; i < productsMap.length; i++) {
-              //   print(products[i][categories[i]]);
-
-              // }
 
               return Scaffold(
                   appBar: AppBar(
@@ -180,7 +153,7 @@ class homeView extends StatelessWidget {
                                           horizontal: 16),
                                       child: saleListView(
                                         // List<Map<String,List<Map<UserDataModel, ProductDataModel>>>>
-                                        products: finalout[index],
+                                        products: finalOutput[index],
                                       ),
                                     ),
                                     SizedBox(
