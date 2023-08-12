@@ -3,10 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nob/core/utils/Cubits/AddProductCubit/add_product_cubit.dart';
+import 'package:nob/core/utils/indicator.dart';
 import 'package:nob/core/widget/customtextFaild.dart';
+import 'package:nob/features/AddProduct/presentation/widget/CategoryDrobdown.dart';
 import 'package:nob/features/AddProduct/presentation/widget/RatengAndStatus.dart';
 import 'package:nob/features/AddProduct/presentation/widget/ShowImage.dart';
 import 'package:nob/features/AddProduct/presentation/widget/addProductAppBar.dart';
+import 'package:nob/features/AddProduct/presentation/widget/priceTextFaild.dart';
 import 'package:nob/features/home/data/product.dart';
 import '../../../constant.dart';
 import '../../../core/widget/CustomElvationBottom.dart';
@@ -23,12 +26,8 @@ class addProductView extends StatelessWidget {
     ProductDataModel product = ProductDataModel.empty();
     return BlocBuilder<AddProductCubit, AddProductState>(
       builder: (context, state) {
-        final List<String> categorie =
-            categories.map((categoryData) => categoryData.keys.first).toList();
-
         if (state is Waitting) {
-          return const Scaffold(
-              body: Center(child: CircularProgressIndicator()));
+          return const Indicator();
         }
         return Scaffold(
           backgroundColor: Colors.white,
@@ -60,9 +59,7 @@ class addProductView extends StatelessWidget {
                           return null;
                         },
                       ),
-                      const SizedBox(
-                        height: 40,
-                      ),
+                      const SizedBox(height: 30),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: Text("Product Description",
@@ -81,28 +78,13 @@ class addProductView extends StatelessWidget {
                           return null;
                         },
                       ),
-                      const SizedBox(
-                        height: 40,
+                      const SizedBox(height: 30),
+                      SelectCategoryDrobdown(
+                        onChanged: (value) {
+                          product.category = value!;
+                        },
                       ),
-                      SizedBox(
-                        width: MediaQuery.sizeOf(context).width,
-                        child: CustomDrob(
-                          items: categorie,
-                          titel: "Select Category",
-                          onChanged: (value) {
-                            product.category = value!;
-                          },
-                          validator: (value) {
-                            if (value == null) {
-                              return 'please  Select Category .';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
+                      const SizedBox(height: 30),
                       RateingAndStatus(
                         RatingonChanged: (value) {
                           product.rating = value;
@@ -116,29 +98,9 @@ class addProductView extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: Text("Product Price", style: widgetTitelStyle()),
                       ),
-                      customTextfaild(
-                        keyboardType: TextInputType.number,
-                        suffixIcon: SizedBox(
-                          width: 20,
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 20.0),
-                              child: Text("L.E", style: widgetTitelStyle()),
-                            ),
-                          ),
-                        ),
-                        onChanged: (value) {
-                          product.price = double.parse(value);
-                        },
-                        labelText: "Product Price",
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Product Price is requird ";
-                          }
-                          return null;
-                        },
-                      ),
+                      priceTextFaild(onChanged: (value) {
+                        product.price = double.parse(value);
+                      }),
                       const SizedBox(height: 20),
                       const AddImageButtom(),
                       const SizedBox(height: 20),
@@ -163,7 +125,7 @@ class addProductView extends StatelessWidget {
                           },
                         ),
                       ),
-                      const SizedBox(height: 50),
+                      const SizedBox(height: 10),
                     ],
                   ),
                 ),
