@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, file_names, use_build_context_synchronously
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,9 +11,7 @@ import 'package:nob/features/AddProduct/presentation/widget/ShowImage.dart';
 import 'package:nob/features/AddProduct/presentation/widget/addProductAppBar.dart';
 import 'package:nob/features/AddProduct/presentation/widget/priceTextFaild.dart';
 import 'package:nob/features/home/data/product.dart';
-import '../../../constant.dart';
 import '../../../core/widget/CustomElvationBottom.dart';
-import '../../../core/widget/customDropdownButton.dart';
 import 'widget/AddImageButtom.dart';
 
 class addProductView extends StatelessWidget {
@@ -21,7 +19,6 @@ class addProductView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: non_constant_identifier_names
     GlobalKey<FormState> Kform = GlobalKey();
     ProductDataModel product = ProductDataModel.empty();
     return BlocBuilder<AddProductCubit, AddProductState>(
@@ -103,8 +100,7 @@ class addProductView extends StatelessWidget {
                       }),
                       const SizedBox(height: 20),
                       const AddImageButtom(),
-                      const SizedBox(height: 20),
-                      // ignore: prefer_const_constructors
+                      const SizedBox(height: 20),                      
                       ImageLIst(
                           selectedImages:
                               BlocProvider.of<AddProductCubit>(context)
