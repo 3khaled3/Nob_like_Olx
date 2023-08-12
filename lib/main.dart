@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:nob/core/utils/Cubits/AddProductCubit/add_product_cubit.dart';
+import 'package:nob/core/utils/Cubits/FitchProductCubit/fitch_product_cubit.dart';
 import 'package:nob/features/login/presintaion/otb.dart';
 import 'package:nob/features/main/presentation/MainView.dart';
 import 'package:flutter/material.dart';
@@ -38,9 +39,9 @@ Future<void> main() async {
       // BlocProvider(
       //   create: (context) => UserCubit(),
       // ),
-      // BlocProvider(
-      //   create: (context) => ApiCubit(),
-      // ),
+      BlocProvider(
+        create: (context) => FitchProductCubit(),
+      ),
       BlocProvider(
         create: (context) =>AddProductCubit(),
       ),

@@ -67,18 +67,23 @@ class AddProductCubit extends Cubit<AddProductState> {
               Snaps.data() as Map<String, dynamic>;
           ads = data["ads"] as List<dynamic>;
         }
+        Product.images.addAll(images);
 
         ads.add({
-          'titel': Product.title,
-          'describiton': Product.description,
-          'categore': Product.category,
-          'Price': Product.price,
-          'status': Product.status,
-          'uid': user.uid,
-          "displayName": user.displayName,
-          "phoneNumber": user.phoneNumber,
-          "profileimage": user.profileImage,
-          "AdImage": images
+          "user": {
+            'uid': user.uid,
+            "displayName": user.displayName,
+            "phoneNumber": user.phoneNumber,
+            "profileimage": user.profileImage,
+          },
+          "product": {
+            'titel': Product.title,
+            'describiton': Product.description,
+            'categore': Product.category,
+            'Price': Product.price,
+            'status': Product.status,
+            "AdImage": images
+          }
         });
 
         await FirebaseFirestore.instance

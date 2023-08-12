@@ -2,15 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:nob/core/utils/indicator.dart';
 import '../../features/home/data/product.dart';
 import '../widget/CustomcircleIconButtom.dart';
 
 class SaleItem extends StatelessWidget {
-  // final Product product;
+  final ProductDataModel product;
+  final UserDataModel user;
 
   const SaleItem({
     super.key,
-    // required this.product,
+    required this.product,
+    required this.user,
   });
 
   @override
@@ -33,29 +36,30 @@ class SaleItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Center(
-                        child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.asset(
-                        "assets/te.jpg",
-                        fit: BoxFit.cover,
-                        width: MediaQuery.sizeOf(context).width * .43,
-                        height: MediaQuery.sizeOf(context).height * .19,
-                      ),
-                    )
-                        //      CachedNetworkImage(
-                        //   fit: BoxFit.cover,
-                        //   width: 162,
-                        //   height: 184,
-                        //   imageUrl: product.thumbnail,
-                        //   progressIndicatorBuilder:
-                        //       (context, url, downloadProgress) =>
-                        //           Text("wait"),
-                        //   errorWidget: (context, url, error) =>
-                        //       const Icon(Icons.error),
-                        // )
-                        ),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child:
+                              //   Image.asset(
+                              //     "assets/te.jpg",
+                              //     fit: BoxFit.cover,
+                              //     width: MediaQuery.sizeOf(context).width * .43,
+                              //     height: MediaQuery.sizeOf(context).height * .19,
+                              //   ),
+                              // )
+                              CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            width: MediaQuery.sizeOf(context).width * .43,
+                            height: MediaQuery.sizeOf(context).height * .19,
+                            imageUrl: product.images[0],
+                            progressIndicatorBuilder:
+                                (context, url, downloadProgress) =>
+                                    buildCircleIndicator(),
+                            errorWidget: (context, url, error) =>
+                                const Center(child: Icon(Icons.error)),
+                          )),
+                    ),
                     Text(
-                      "Iphone 14 Pro Max",
+                      product.title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -64,7 +68,7 @@ class SaleItem extends StatelessWidget {
                           fontWeight: FontWeight.w400),
                     ),
                     Text(
-                      "215 \$",
+                      "${product.price}",
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
@@ -76,11 +80,11 @@ class SaleItem extends StatelessWidget {
                           width: 40,
                           height: 24,
                           decoration: BoxDecoration(
-                              color: Color(0xffEFEFEF),
+                              color: const Color(0xffEFEFEF),
                               borderRadius: BorderRadius.circular(16)),
                           child: Center(
                             child: Text(
-                              "Used",
+                              product.status,
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 11,
@@ -88,18 +92,18 @@ class SaleItem extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Container(
                           width: 40,
                           height: 24,
                           decoration: BoxDecoration(
-                              color: Color(0xffEFEFEF),
+                              color: const Color(0xffEFEFEF),
                               borderRadius: BorderRadius.circular(16)),
                           child: Center(
                             child: Text(
-                              "08/10",
+                              "${product.rating}",
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 11,
@@ -123,13 +127,13 @@ class SaleItem extends StatelessWidget {
                                 fontWeight: FontWeight.w400),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
-                        Expanded(
+                        const Expanded(
                           child: Text(
                             "22 Sep",
-                            style: const TextStyle(
+                            style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 10,
                                 fontWeight: FontWeight.w400),
