@@ -11,6 +11,7 @@ import 'package:nob/features/AddProduct/presentation/widget/ShowImage.dart';
 import 'package:nob/features/AddProduct/presentation/widget/addProductAppBar.dart';
 import 'package:nob/features/AddProduct/presentation/widget/priceTextFaild.dart';
 import 'package:nob/features/home/data/product.dart';
+import 'package:nob/features/main/presentation/MainView.dart';
 import '../../../core/widget/CustomElvationBottom.dart';
 import 'widget/AddImageButtom.dart';
 
@@ -113,7 +114,9 @@ class addProductView extends StatelessWidget {
                             if (Kform.currentState!.validate()) {
                               await BlocProvider.of<AddProductCubit>(context)
                                   .uploadAds(Product: product);
-                              Navigator.pop(context);
+                              Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) {
+                            return  MainView();
+                              },));
                               BlocProvider.of<AddProductCubit>(context)
                                   .selectedImages
                                   .clear();

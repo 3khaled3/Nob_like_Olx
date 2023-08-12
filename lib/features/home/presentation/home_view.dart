@@ -54,7 +54,7 @@ class homeView extends StatelessWidget {
 
                   // Extract product data from the current data point
                   ProductDataModel productData = ProductDataModel.empty()
-                    ..title = product['title'] ?? ''
+                    ..title = product['titel'] ?? ''
                     ..description = product['description'] ?? ''
                     ..category = product['category'] ?? ''
                     ..price = product['Price'] ?? 0
