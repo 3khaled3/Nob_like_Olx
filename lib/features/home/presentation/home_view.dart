@@ -31,54 +31,81 @@ class homeView extends StatelessWidget {
                   'No data available'), // Handle the case when no data is available
             );
           } else {
-            // Map<String, List<Map<String,Map<String,dynamic>>>>
-            // List<Map<String,Map<String,dynamic>>
             final Map<String, List> productsMap = snapshot.data!;
             final List<String> categories = productsMap.keys.toList();
 
-            List<Map<String, List<Map<UserDataModel, ProductDataModel>>>>
-                products = [];
-
-            for (var i = 0; i < productsMap.length; i++) {
-              List<ProductDataModel> productData = [];
-              List<UserDataModel> userData = [];
-              for (var x = 0; x < productsMap[categories[i]]!.length; x++) {
-                ProductDataModel a = ProductDataModel.empty();
-                a.title = productsMap[categories[i]]![x]["product"]["titel"];
-                a.description =
-                    productsMap[categories[i]]![x]["product"]["describiton"];
-                a.category =
-                    productsMap[categories[i]]![x]["product"]["categore"];
-                a.price = productsMap[categories[i]]![x]["product"]["Price"];
-                a.status = productsMap[categories[i]]![x]["product"]["status"];
-                a.images = productsMap[categories[i]]![x]["product"]["AdImage"];
-                productData.add(a);
-              }
-              for (var x = 0; x < productsMap[categories[i]]!.length; x++) {
-                UserDataModel a = UserDataModel(
-                  uid: productsMap[categories[i]]![x]["user"]["titel"],
-                  displayName: productsMap[categories[i]]![x]["user"]
-                      ["displayName"],
-                  phoneNumber: productsMap[categories[i]]![x]["user"]
-                      ["phoneNumber"],
-                  profileImage: productsMap[categories[i]]![x]["user"]
-                      ["profileimage"],
-                );
-
-                userData.add(a);
-              }
-              for (var x = 0; x < userData.length; x++) {
-                products.add({
-                  categories[i]: [
-                    {userData[x]: productData[x]}
-                  ]
-                });
-              }
-              print("products $products");
-            }
-
             return BlocBuilder<FitchProductCubit, FitchProductState>(
                 builder: (context, state) {
+              List<Map<String, List<Map<UserDataModel, ProductDataModel>>>>
+                  products = [];
+
+              for (var i = 0; i < productsMap.length; i++) {
+                List<ProductDataModel> productData = [];
+                List<UserDataModel> userData = [];
+                for (var x = 0; x < productsMap[categories[i]]!.length; x++) {
+                  ProductDataModel a = ProductDataModel.empty();
+                  a.title = productsMap[categories[i]]![x]["product"]["titel"];
+                  a.description =
+                      productsMap[categories[i]]![x]["product"]["describiton"];
+                  a.category =
+                      productsMap[categories[i]]![x]["product"]["categore"];
+                  a.price = productsMap[categories[i]]![x]["product"]["Price"];
+                  a.status =
+                      productsMap[categories[i]]![x]["product"]["status"];
+                  a.images =
+                      productsMap[categories[i]]![x]["product"]["AdImage"];
+                  productData.add(a);
+                }
+                for (var x = 0; x < productsMap[categories[i]]!.length; x++) {
+                  UserDataModel a = UserDataModel(
+                    uid: productsMap[categories[i]]![x]["user"]["titel"],
+                    displayName: productsMap[categories[i]]![x]["user"]
+                        ["displayName"],
+                    phoneNumber: productsMap[categories[i]]![x]["user"]
+                        ["phoneNumber"],
+                    profileImage: productsMap[categories[i]]![x]["user"]
+                        ["profileimage"],
+                  );
+
+                  userData.add(a);
+                }
+                for (var x = 0; x < userData.length; x++) {
+// List<Map<String, List<Map<UserDataModel, ProductDataModel>>>>
+                  print({userData[x]: productData[x]});
+                  products.add({
+                    categories[i]: [
+                      {userData[x]: productData[x]}
+                    ]
+                  });
+                  print("==================================================");
+                }
+                print(
+                    "************************************************************");
+                print(products);
+              }
+              List<List<Map<UserDataModel, ProductDataModel>>> finalout = [];
+
+              for (var i = 0; i < categories.length; i++) {
+                List<Map<UserDataModel, ProductDataModel>> outputList = [];
+                products.forEach((map) {
+                  if (map.containsKey(categories[i])) {
+                    List<Map<UserDataModel, ProductDataModel>> vehicleList =
+                        map[categories[i]]!
+                            .map<Map<UserDataModel, ProductDataModel>>(
+                                (entry) => entry)
+                            .toList();
+                    outputList.addAll(vehicleList);
+                  }
+                });
+                finalout.add(outputList);
+              }
+
+              // print("\n\n\n\n============================================\n\n\n\n");
+              //  for (var i = 0; i < productsMap.length; i++) {
+              //   print(products[i][categories[i]]);
+
+              // }
+
               return Scaffold(
                   appBar: AppBar(
                       toolbarHeight: 0,
@@ -136,7 +163,6 @@ class homeView extends StatelessWidget {
                             itemCount: productsMap.length,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
-                              print(productsMap[categories[index]]);
                               return Padding(
                                 padding:
                                     const EdgeInsets.only(top: 8, bottom: 8),
@@ -154,8 +180,7 @@ class homeView extends StatelessWidget {
                                           horizontal: 16),
                                       child: saleListView(
                                         // List<Map<String,List<Map<UserDataModel, ProductDataModel>>>>
-                                        products: products[0]
-                                            [categories[index]]!,
+                                        products: finalout[index],
                                       ),
                                     ),
                                     SizedBox(

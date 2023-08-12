@@ -35,7 +35,6 @@ class FitchProductCubit extends Cubit<FitchProductState> {
       }
     }
     prodcts.removeWhere((category, products) => products.isEmpty);
-    print(prodcts);
 
     return prodcts;
   }

@@ -21,7 +21,7 @@ class saleListView extends StatelessWidget {
             width: 170,
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
-              itemCount: products.length,
+              itemCount: users.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return SaleItem(

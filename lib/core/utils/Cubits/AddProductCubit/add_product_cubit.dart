@@ -45,9 +45,9 @@ class AddProductCubit extends Cubit<AddProductState> {
       String downloadUrl = "";
       for (var i = 0; i < selectedImages.length; i++) {
         final FirebaseStorage storage = FirebaseStorage.instance;
-        String fileName = basename(selectedImages[i]!.path);
+        String fileName = basename(selectedImages[i]!.path);        
         Reference reference = storage
-            .ref('ads/${FirebaseAuth.instance.currentUser!.uid}/$fileName');
+            .ref('ads/${FirebaseAuth.instance.currentUser!.uid}/$fileName/$fileName');
         await reference.putFile(selectedImages[i]!);
         downloadUrl = await reference.getDownloadURL();
         images.add(downloadUrl);
