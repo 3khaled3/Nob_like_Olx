@@ -24,20 +24,22 @@ class customTextfaild extends StatelessWidget {
     this.maxLines,
     this.elevation = 0,
     this.keyboardType,
-    this.labelStyle= const TextStyle(color: Colors.grey),
+    this.labelStyle = const TextStyle(color: Colors.grey),
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.white,
       elevation: elevation,
       borderRadius: BorderRadius.circular(8),
       child: TextFormField(
-        initialValue: inithialText,        
+        initialValue: inithialText,
         validator: validator,
         onChanged: onChanged,
         maxLines: maxLines,
-        minLines: 1,keyboardType:keyboardType ,
+        minLines: 1,
+        keyboardType: keyboardType,
         decoration: InputDecoration(
           suffixIcon: suffixIcon,
           prefixIcon: prefixIcon,
@@ -68,18 +70,3 @@ class customTextfaild extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
