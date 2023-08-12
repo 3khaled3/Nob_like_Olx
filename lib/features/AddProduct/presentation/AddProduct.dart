@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nob/core/utils/Cubits/AddProductCubit/add_product_cubit.dart';
 import 'package:nob/core/widget/customtextFaild.dart';
+import 'package:nob/features/AddProduct/presentation/widget/RatengAndStatus.dart';
 import 'package:nob/features/AddProduct/presentation/widget/ShowImage.dart';
 import 'package:nob/features/AddProduct/presentation/widget/addProductAppBar.dart';
 import 'package:nob/features/home/data/product.dart';
@@ -17,15 +18,14 @@ class addProductView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: non_constant_identifier_names
     GlobalKey<FormState> Kform = GlobalKey();
     ProductDataModel product = ProductDataModel.empty();
     return BlocBuilder<AddProductCubit, AddProductState>(
       builder: (context, state) {
         final List<String> categorie =
             categories.map((categoryData) => categoryData.keys.first).toList();
-        final List<String> rateing =
-            List.generate(10, (index) => '${index + 1} / 10');
-        final List<String> status = ["New", "Used"];
+
         if (state is Waitting) {
           return const Scaffold(
               body: Center(child: CircularProgressIndicator()));
@@ -100,46 +100,16 @@ class addProductView extends StatelessWidget {
                           },
                         ),
                       ),
-
                       const SizedBox(
                         height: 40,
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: CustomDrob(
-                              items: rateing,
-                              titel: "rateing",
-                              onChanged: (value) {
-                                product.rating = value;
-                              },
-                              validator: (value) {
-                                if (value == null) {
-                                  return "please  Select rateing ";
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: CustomDrob(
-                              items: status,
-                              titel: "status",
-                              onChanged: (value) {
-                                product.status = value!;
-                              },
-                              validator: (value) {
-                                if (value == null) {
-                                  return "please  Select rateing ";
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                        ],
+                      RateingAndStatus(
+                        RatingonChanged: (value) {
+                          product.rating = value;
+                        },
+                        StatusonChanged: (value) {
+                          product.status = value!;
+                        },
                       ),
                       const SizedBox(height: 40),
                       Padding(
