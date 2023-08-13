@@ -3,10 +3,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:meta/meta.dart';
-
-import '../../../../features/login/presintaion/validation.dart';
+import 'package:nob/core/utils/routes.dart';
 import '../../../widget/tossetMassage.dart';
 
 part 'register_state.dart';
@@ -22,11 +22,8 @@ class RegisterCubit extends Cubit<RegisterState> {
     try {
       verificationCompleted(AuthCredential phoneAuthCredential) {
         _auth.signInWithCredential(phoneAuthCredential);
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) {
-            return const OTPScreen();
-          },
-        ));
+                   GoRouter.of(context).push(AppRouter.kvirtfienum);
+
         emit(Success());
       }
 
