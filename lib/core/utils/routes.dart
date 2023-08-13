@@ -1,11 +1,11 @@
 import 'package:go_router/go_router.dart';
-import 'package:nob/core/utils/Cubits/AddProductCubit/add_product_cubit.dart';
 import 'package:nob/features/AddProduct/presentation/AddProduct.dart';
 import 'package:nob/features/home/presentation/home_view.dart';
 import 'package:nob/features/login/presintaion/otb.dart';
 import 'package:nob/features/login/presintaion/validation.dart';
 import 'package:nob/features/main/presentation/MainView.dart';
-import 'indicator.dart';
+import 'package:nob/features/productDetails/presentation/product_details_view.dart';
+
 
 abstract class AppRouter {
   static const kHomeView = '/homeView';
@@ -35,14 +35,18 @@ abstract class AppRouter {
         path: kHomeView,
         builder: (context, state) => const MainView(),
       ),
+       GoRoute(
+        path: "/",
+        builder: (context, state) => const ProdctDetailsView(),
+      ),
       // GoRoute(
       //   path: kIndicator,
       //   builder: (context, state) => const Indicator(),
       // ),
-      GoRoute(
-        path: '/',
-        builder: (context, state) =>  PhoneSignInScreen(),
-      ),
+      // GoRoute(
+      //   path: '/',
+      //   builder: (context, state) =>  PhoneSignInScreen(),
+      // ),
       // GoRoute(
       //   path: kproductView,
       //   builder: (context, state) {

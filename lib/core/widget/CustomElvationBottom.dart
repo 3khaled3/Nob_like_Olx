@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class customElevationButtom extends StatelessWidget {
   final Color buttomColor;
@@ -26,15 +27,56 @@ class customElevationButtom extends StatelessWidget {
           buttomColor,
         ),
         elevation: MaterialStateProperty.all(0),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
+        // shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        //   RoundedRectangleBorder(
+        //     borderRadius: BorderRadius.circular(20),
+        //   ),
+        // ),
+      ),
+      child: Text(text,
+          style: GoogleFonts.inter(
+            color: textColor,
+            // fontSize: 14,
+            fontWeight: FontWeight.w500,
+          )),
+    );
+  }
+}
+
+class CustomSideButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+  final EdgeInsetsGeometry? padding;
+  final Color backgroundColor;
+
+  const CustomSideButton(
+      {super.key,
+      required this.text,
+      required this.onPressed,
+      this.padding,
+      this.backgroundColor = Colors.white});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        padding: padding,
+        elevation: 0,
+        foregroundColor: Colors.grey,
+        backgroundColor: backgroundColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
+          side: const BorderSide(width: 0.50, color: Color(0xFFD9D9D9)),
         ),
       ),
       child: Text(
         text,
-        style: TextStyle(fontWeight: FontWeight.w500, color: textColor),
+        style: GoogleFonts.inter(
+          color: const Color(0xFF393F42),
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     );
   }
