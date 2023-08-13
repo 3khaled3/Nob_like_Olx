@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nob/core/utils/Cubits/RegisterCubit/register_cubit.dart';
-import 'package:nob/features/main/presentation/MainView.dart';
+import 'package:nob/core/utils/routes.dart';
 
 class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key});
@@ -88,18 +88,13 @@ class _OTPScreenState extends State<OTPScreen> {
                       if (formkey.currentState!.validate()) {
                         String enteredOTP = _otpDigits.join('');
                         if (enteredOTP.length == 6) {
-                          print("------------------$enteredOTP");
                           await BlocProvider.of<RegisterCubit>(context)
                               .signInWithPhoneNumber(enteredOTP);
                           final state =
                               BlocProvider.of<RegisterCubit>(context).state;
-                              
+
                           if (state is Success) {
-                            Navigator.pushReplacement(context, MaterialPageRoute(
-                              builder: (context) {
-                                return const MainView();
-                              },
-                            ));
+                            GoRouter.of(context).push(AppRouter.kHomeView);
                           }
                         }
                       }

@@ -22,13 +22,16 @@ class RegisterCubit extends Cubit<RegisterState> {
     try {
       verificationCompleted(AuthCredential phoneAuthCredential) {
         _auth.signInWithCredential(phoneAuthCredential);
-                   GoRouter.of(context).push(AppRouter.kvirtfienum);
+        print("================================================");
+        GoRouter.of(context).push(AppRouter.kvirtfienum);
 
         emit(Success());
       }
 
-      codeSent(String verificationId, [int? forceResendingToken]) async {
+      codeSent(String verificationId, [int? forceResendingToken]) {
         _verificationId = verificationId;
+        GoRouter.of(context).push(AppRouter.kvirtfienum);
+        emit(Success());
       }
 
       codeAutoRetrievalTimeout(String verificationId) {
@@ -38,7 +41,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       }
 
       await _auth.verifyPhoneNumber(
-        phoneNumber: phoneNumber, // Replace with the user's phone number
+        phoneNumber: phoneNumber,
         verificationCompleted: verificationCompleted,
         verificationFailed: (FirebaseAuthException authException) {
           showToastMessage("${authException.message}", Colors.red);
@@ -67,31 +70,34 @@ class RegisterCubit extends Cubit<RegisterState> {
         verificationId: _verificationId,
         smsCode: smsCode,
       );
+      final UserCredential authResult =
+          await _auth.signInWithCredential(credential);
 
-      // Store user data in Hive
-      box.put('verificationId', _verificationId);
-      box.put('sms', smsCode);
+          
+      final customToken = await authResult.user!.getIdToken();
+      box.put('customToken', customToken);
+
+      final storedCustomToken = box.get('customToken');
+
       emit(Success());
     } catch (e) {
       emit(Error(e.toString()));
     }
   }
 
-  Future<void> autoLogin() async {
+  Future<void> autoLogin(context) async {
     emit(Waitting());
 
     try {
-      final storedsmsCode = box.get('sms');
-      final storedverificationId = box.get('verificationId');
-      final AuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: storedverificationId,
-        smsCode: storedsmsCode,
-      );
-
-      final UserCredential authResult =
-          await _auth.signInWithCredential(credential);
-
-      // Store user data in Hive
+      final storedCustomToken = box.get('customToken');
+      if (storedCustomToken != null) {
+        // Sign in with the custom token
+        try {
+          await _auth.signInWithCustomToken(storedCustomToken);
+          // ignore: empty_catches
+        } catch (e) {}
+        GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
+      }
       emit(Success());
     } catch (e) {
       emit(Error(e.toString()));

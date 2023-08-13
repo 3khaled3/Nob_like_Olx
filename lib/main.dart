@@ -22,13 +22,10 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   cameras = await availableCameras();
-  runApp(MultiBlocProvider(
+  runApp(
+    MultiBlocProvider(
       providers: [
-        // BlocProvider(
-        //   create: (context) => UserCubit(),
-        // ),
         BlocProvider(
           create: (context) => FitchProductCubit(),
         ),
@@ -41,19 +38,15 @@ Future<void> main() async {
       ],
       child: MaterialApp.router(
         routerConfig: AppRouter.router,
-
-        //  addProductView(),
-        //  MyHomePage(),
-        //  nn(items: ["hi","hsi","scacasc"],onChanged: (p0) {
-
-        //  },titel: "hi"),
-        //  OTPScreen(),
-        // PhoneSignInScreen(),
-        //  MainView() ,
         debugShowCheckedModeBanner: false,
-      )));
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.white, // Change this color to your desired color
-  ));
+      ),
+    ),
+  );
+
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.white, // Change this color to your desired color
+    ),
+  );
   // ));
 }

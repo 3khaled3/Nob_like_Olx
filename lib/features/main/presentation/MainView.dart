@@ -3,9 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nob/core/utils/routes.dart';
-import 'package:nob/features/AddProduct/presentation/AddProduct.dart';
 import 'package:nob/features/home/presentation/home_view.dart';
-
 import 'widget/CustomNavItem.dart';
 
 class MainView extends StatefulWidget {

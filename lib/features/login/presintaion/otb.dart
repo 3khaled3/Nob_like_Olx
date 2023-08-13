@@ -3,13 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:nob/core/utils/Cubits/RegisterCubit/register_cubit.dart';
-import 'package:nob/core/utils/routes.dart';
 import 'package:nob/core/widget/tossetMassage.dart';
-import 'package:nob/features/main/presentation/MainView.dart';
 
 class PhoneSignInScreen extends StatefulWidget {
   PhoneSignInScreen({super.key});
@@ -26,19 +22,19 @@ class _PhoneSignInScreenState extends State<PhoneSignInScreen> {
 
   GlobalKey<FormState> formkey = GlobalKey();
   @override
-    void initState() {
+  void initState() {
     super.initState();
     _initializeState();
   }
 
   Future<void> _initializeState() async {
-    await autoLogin(context);
+    await BlocProvider.of<RegisterCubit>(context).autoLogin(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterCubit, RegisterState>(
-      builder: (context, state) {        
+      builder: (context, state) {
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -99,24 +95,5 @@ class _PhoneSignInScreenState extends State<PhoneSignInScreen> {
         );
       },
     );
-  }
-}
-
-autoLogin(context) async {
-  var box = Hive.box('myBox');
-  final storedsmsCode = box.get('sms');
-  final storedverificationId = box.get('verificationId');
-  if (storedsmsCode != null && storedverificationId != null) {
-    try {
-      await BlocProvider.of<RegisterCubit>(context).autoLogin();
-      final state = BlocProvider.of<RegisterCubit>(context).state;
-      if (state is Success) {
-                   GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
-
-      } else if (state is Error) {
-        // GoRouter.of(context).pushReplacement(AppRouter.kregisterView);
-      }
-      // ignore: empty_catches
-    } catch (e) {}
   }
 }
