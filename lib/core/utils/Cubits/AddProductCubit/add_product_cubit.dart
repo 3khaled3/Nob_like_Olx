@@ -82,7 +82,8 @@ class AddProductCubit extends Cubit<AddProductState> {
             'categore': Product.category,
             'Price': Product.price,
             'status': Product.status,
-            "AdImage": images
+            "AdImage": Product.images,
+            "rating": Product.rating,
           }
         });
 

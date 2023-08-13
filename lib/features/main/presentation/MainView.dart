@@ -1,6 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api, file_names
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nob/core/utils/routes.dart';
 import 'package:nob/features/AddProduct/presentation/AddProduct.dart';
 import 'package:nob/features/home/presentation/home_view.dart';
 
@@ -32,16 +34,13 @@ class _MainViewState extends State<MainView> {
         index: _currentIndex,
         children: _screens,
       ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,            
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return addProductView();
-            }));
-          },
-          child: const Icon(Icons.add),
-          
-        ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          GoRouter.of(context).push(AppRouter.kaddProductView);
+        },
+        child: const Icon(Icons.add),
+      ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         notchMargin: 10,

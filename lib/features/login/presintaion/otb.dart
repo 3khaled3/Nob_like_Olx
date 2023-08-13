@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:nob/core/utils/Cubits/RegisterCubit/register_cubit.dart';
+import 'package:nob/core/utils/routes.dart';
 import 'package:nob/core/widget/tossetMassage.dart';
 import 'package:nob/features/main/presentation/MainView.dart';
 
@@ -109,11 +111,8 @@ autoLogin(context) async {
       await BlocProvider.of<RegisterCubit>(context).autoLogin();
       final state = BlocProvider.of<RegisterCubit>(context).state;
       if (state is Success) {
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) {
-            return const MainView();
-          },
-        ));
+                   GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
+
       } else if (state is Error) {
         // GoRouter.of(context).pushReplacement(AppRouter.kregisterView);
       }

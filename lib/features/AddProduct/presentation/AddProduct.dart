@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nob/core/utils/Cubits/AddProductCubit/add_product_cubit.dart';
 import 'package:nob/core/utils/indicator.dart';
+import 'package:nob/core/utils/routes.dart';
 import 'package:nob/core/widget/customtextFaild.dart';
 import 'package:nob/features/AddProduct/presentation/widget/CategoryDrobdown.dart';
 import 'package:nob/features/AddProduct/presentation/widget/RatengAndStatus.dart';
@@ -11,7 +13,6 @@ import 'package:nob/features/AddProduct/presentation/widget/ShowImage.dart';
 import 'package:nob/features/AddProduct/presentation/widget/addProductAppBar.dart';
 import 'package:nob/features/AddProduct/presentation/widget/priceTextFaild.dart';
 import 'package:nob/features/home/data/product.dart';
-import 'package:nob/features/main/presentation/MainView.dart';
 import '../../../core/widget/CustomElvationBottom.dart';
 import 'widget/AddImageButtom.dart';
 
@@ -101,7 +102,7 @@ class addProductView extends StatelessWidget {
                       }),
                       const SizedBox(height: 20),
                       const AddImageButtom(),
-                      const SizedBox(height: 20),                      
+                      const SizedBox(height: 20),
                       ImageLIst(
                           selectedImages:
                               BlocProvider.of<AddProductCubit>(context)
@@ -114,9 +115,8 @@ class addProductView extends StatelessWidget {
                             if (Kform.currentState!.validate()) {
                               await BlocProvider.of<AddProductCubit>(context)
                                   .uploadAds(Product: product);
-                              Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) {
-                            return  MainView();
-                              },));
+                              GoRouter.of(context)
+                                  .pushReplacement(AppRouter.kHomeView);
                               BlocProvider.of<AddProductCubit>(context)
                                   .selectedImages
                                   .clear();

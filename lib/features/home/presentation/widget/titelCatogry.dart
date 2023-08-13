@@ -17,7 +17,7 @@ class titelcatogrey extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        titel,
+        titel,maxLines: 1,overflow: TextOverflow.ellipsis,
         style:  TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.w600,

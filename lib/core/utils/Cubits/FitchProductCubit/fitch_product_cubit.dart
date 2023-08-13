@@ -10,6 +10,7 @@ part 'fitch_product_state.dart';
 
 class FitchProductCubit extends Cubit<FitchProductState> {
   FitchProductCubit() : super(FitchProductInitial());
+
   Future<Map<String, List>> getdata() async {
     emit(Waitting());
     CollectionReference usersCollection =

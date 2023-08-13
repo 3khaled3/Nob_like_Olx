@@ -59,7 +59,8 @@ class homeView extends StatelessWidget {
                     ..category = product['category'] ?? ''
                     ..price = product['Price'] ?? 0
                     ..status = product['status'] ?? ''
-                    ..images = product['AdImage'] ?? [];
+                    ..images = product['AdImage'] ?? 
+                    []..rating=product['rating']??"" ;
 
                   // Extract user data from the current data point
                   UserDataModel userData = UserDataModel(
@@ -148,13 +149,9 @@ class homeView extends StatelessWidget {
                                         //     extra: "${categorieslist[index]}");
                                       },
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16),
-                                      child: saleListView(
-                                        // List<Map<String,List<Map<UserDataModel, ProductDataModel>>>>
-                                        products: finalOutput[index],
-                                      ),
+                                    saleListView(
+                                      // List<Map<String,List<Map<UserDataModel, ProductDataModel>>>>
+                                      products: finalOutput[index],
                                     ),
                                     SizedBox(
                                       height:

@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nob/core/utils/Cubits/RegisterCubit/register_cubit.dart';
-import 'package:nob/features/home/presentation/home_view.dart';
 import 'package:nob/features/main/presentation/MainView.dart';
 
 class OTPScreen extends StatefulWidget {
