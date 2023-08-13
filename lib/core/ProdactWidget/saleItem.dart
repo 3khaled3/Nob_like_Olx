@@ -140,6 +140,7 @@ class SaleItem extends StatelessWidget {
               ],
             ),
           ),
+          Positioned.fill(child: MaterialButton(onPressed: () {})),
           Positioned(
             right: 16,
             top: 10,
@@ -156,7 +157,6 @@ class SaleItem extends StatelessWidget {
               ),
             ),
           ),
-          Positioned.fill(child: MaterialButton(onPressed: () {})),
         ],
       ),
     );
