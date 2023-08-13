@@ -63,11 +63,15 @@ class CustomSideButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         padding: padding,
         elevation: 0,
+        shadowColor: const Color.fromARGB(0, 255, 86, 34),
         foregroundColor: Colors.grey,
         backgroundColor: backgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4),
-          side: const BorderSide(width: 0.50, color: Color(0xFFD9D9D9)),
+          side: const BorderSide(
+            width: 0.50,
+            color: Color(0xFFD9D9D9),
+          ),
         ),
       ),
       child: Text(
