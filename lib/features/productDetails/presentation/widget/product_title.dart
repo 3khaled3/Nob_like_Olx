@@ -11,6 +11,7 @@ class ProductTitle extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
+        //add product status
         title: Text(
           'Air pods max by Apple',
           style: GoogleFonts.inter(
@@ -20,14 +21,37 @@ class ProductTitle extends StatelessWidget {
           ),
         ),
         subtitle: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Text(
-            '\$ 1999,99',
-            style: GoogleFonts.inter(
-              color: const Color(0xFF393F42),
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-            ),
+          padding: const EdgeInsets.only(top: 8),
+          child: Row(
+            children: [
+              Text(
+                '\$ 1999,99',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF393F42),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 4),
+                child: Container(
+                  width: 40,
+                  height: 24,
+                  decoration: BoxDecoration(
+                      color: const Color(0xffEFEFEF),
+                      borderRadius: BorderRadius.circular(16)),
+                  child: const Center(
+                    child: Text(
+                      "10/10",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ),
+              )
+            ],
           ),
         ),
         trailing: InkWell(
