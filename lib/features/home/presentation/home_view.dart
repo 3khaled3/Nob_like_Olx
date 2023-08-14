@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nob/core/utils/Cubits/FitchProductCubit/fitch_product_cubit.dart';
+import 'package:nob/core/utils/routes.dart';
 import 'package:nob/core/widget/customtextFaild.dart';
 import 'package:nob/features/home/data/product.dart';
 import 'package:nob/features/home/presentation/widget/homeCatogrey.dart';
@@ -84,7 +86,6 @@ class homeView extends StatelessWidget {
                   appBar: AppBar(
                       toolbarHeight: 0,
                       backgroundColor: Colors.white,
-                      shadowColor: Colors.white,
                       elevation: 0),
                   backgroundColor: Colors.white,
                   body: SingleChildScrollView(
@@ -124,7 +125,7 @@ class homeView extends StatelessWidget {
                             titelfontSize: 18,
                             titel: "Browse Categories",
                             onPressed: () {
-                              // GoRouter.of(context).push(AppRouter.kallproductsView,
+                              GoRouter.of(context).push(AppRouter.kcategoriesview);
                               //     extra: "${categorieslist[index]}");
                             },
                           ),

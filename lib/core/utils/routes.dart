@@ -1,11 +1,11 @@
 import 'package:go_router/go_router.dart';
 import 'package:nob/features/AddProduct/presentation/AddProduct.dart';
+import 'package:nob/features/Categories/presentation/categories_view.dart';
 import 'package:nob/features/home/presentation/home_view.dart';
 import 'package:nob/features/login/presintaion/otb.dart';
 import 'package:nob/features/login/presintaion/validation.dart';
 import 'package:nob/features/main/presentation/MainView.dart';
 import 'package:nob/features/productDetails/presentation/product_details_view.dart';
-
 
 abstract class AppRouter {
   static const kHomeView = '/homeView';
@@ -15,7 +15,8 @@ abstract class AppRouter {
   static const kaddProductView = '/addProductView';
   static const kPhoneSignInScreen = '/PhoneSignInScreen';
   static const kvirtfienum = '/virtfienum';
-  static const kprodctdetailsview="/ProdctDetailsView";
+  static const kprodctdetailsview = "/ProdctDetailsView";
+  static const kcategoriesview = "/kcategoriesview";
 
   static final router = GoRouter(
     routes: [
@@ -29,23 +30,23 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kPhoneSignInScreen,
-        builder: (context, state) =>  PhoneSignInScreen(),
+        builder: (context, state) => PhoneSignInScreen(),
       ),
       GoRoute(
         path: kHomeView,
         builder: (context, state) => const MainView(),
       ),
-       GoRoute(
+      GoRoute(
         path: kprodctdetailsview,
         builder: (context, state) => const ProdctDetailsView(),
       ),
-      // GoRoute(
-      //   path: kIndicator,
-      //   builder: (context, state) => const Indicator(),
-      // ),
+      GoRoute(
+        path: kcategoriesview,
+        builder: (context, state) => const CategoriesView(),
+      ),
       GoRoute(
         path: '/',
-        builder: (context, state) =>  PhoneSignInScreen(),
+        builder: (context, state) => PhoneSignInScreen(),
       ),
       // GoRoute(
       //   path: kproductView,
