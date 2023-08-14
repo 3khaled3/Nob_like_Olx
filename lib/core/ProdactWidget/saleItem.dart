@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nob/core/utils/indicator.dart';
+import 'package:nob/core/utils/routes.dart';
 import '../../features/home/data/product.dart';
 import '../widget/CustomcircleIconButtom.dart';
 
@@ -113,11 +115,11 @@ class SaleItem extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: MediaQuery.sizeOf(context).width * .3,
-                      child: Text(
+                      child: const Text(
                         "Gulberg Phase 4, LahGulberg Phase Gulberg Phase Gulberg Phase   ",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: Colors.black,
                             fontSize: 10,
                             fontWeight: FontWeight.w400),
@@ -140,7 +142,9 @@ class SaleItem extends StatelessWidget {
               ],
             ),
           ),
-          Positioned.fill(child: MaterialButton(onPressed: () {})),
+          Positioned.fill(child: MaterialButton(onPressed: () {
+            GoRouter.of(context).push(AppRouter.kprodctdetailsview);
+          })),
           Positioned(
             right: 16,
             top: 10,

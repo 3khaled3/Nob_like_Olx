@@ -11,11 +11,11 @@ abstract class AppRouter {
   static const kHomeView = '/homeView';
   static const kloginview = '/loginView';
   static const kforgetPssView = '/forgetPssView';
-  static const kproductView = '/productView';
   static const kallproductsView = '/productsView';
   static const kaddProductView = '/addProductView';
   static const kPhoneSignInScreen = '/PhoneSignInScreen';
   static const kvirtfienum = '/virtfienum';
+  static const kprodctdetailsview="/ProdctDetailsView";
 
   static final router = GoRouter(
     routes: [
@@ -36,17 +36,17 @@ abstract class AppRouter {
         builder: (context, state) => const MainView(),
       ),
        GoRoute(
-        path: "/",
+        path: kprodctdetailsview,
         builder: (context, state) => const ProdctDetailsView(),
       ),
       // GoRoute(
       //   path: kIndicator,
       //   builder: (context, state) => const Indicator(),
       // ),
-      // GoRoute(
-      //   path: '/',
-      //   builder: (context, state) =>  PhoneSignInScreen(),
-      // ),
+      GoRoute(
+        path: '/',
+        builder: (context, state) =>  PhoneSignInScreen(),
+      ),
       // GoRoute(
       //   path: kproductView,
       //   builder: (context, state) {

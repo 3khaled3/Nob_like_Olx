@@ -13,7 +13,7 @@ class ProdctDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: productDetailsAppBar(),
+      appBar: productDetailsAppBar(context),
       body: Column(
         children: [
           const Expanded(
