@@ -1,10 +1,10 @@
 class ProductDataModel {
-  late  String title;
-  late  String description;
-  late  double price;
-  late  String? rating;
-  late  String category;
-  late  String status;
+  late String title;
+  late String description;
+  late double price;
+  late String? rating;
+  late String category;
+  late String status;
   List<dynamic> images;
 
   ProductDataModel({
@@ -13,15 +13,17 @@ class ProductDataModel {
     required this.price,
     required this.rating,
     required this.category,
-    required this.status,required this.images,
+    required this.status,
+    required this.images,
   });
   // Constructor with some default values
- ProductDataModel.empty()
+  ProductDataModel.empty()
       : title = '',
         description = '',
         price = 0,
         rating = null,
-        category = '',images=[],
+        category = '',
+        images = [],
         status = '';
 }
 

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nob/features/home/data/product.dart';
 
 class ProductTitle extends StatelessWidget {
-  const ProductTitle({
+  final ProductDataModel product;
+  const ProductTitle({required this.product,
     super.key,
   });
 
@@ -13,7 +15,7 @@ class ProductTitle extends StatelessWidget {
       child: ListTile(
         //add product status
         title: Text(
-          'Air pods max by Apple',
+          product.title,
           style: GoogleFonts.inter(
             color: const Color(0xFF393F42),
             fontSize: 16,
@@ -25,7 +27,7 @@ class ProductTitle extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                '\$ 1999,99',
+                '\$ ${product.price}',
                 style: GoogleFonts.inter(
                   color: const Color(0xFF393F42),
                   fontSize: 18,
@@ -40,10 +42,10 @@ class ProductTitle extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: const Color(0xffEFEFEF),
                       borderRadius: BorderRadius.circular(16)),
-                  child: const Center(
+                  child:  Center(
                     child: Text(
-                      "10/10",
-                      style: TextStyle(
+                      "${product.rating}",
+                      style: const TextStyle(
                           color: Colors.black,
                           fontSize: 11,
                           fontWeight: FontWeight.w600),

@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:nob/features/AddProduct/presentation/AddProduct.dart';
 import 'package:nob/features/Categories/presentation/categories_view.dart';
+import 'package:nob/features/home/data/product.dart';
 import 'package:nob/features/home/presentation/home_view.dart';
 import 'package:nob/features/login/presintaion/otb.dart';
 import 'package:nob/features/login/presintaion/validation.dart';
@@ -38,7 +39,13 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kprodctdetailsview,
-        builder: (context, state) => const ProdctDetailsView(),
+
+        builder: (context, state) {
+         Map<String, dynamic> extras = state.extra as Map<String, dynamic>;
+  ProductDataModel product = extras['product'] as ProductDataModel;
+  UserDataModel user = extras['user'] as UserDataModel;
+              return ProdctDetailsView(product: product, user: user);
+        } 
       ),
       GoRoute(
         path: kcategoriesview,

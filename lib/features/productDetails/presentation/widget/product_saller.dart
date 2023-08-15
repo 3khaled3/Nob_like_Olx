@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:nob/core/widget/CustomElvationBottom.dart';
 
 class Saller extends StatelessWidget {
+  
   const Saller({
     super.key,
   });

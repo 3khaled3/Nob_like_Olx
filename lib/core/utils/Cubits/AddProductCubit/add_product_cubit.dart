@@ -1,7 +1,6 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, depend_on_referenced_packages
 
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,7 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:nob/features/home/data/product.dart';
 import 'package:path/path.dart';
 import 'package:meta/meta.dart';
-
+import 'package:intl/intl.dart';
 part 'add_product_state.dart';
 
 class AddProductCubit extends Cubit<AddProductState> {
@@ -44,13 +43,23 @@ class AddProductCubit extends Cubit<AddProductState> {
       List<String> images = [];
       String downloadUrl = "";
       for (var i = 0; i < selectedImages.length; i++) {
-        final FirebaseStorage storage = FirebaseStorage.instance;
-        String fileName = basename(selectedImages[i]!.path);        
-        Reference reference = storage
-            .ref('ads/${FirebaseAuth.instance.currentUser!.uid}/$fileName/$fileName');
-        await reference.putFile(selectedImages[i]!);
-        downloadUrl = await reference.getDownloadURL();
-        images.add(downloadUrl);
+      
+final FirebaseStorage storage = FirebaseStorage.instance;
+String originalFileName = basename(selectedImages[i]!.path);
+
+// Get the current date and time
+String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+String currentTime = DateFormat('HH-mm-ss').format(DateTime.now());
+
+// Construct a new file name using the current date and time
+String newFileName = '$currentDate-$currentTime-$originalFileName';
+
+Reference reference = storage
+    .ref('ads/${FirebaseAuth.instance.currentUser!.uid}/$newFileName');
+
+await reference.putFile(selectedImages[i]!);
+downloadUrl = await reference.getDownloadURL();
+images.add(downloadUrl);
       }
 
       if (selectedImages.isNotEmpty) {
@@ -92,7 +101,6 @@ class AddProductCubit extends Cubit<AddProductState> {
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .set({"ads": ads});
         images.clear();
-        print(images.length);
         emit(Success());
         return downloadUrl;
       } else {
@@ -101,7 +109,6 @@ class AddProductCubit extends Cubit<AddProductState> {
       }
     } catch (e) {
       emit(Error(e.toString()));
-      print(e.toString());
       return null;
     }
   }

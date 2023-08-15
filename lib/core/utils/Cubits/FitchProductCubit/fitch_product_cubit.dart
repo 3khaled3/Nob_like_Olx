@@ -10,6 +10,9 @@ part 'fitch_product_state.dart';
 class FitchProductCubit extends Cubit<FitchProductState> {
   FitchProductCubit() : super(FitchProductInitial());
 Future<Map<String, List>> getdata() async {
+  Map<String, List> products = {};
+  try {
+    
   // Emit a waiting state here if needed
   emit(Waitting());
 
@@ -38,7 +41,7 @@ Future<Map<String, List>> getdata() async {
       .toList();
 
   // Map to hold categorized products
-  Map<String, List> products = {};
+  
 
   // Categorize products based on their 'categore' field
   for (var i = 0; i < Categories.length; i++) {
@@ -52,6 +55,9 @@ Future<Map<String, List>> getdata() async {
 
   // Remove categories with no products
   products.removeWhere((category, products) => products.isEmpty);
+  } catch (e) {
+    print("========${e.toString()}");
+  }
 
   return products;
 }

@@ -143,7 +143,10 @@ class SaleItem extends StatelessWidget {
             ),
           ),
           Positioned.fill(child: MaterialButton(onPressed: () {
-            GoRouter.of(context).push(AppRouter.kprodctdetailsview);
+            GoRouter.of(context).push(AppRouter.kprodctdetailsview,extra: {
+      'product': product,
+      'user': user,
+    }, );
           })),
           Positioned(
             right: 16,

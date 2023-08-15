@@ -4,10 +4,14 @@ import 'package:nob/features/productDetails/presentation/widget/product_describt
 import 'package:nob/features/productDetails/presentation/widget/product_image.dart';
 import 'package:nob/features/productDetails/presentation/widget/product_saller.dart';
 import 'package:nob/features/productDetails/presentation/widget/product_title.dart';
+import '../../home/data/product.dart';
 import 'widget/product_details_appbar.dart';
 
 class ProdctDetailsView extends StatelessWidget {
-  const ProdctDetailsView({super.key});
+  final ProductDataModel product;
+  final UserDataModel user;
+  const ProdctDetailsView(
+      {super.key, required this.product, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -16,19 +20,19 @@ class ProdctDetailsView extends StatelessWidget {
       appBar: productDetailsAppBar(context),
       body: Column(
         children: [
-          const Expanded(
+           Expanded(
             child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  ProductImage(),
-                  Padding(
+                  ProductImage(images: product.images),
+                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 14),
                     child: Column(
                       children: [
-                        ProductTitle(),
+                        ProductTitle(product: product),
                         Saller(),
-                        Description(),
+                        Description(product: product,),
                       ],
                     ),
                   )
