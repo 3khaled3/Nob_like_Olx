@@ -4,7 +4,8 @@ import 'package:nob/features/home/data/product.dart';
 
 class ProductTitle extends StatelessWidget {
   final ProductDataModel product;
-  const ProductTitle({required this.product,
+  const ProductTitle({
+    required this.product,
     super.key,
   });
 
@@ -42,7 +43,7 @@ class ProductTitle extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: const Color(0xffEFEFEF),
                       borderRadius: BorderRadius.circular(16)),
-                  child:  Center(
+                  child: Center(
                     child: Text(
                       "${product.rating}",
                       style: const TextStyle(

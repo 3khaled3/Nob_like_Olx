@@ -4,7 +4,8 @@ import 'package:nob/features/home/data/product.dart';
 
 class Description extends StatelessWidget {
   final ProductDataModel product;
-  const Description({required this.product,
+  const Description({
+    required this.product,
     super.key,
   });
 
@@ -26,7 +27,8 @@ class Description extends StatelessWidget {
         ),
         SizedBox(
           width: double.infinity,
-          child: Text(product.description,
+          child: Text(
+            product.description,
             style: GoogleFonts.inter(
               color: const Color(0xFF393F42),
               fontSize: 12,

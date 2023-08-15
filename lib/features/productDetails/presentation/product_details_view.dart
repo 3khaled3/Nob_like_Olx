@@ -20,19 +20,21 @@ class ProdctDetailsView extends StatelessWidget {
       appBar: productDetailsAppBar(context),
       body: Column(
         children: [
-           Expanded(
+          Expanded(
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
                   ProductImage(images: product.images),
-                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 14),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 14),
                     child: Column(
                       children: [
                         ProductTitle(product: product),
-                        Saller(),
-                        Description(product: product,),
+                        Saller(user: user),
+                        Description(
+                          product: product,
+                        ),
                       ],
                     ),
                   )

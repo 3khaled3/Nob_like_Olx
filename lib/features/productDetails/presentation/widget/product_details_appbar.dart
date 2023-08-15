@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 AppBar productDetailsAppBar(context) {
   return AppBar(
     centerTitle: true,
     backgroundColor: Colors.white,
     leading: IconButton(
-        onPressed: () {GoRouter.of(context).pop();},
+        onPressed: () {
+          GoRouter.of(context).pop();
+        },
         icon: const Icon(
           Icons.arrow_back,
           color: Colors.black,
