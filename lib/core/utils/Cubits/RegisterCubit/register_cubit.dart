@@ -27,8 +27,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     try {
       verificationCompleted(AuthCredential phoneAuthCredential) {
         _auth.signInWithCredential(phoneAuthCredential);
-        print("================================================");
-        GoRouter.of(context).push(AppRouter.kvirtfienum);
+        GoRouter.of(context).pushReplacement(AppRouter.kvirtfienum);
 
         emit(Success());
       }
@@ -101,8 +100,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
           // ignore: empty_catches
         } catch (e) {}
-        // GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
-        GoRouter.of(context).push(AppRouter.kuserdata);
+        GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
       }
       emit(Success());
     } catch (e) {

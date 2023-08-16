@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nob/core/utils/Cubits/RegisterCubit/register_cubit.dart';
 import 'package:nob/core/widget/CustomElvationBottom.dart';
 import 'package:nob/core/widget/customtextFaild.dart';
 import 'package:nob/features/login/presintaion/widget/show_user_image.dart';
 import '../../../core/utils/indicator.dart';
 import '../../../../core/widget/tossetMassage.dart';
+import '../../../routes.dart';
 
 class UserData extends StatelessWidget {
   const UserData({super.key});
@@ -96,6 +98,10 @@ class UserData extends StatelessWidget {
                                   // ignore: use_build_context_synchronously
                                   BlocProvider.of<RegisterCubit>(context).state;
                               if (state is Success) {
+                                // ignore: use_build_context_synchronously
+                                GoRouter.of(context)
+                                    .pushReplacement(AppRouter.kHomeView);
+
                                 showToastMessage(
                                   "Username has been updated",
                                   Colors.green,
