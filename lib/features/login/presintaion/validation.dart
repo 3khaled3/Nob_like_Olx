@@ -8,7 +8,6 @@ import 'package:nob/core/utils/Cubits/RegisterCubit/register_cubit.dart';
 
 import '../../../routes.dart';
 
-
 class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key});
 
@@ -28,87 +27,90 @@ class _OTPScreenState extends State<OTPScreen> {
       builder: (context, state) {
         return Scaffold(
           backgroundColor: Colors.white,
-          appBar: AppBar(
-            elevation: 0,
-            toolbarHeight: 0,
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Form(
-              key: formkey,
-              child: ListView(
-                children: [
-                  const Text(
-                    'Verify your number',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  SvgPicture.asset(
-                    "assets/verify-code-pic.svg",
-                    height: MediaQuery.sizeOf(context).height * .4,
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: List.generate(
-                      6,
-                      (index) => SizedBox(
-                        width: 50,
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "";
-                            }
-                            return null;
-                          },
-                          controller: _otpControllers[index],
-                          keyboardType: TextInputType.number,
-                          maxLength: 1,
-                          onChanged: (value) {
-                            if (value.length == 1) {
-                              FocusScope.of(context).nextFocus();
-                            }
-                            setState(() {
-                              _otpDigits[index] = value;
-                            });
-                          },
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 18),
-                          decoration: const InputDecoration(
-                            counterText: '',
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                          ),
-                        ),
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Form(
+                key: formkey,
+                child: ListView(
+                  children: [
+                    const Text(
+                      'Verify your number',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    SvgPicture.asset(
+                      "assets/verify-code-pic.svg",
+                      height: MediaQuery.sizeOf(context).height * .4,
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: List.generate(
+                        6,
+                        (index) => smsFaild(index, context),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () async {
-                      if (formkey.currentState!.validate()) {
-                        String enteredOTP = _otpDigits.join('');
-                        if (enteredOTP.length == 6) {
-                          await BlocProvider.of<RegisterCubit>(context)
-                              .signInWithPhoneNumber(enteredOTP);
-                          final state =
-                              BlocProvider.of<RegisterCubit>(context).state;
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () async {
+                        if (formkey.currentState!.validate()) {
+                          String enteredOTP = _otpDigits.join('');
+                          if (enteredOTP.length == 6) {
+                            await BlocProvider.of<RegisterCubit>(context)
+                                .signInWithPhoneNumber(enteredOTP);
+                            final state =
+                                BlocProvider.of<RegisterCubit>(context).state;
 
-                          if (state is Success) {
-                            GoRouter.of(context).push(AppRouter.kHomeView);
+                            if (state is Success) {
+                              GoRouter.of(context).push(AppRouter.kHomeView);
+                            }
                           }
                         }
-                      }
-                    },
-                    child: const Text('Submit OTP'),
-                  ),
-                ],
+                      },
+                      child: const Text('Submit OTP'),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
         );
       },
+    );
+  }
+
+  SizedBox smsFaild(int index, BuildContext context) {
+    return SizedBox(
+      width: 50,
+      child: TextFormField(
+        validator: (value) {
+          if (value!.isEmpty) {
+            return "";
+          }
+          return null;
+        },
+        controller: _otpControllers[index],
+        keyboardType: TextInputType.number,
+        maxLength: 1,
+        onChanged: (value) {
+          if (value.length == 1) {
+            FocusScope.of(context).nextFocus();
+          } else if (value.isEmpty) {
+            FocusScope.of(context).previousFocus();
+          }
+          setState(() {
+            _otpDigits[index] = value;
+          });
+        },
+        textAlign: TextAlign.center,
+        style: const TextStyle(fontSize: 18),
+        decoration: const InputDecoration(
+          counterText: '',
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+        ),
+      ),
     );
   }
 

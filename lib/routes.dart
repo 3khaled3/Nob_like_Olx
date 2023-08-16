@@ -3,7 +3,7 @@ import 'package:nob/features/AddProduct/presentation/AddProduct.dart';
 import 'package:nob/features/Categories/presentation/categories_view.dart';
 import 'package:nob/features/home/data/product.dart';
 import 'package:nob/features/home/presentation/home_view.dart';
-import 'package:nob/features/login/presintaion/otb.dart';
+import 'package:nob/features/login/presintaion/phone_signin.dart';
 import 'package:nob/features/login/presintaion/validation.dart';
 import 'package:nob/features/main/presentation/MainView.dart';
 import 'package:nob/features/productDetails/presentation/product_details_view.dart';
