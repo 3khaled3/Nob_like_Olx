@@ -153,4 +153,13 @@ class RegisterCubit extends Cubit<RegisterState> {
       return null;
     }
   }
+   Future<void> updateDisplayName(String newuserName) async {
+    try {
+      emit(Waitting());
+      await FirebaseAuth.instance.currentUser!.updateDisplayName(newuserName);
+      emit(Success());
+    } on FirebaseAuthException catch (e) {
+      emit(Error(e.toString()));
+    }
+  }
 }

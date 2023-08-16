@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nob/core/utils/Cubits/RegisterCubit/register_cubit.dart';
+import 'package:nob/core/widget/CustomElvationBottom.dart';
+import 'package:nob/core/widget/customtextFaild.dart';
 import 'package:nob/features/login/presintaion/widget/show_user_image.dart';
 import '../../../core/utils/indicator.dart';
 import '../../../../core/widget/tossetMassage.dart';
@@ -10,38 +13,91 @@ class UserData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
+    String? newusername;
     return BlocBuilder<RegisterCubit, RegisterState>(
       builder: (context, state) {
         return Scaffold(
-          body: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 120),
-                margin: const EdgeInsets.symmetric(vertical: 40),
-                child: SizedBox(
-                  height: 115,
-                  width: 115,
-                  child: state is Waitting
-                      ? buildCircleIndicator()
-                      : ShowUserImage(onPressed: () async {
-                          await BlocProvider.of<RegisterCubit>(context)
-                              .updateProfilePhoto();
-                          final state =
-                              // ignore: use_build_context_synchronously
-                              BlocProvider.of<RegisterCubit>(context).state;
-                          if (state is Success) {
-                            showToastMessage(
-                              "Your image has been updated",
-                              Colors.green,
-                            );
-                          } else if (state is Error) {
-                            final errorMessage = (state).errorMessage;
-                            showToastMessage(errorMessage, Colors.red);
+          body: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 120),
+                    margin: const EdgeInsets.symmetric(vertical: 40),
+                    child: SizedBox(
+                      height: 115,
+                      width: 115,
+                      child: state is Waitting
+                          ? buildCircleIndicator()
+                          : ShowUserImage(onPressed: () async {
+                              await BlocProvider.of<RegisterCubit>(context)
+                                  .updateProfilePhoto();
+                              final state =
+                                  // ignore: use_build_context_synchronously
+                                  BlocProvider.of<RegisterCubit>(context)
+                                      .state;
+                              if (state is Success) {
+                                showToastMessage(
+                                  "Your image has been updated",
+                                  Colors.green,
+                                );
+                              } else if (state is Error) {
+                                final errorMessage = (state).errorMessage;
+                                showToastMessage(errorMessage, Colors.red);
+                              }
+                            }),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: customTextfaild(
+                      labelText: "Username",
+                      inithialText:
+                          FirebaseAuth.instance.currentUser!.displayName ?? "",
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter new username';
+                        } else {
+                          newusername = value;
+                  
+                          return null;
+                        }
+                      },
+                    ),
+                  ),
+                  // Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 20),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: customElevationButtom(
+                        text: "Save",
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            await BlocProvider.of<RegisterCubit>(context)
+                                .updateDisplayName(newusername!);
+                            final state =
+                                BlocProvider.of<RegisterCubit>(context).state;
+                            if (state is Success) {
+                              showToastMessage(
+                                "Username has been updated",
+                                Colors.green,
+                              );
+                            } else if (state is Error) {
+                              final errorMessage = (state).errorMessage;
+                              showToastMessage(errorMessage, Colors.red);
+                            }
                           }
-                        }),
-                ),
+                        },
+                      ),
+                    ),
+                  ),
+                  // Spacer(flex: 6),
+                ],
               ),
-            ],
+            ),
           ),
         );
       },
