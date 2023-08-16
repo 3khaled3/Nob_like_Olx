@@ -37,6 +37,7 @@ Future<void> main() async {
         ),
       ],
       child: MaterialApp.router(
+        
         routerConfig: AppRouter.router,
         debugShowCheckedModeBanner: false,
       ),

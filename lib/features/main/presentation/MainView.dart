@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nob/routes.dart';
 import 'package:nob/features/home/presentation/home_view.dart';
+import '../../contacts/presentation/contacts_view.dart';
 import 'widget/CustomNavItem.dart';
 
 class MainView extends StatefulWidget {
@@ -17,7 +18,7 @@ class _MainViewState extends State<MainView> {
   int _currentIndex = 0;
   final List<Widget> _screens = [
     const homeView(),
-    const homeView(),
+    const ContactsView(),
     const homeView(),
     const homeView(),
     const homeView(),
@@ -68,9 +69,7 @@ class _MainViewState extends State<MainView> {
                   label: "CHATS",
                   isActive: _currentIndex == 1,
                   onPressed: () {
-                    setState(() {
-                      _currentIndex = 1;
-                    });
+                    GoRouter.of(context).push(AppRouter.kcontactsview);
                   },
                 ),
               ),

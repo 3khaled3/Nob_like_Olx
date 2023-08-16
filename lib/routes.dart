@@ -8,6 +8,7 @@ import 'package:nob/features/login/presintaion/validation.dart';
 import 'package:nob/features/main/presentation/MainView.dart';
 import 'package:nob/features/productDetails/presentation/product_details_view.dart';
 
+import 'features/Chat/presentation/chat_view.dart';
 import 'features/contacts/presentation/contacts_view.dart';
 
 abstract class AppRouter {
@@ -20,6 +21,7 @@ abstract class AppRouter {
   static const kvirtfienum = '/virtfienum';
   static const kprodctdetailsview = "/ProdctDetailsView";
   static const kcategoriesview = "/kcategoriesview";
+  static const kcontactsview = "/kcontactsview";
 
   static final router = GoRouter(
     routes: [
@@ -57,7 +59,11 @@ abstract class AppRouter {
       // ),
       GoRoute(
         path: '/',
-        builder: (context, state) => ContactsView(),
+        builder: (context, state) =>ChatView(),
+      ),
+      GoRoute(
+        path: kcontactsview,
+        builder: (context, state) => const ContactsView(),
       ),
       // GoRoute(
       //   path: kproductView,
