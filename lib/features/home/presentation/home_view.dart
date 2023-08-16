@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nob/core/utils/Cubits/FitchProductCubit/fitch_product_cubit.dart';
-import 'package:nob/core/utils/routes.dart';
 import 'package:nob/core/widget/customtextFaild.dart';
 import 'package:nob/features/home/data/product.dart';
 import 'package:nob/features/home/presentation/widget/homeCatogrey.dart';
 import 'package:nob/features/home/presentation/widget/titelCatogry.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/utils/indicator.dart';
+import '../../../routes.dart';
 import 'widget/iconButtom.dart';
 import 'widget/saleListview.dart';
 

@@ -7,7 +7,7 @@ import 'package:nob/core/utils/Cubits/AddProductCubit/add_product_cubit.dart';
 import 'package:nob/core/utils/Cubits/FitchProductCubit/fitch_product_cubit.dart';
 import 'package:flutter/services.dart';
 import 'core/utils/Cubits/RegisterCubit/register_cubit.dart';
-import 'core/utils/routes.dart';
+import 'routes.dart';
 import 'firebase_options.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 

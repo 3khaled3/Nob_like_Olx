@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nob/core/utils/Cubits/RegisterCubit/register_cubit.dart';
-import 'package:nob/core/utils/routes.dart';
+
+import '../../../routes.dart';
+
 
 class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key});

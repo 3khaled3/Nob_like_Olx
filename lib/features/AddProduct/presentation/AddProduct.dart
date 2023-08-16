@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nob/core/utils/Cubits/AddProductCubit/add_product_cubit.dart';
 import 'package:nob/core/utils/indicator.dart';
-import 'package:nob/core/utils/routes.dart';
+import 'package:nob/routes.dart';
 import 'package:nob/core/widget/customtextFaild.dart';
 import 'package:nob/features/AddProduct/presentation/widget/CategoryDrobdown.dart';
 import 'package:nob/features/AddProduct/presentation/widget/RatengAndStatus.dart';

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nob/core/utils/routes.dart';
+import 'package:nob/routes.dart';
 import 'package:nob/features/home/presentation/home_view.dart';
 import 'widget/CustomNavItem.dart';
 
