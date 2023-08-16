@@ -37,7 +37,7 @@ class Saller extends StatelessWidget {
             ),
           ),
           leading: ClipRRect(
-              borderRadius: BorderRadius.circular(50),
+              borderRadius: BorderRadius.circular(100000),
               child: user.profileImage == null||user.profileImage!.isEmpty
                   ? SvgPicture.asset(
                       "assets/defultprofile.svg",

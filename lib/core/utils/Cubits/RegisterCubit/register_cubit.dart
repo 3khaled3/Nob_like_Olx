@@ -1,12 +1,16 @@
 // ignore_for_file: unused_local_variable, depend_on_referenced_packages
 
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bloc/bloc.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
-
+import 'package:path/path.dart';
 import '../../../../routes.dart';
 import '../../../widget/tossetMassage.dart';
 
@@ -74,7 +78,6 @@ class RegisterCubit extends Cubit<RegisterState> {
       final UserCredential authResult =
           await _auth.signInWithCredential(credential);
 
-          
       final customToken = await authResult.user!.getIdToken();
       box.put('customToken', customToken);
 
@@ -95,13 +98,59 @@ class RegisterCubit extends Cubit<RegisterState> {
         // Sign in with the custom token
         try {
           await _auth.signInWithCustomToken(storedCustomToken);
+
           // ignore: empty_catches
         } catch (e) {}
-        GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
+        // GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
+        GoRouter.of(context).push(AppRouter.kuserdata);
       }
       emit(Success());
     } catch (e) {
       emit(Error(e.toString()));
+    }
+  }
+
+  
+
+  _uploadImageFromGallery() async {
+
+    final picker = ImagePicker();
+    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+     var _selectedImage = File(pickedImage.path);
+      return _selectedImage;
+    } else {
+      return null;
+    }
+  }
+
+  Future<String?> updateProfilePhoto() async {
+    emit(Waitting());
+    final FirebaseStorage storage = FirebaseStorage.instance;
+    User? user = FirebaseAuth.instance.currentUser;
+    try {
+      var newPhoto = await _uploadImageFromGallery();
+      if (newPhoto != null) {
+        if (user!.photoURL != null) {
+          await storage.refFromURL(user.photoURL!).delete();
+        }
+
+        String fileName = basename(newPhoto.path);
+        Reference reference =
+            storage.ref('profile_photos/${user.uid}/$fileName');
+        await reference.putFile(newPhoto);
+        String downloadUrl = await reference.getDownloadURL();
+        await user.updatePhotoURL(downloadUrl);
+        emit(Success());
+        return downloadUrl;
+      } else {
+        emit(RegisterInitial());
+        return null;
+      }
+    } catch (e) {
+      emit(Error(e.toString()));
+      return null;
     }
   }
 }

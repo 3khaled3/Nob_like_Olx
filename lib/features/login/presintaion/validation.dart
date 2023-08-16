@@ -63,7 +63,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                 BlocProvider.of<RegisterCubit>(context).state;
 
                             if (state is Success) {
-                              GoRouter.of(context).push(AppRouter.kHomeView);
+                              GoRouter.of(context).push(AppRouter.kuserdata);
                             }
                           }
                         }

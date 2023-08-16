@@ -15,7 +15,7 @@ class ContactWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: ClipRRect(
-        borderRadius: BorderRadius.circular(50),
+        borderRadius: BorderRadius.circular(1000000),
         child: user.profileImage == null || user.profileImage!.isEmpty
             ? SvgPicture.asset(
                 "assets/defultprofile.svg",

@@ -27,7 +27,7 @@ class ChatAppBar extends StatelessWidget {
       title: ListTile(
         contentPadding: const EdgeInsets.all(0),
         leading: ClipRRect(
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(100000),
           child: user.profileImage == null || user.profileImage!.isEmpty
               ? SvgPicture.asset(
                   "assets/defultprofile.svg",

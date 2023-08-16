@@ -7,9 +7,9 @@ import 'package:nob/features/login/presintaion/phone_signin.dart';
 import 'package:nob/features/login/presintaion/validation.dart';
 import 'package:nob/features/main/presentation/MainView.dart';
 import 'package:nob/features/productDetails/presentation/product_details_view.dart';
-
 import 'features/Chat/presentation/chat_view.dart';
 import 'features/contacts/presentation/contacts_view.dart';
+import 'features/login/presintaion/user_data.dart';
 
 abstract class AppRouter {
   static const kHomeView = '/homeView';
@@ -22,6 +22,8 @@ abstract class AppRouter {
   static const kprodctdetailsview = "/ProdctDetailsView";
   static const kcategoriesview = "/kcategoriesview";
   static const kcontactsview = "/kcontactsview";
+  static const kchatview = "/kchatview";
+  static const kuserdata= "/kuserdata";
 
   static final router = GoRouter(
     routes: [
@@ -33,10 +35,10 @@ abstract class AppRouter {
         path: kloginview,
         builder: (context, state) => const homeView(),
       ),
-      GoRoute(
-        path: kPhoneSignInScreen,
-        builder: (context, state) => PhoneSignInScreen(),
-      ),
+      // GoRoute(
+      //   path: kPhoneSignInScreen,
+      //   builder: (context, state) => PhoneSignInScreen(),
+      // ),
       GoRoute(
         path: kHomeView,
         builder: (context, state) => const MainView(),
@@ -53,13 +55,17 @@ abstract class AppRouter {
         path: kcategoriesview,
         builder: (context, state) => const CategoriesView(),
       ),
-      // GoRoute(
-      //   path: '/',
-      //   builder: (context, state) => PhoneSignInScreen(),
-      // ),
       GoRoute(
         path: '/',
-        builder: (context, state) =>ChatView(),
+        builder: (context, state) => PhoneSignInScreen(),
+      ),
+      GoRoute(
+        path:  kuserdata,
+        builder: (context, state) => UserData(),
+      ),
+      GoRoute(
+        path: kchatview,
+        builder: (context, state) => ChatView(),
       ),
       GoRoute(
         path: kcontactsview,
