@@ -6,6 +6,7 @@ import 'package:camera/camera.dart';
 import 'package:nob/core/utils/Cubits/AddProductCubit/add_product_cubit.dart';
 import 'package:nob/core/utils/Cubits/FitchProductCubit/fitch_product_cubit.dart';
 import 'package:flutter/services.dart';
+import 'package:nob/core/utils/Cubits/UserOperationCubit/user_operation_cubit.dart';
 import 'core/utils/Cubits/RegisterCubit/register_cubit.dart';
 import 'routes.dart';
 import 'firebase_options.dart';
@@ -34,6 +35,9 @@ Future<void> main() async {
         ),
         BlocProvider(
           create: (context) => RegisterCubit(),
+        ),
+        BlocProvider(
+          create: (context) => UserOperationCubit(),
         ),
       ],
       child: MaterialApp.router(

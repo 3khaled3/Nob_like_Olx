@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -20,6 +21,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(RegisterInitial());
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String _verificationId = '';
+  
   var box = Hive.box('myBox');
 
   Future<void> verifyPhoneNumber(phoneNumber, context) async {
@@ -108,56 +110,5 @@ class RegisterCubit extends Cubit<RegisterState> {
     }
   }
 
-  
 
-  _uploadImageFromGallery() async {
-
-    final picker = ImagePicker();
-    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedImage != null) {
-     var _selectedImage = File(pickedImage.path);
-      return _selectedImage;
-    } else {
-      return null;
-    }
-  }
-
-  Future<String?> updateProfilePhoto() async {
-    emit(Waitting());
-    final FirebaseStorage storage = FirebaseStorage.instance;
-    User? user = FirebaseAuth.instance.currentUser;
-    try {
-      var newPhoto = await _uploadImageFromGallery();
-      if (newPhoto != null) {
-        if (user!.photoURL != null) {
-          await storage.refFromURL(user.photoURL!).delete();
-        }
-
-        String fileName = basename(newPhoto.path);
-        Reference reference =
-            storage.ref('profile_photos/${user.uid}/$fileName');
-        await reference.putFile(newPhoto);
-        String downloadUrl = await reference.getDownloadURL();
-        await user.updatePhotoURL(downloadUrl);
-        emit(Success());
-        return downloadUrl;
-      } else {
-        emit(RegisterInitial());
-        return null;
-      }
-    } catch (e) {
-      emit(Error(e.toString()));
-      return null;
-    }
-  }
-   Future<void> updateDisplayName(String newuserName) async {
-    try {
-      emit(Waitting());
-      await FirebaseAuth.instance.currentUser!.updateDisplayName(newuserName);
-      emit(Success());
-    } on FirebaseAuthException catch (e) {
-      emit(Error(e.toString()));
-    }
-  }
 }

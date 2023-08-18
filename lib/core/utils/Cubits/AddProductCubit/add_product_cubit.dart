@@ -16,12 +16,12 @@ class AddProductCubit extends Cubit<AddProductState> {
   AddProductCubit() : super(AddProductInitial());
   File? _selectedImage;
   List<File?> selectedImages = [];
-  UserDataModel user = UserDataModel(
-    uid: FirebaseAuth.instance.currentUser!.uid,
-    displayName: FirebaseAuth.instance.currentUser!.displayName,
-    phoneNumber: FirebaseAuth.instance.currentUser!.displayName,
-    profileImage: FirebaseAuth.instance.currentUser!.photoURL,
-  );
+  // UserDataModel user = UserDataModel(
+  //   uid: FirebaseAuth.instance.currentUser!.uid,
+  //   displayName: FirebaseAuth.instance.currentUser!.displayName,
+  //   phoneNumber: FirebaseAuth.instance.currentUser!.displayName,
+  //   profileImage: FirebaseAuth.instance.currentUser!.photoURL,
+  // );
 
   Future<File?>? uploadImageFromGallery() async {
     final picker = ImagePicker();
@@ -43,23 +43,22 @@ class AddProductCubit extends Cubit<AddProductState> {
       List<String> images = [];
       String downloadUrl = "";
       for (var i = 0; i < selectedImages.length; i++) {
-      
-final FirebaseStorage storage = FirebaseStorage.instance;
-String originalFileName = basename(selectedImages[i]!.path);
+        final FirebaseStorage storage = FirebaseStorage.instance;
+        String originalFileName = basename(selectedImages[i]!.path);
 
 // Get the current date and time
-String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
-String currentTime = DateFormat('HH-mm-ss').format(DateTime.now());
+        String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+        String currentTime = DateFormat('HH-mm-ss').format(DateTime.now());
 
 // Construct a new file name using the current date and time
-String newFileName = '$currentDate-$currentTime-$originalFileName';
+        String newFileName = '$currentDate-$currentTime-$originalFileName';
 
-Reference reference = storage
-    .ref('ads/${FirebaseAuth.instance.currentUser!.uid}/$newFileName');
+        Reference reference = storage
+            .ref('ads/${FirebaseAuth.instance.currentUser!.uid}/$newFileName');
 
-await reference.putFile(selectedImages[i]!);
-downloadUrl = await reference.getDownloadURL();
-images.add(downloadUrl);
+        await reference.putFile(selectedImages[i]!);
+        downloadUrl = await reference.getDownloadURL();
+        images.add(downloadUrl);
       }
 
       if (selectedImages.isNotEmpty) {
@@ -80,10 +79,10 @@ images.add(downloadUrl);
 
         ads.add({
           "user": {
-            'uid': user.uid,
-            "displayName": user.displayName,
-            "phoneNumber": user.phoneNumber,
-            "profileimage": user.profileImage,
+            'uid':  FirebaseAuth.instance.currentUser!.uid,
+            // "displayName": user.displayName,
+            // "phoneNumber": user.phoneNumber,
+            // "profileimage": user.profileImage,
           },
           "product": {
             'titel': Product.title,

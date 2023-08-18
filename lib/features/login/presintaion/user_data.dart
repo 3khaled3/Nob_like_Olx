@@ -2,7 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nob/core/utils/Cubits/RegisterCubit/register_cubit.dart';
+// import 'package:nob/core/utils/Cubits/RegisterCubit/register_cubit.dart';
+import 'package:nob/core/utils/Cubits/UserOperationCubit/user_operation_cubit.dart';
 import 'package:nob/core/widget/CustomElvationBottom.dart';
 import 'package:nob/core/widget/customtextFaild.dart';
 import 'package:nob/features/login/presintaion/widget/show_user_image.dart';
@@ -17,7 +18,7 @@ class UserData extends StatelessWidget {
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
     String? newusername;
-    return BlocBuilder<RegisterCubit, RegisterState>(
+    return BlocBuilder<UserOperationCubit, UserOperationState>(
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
@@ -46,11 +47,12 @@ class UserData extends StatelessWidget {
                         child: state is Waitting
                             ? buildCircleIndicator()
                             : ShowUserImage(onPressed: () async {
-                                await BlocProvider.of<RegisterCubit>(context)
+                                await BlocProvider.of<UserOperationCubit>(
+                                        context)
                                     .updateProfilePhoto();
                                 final state =
                                     // ignore: use_build_context_synchronously
-                                    BlocProvider.of<RegisterCubit>(context)
+                                    BlocProvider.of<UserOperationCubit>(context)
                                         .state;
                                 if (state is Success) {
                                   showToastMessage(
@@ -92,11 +94,12 @@ class UserData extends StatelessWidget {
                           text: "Save",
                           onPressed: () async {
                             if (formKey.currentState!.validate()) {
-                              await BlocProvider.of<RegisterCubit>(context)
+                              await BlocProvider.of<UserOperationCubit>(context)
                                   .updateDisplayName(newusername!);
                               final state =
                                   // ignore: use_build_context_synchronously
-                                  BlocProvider.of<RegisterCubit>(context).state;
+                                  BlocProvider.of<UserOperationCubit>(context)
+                                      .state;
                               if (state is Success) {
                                 // ignore: use_build_context_synchronously
                                 GoRouter.of(context)

@@ -18,8 +18,8 @@ class homeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Map<String, List>>(
-        future: BlocProvider.of<FitchProductCubit>(context).getdata(),
+    return FutureBuilder<List<List<Map<UserDataModel, ProductDataModel>>>>(
+        future: BlocProvider.of<FitchProductCubit>(context).getdata(context),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return buildCircleIndicator();
@@ -32,56 +32,11 @@ class homeView extends StatelessWidget {
               child: Text('No data available'),
             );
           } else {
-            final Map<String, List> productsMap = snapshot.data!;
-            final List<String> categories =
-                productsMap.keys.toList(); //All categories
+            List<List<Map<UserDataModel, ProductDataModel>>> finalOutput =
+                snapshot.data!;
 
             return BlocBuilder<FitchProductCubit, FitchProductState>(
                 builder: (context, state) {
-              List<List<Map<UserDataModel, ProductDataModel>>> finalOutput = [];
-
-// Iterate through each category
-              for (String category in categories) {
-                List<Map<UserDataModel, ProductDataModel>> categoryOutput = [];
-
-                // Iterate through the data points in the current category
-                for (var data in productsMap[category] ?? []) {
-                  Map<String, dynamic>? product = data['product'];
-                  Map<String, dynamic>? user = data['user'];
-
-                  // Skip this data point if either product or user is null
-                  if (product == null || user == null) {
-                    continue;
-                  }
-
-                  // Extract product data from the current data point
-                  ProductDataModel productData = ProductDataModel.empty()
-                    ..title = product['titel'] ?? ''
-                    ..description = product['describiton'] ?? ''
-                    ..category = product['category'] ?? ''
-                    ..price = product['Price'] ?? 0
-                    ..status = product['status'] ?? ''
-                    ..images = product['AdImage'] ?? 
-                    []..rating=product['rating']??"" ;
-
-                  // Extract user data from the current data point
-                  UserDataModel userData = UserDataModel(
-                    uid: user['title'] ?? '',
-                    displayName: user['displayName'] ?? '',
-                    phoneNumber: user['phoneNumber'] ?? '',
-                    profileImage: user['profileImage'] ?? '',
-                  );
-
-                  // Create a map with user data as the key and product data as the value
-                  categoryOutput.add({
-                    userData: productData,
-                  });
-                }
-
-                // Add the list of user-product data pairs for the current category to the final output
-                finalOutput.add(categoryOutput);
-              }
-
               return Scaffold(
                   appBar: AppBar(
                       toolbarHeight: 0,
@@ -125,17 +80,17 @@ class homeView extends StatelessWidget {
                             titelfontSize: 18,
                             titel: "Browse Categories",
                             onPressed: () {
-                              GoRouter.of(context).push(AppRouter.kcategoriesview);
+                              GoRouter.of(context)
+                                  .push(AppRouter.kcategoriesview);
                               //     extra: "${categorieslist[index]}");
                             },
                           ),
                           const HomeCategory(
-                              //     // categoriesProductmap: categoriesProductmap,
-                              //     // categorieslist: categorieslist),
+
                               ),
                           ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
-                            itemCount: productsMap.length,
+                            itemCount: finalOutput.length,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
                               return Padding(
@@ -144,7 +99,8 @@ class homeView extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     titelcatogrey(
-                                      titel: categories[index],
+                                      titel:
+                                           finalOutput[index][0].values.first.category,
                                       onPressed: () {
                                         // GoRouter.of(context).push(AppRouter.kallproductsView,
                                         //     extra: "${categorieslist[index]}");
