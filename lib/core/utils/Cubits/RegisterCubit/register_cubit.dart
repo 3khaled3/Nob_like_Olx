@@ -1,17 +1,9 @@
 // ignore_for_file: unused_local_variable, depend_on_referenced_packages
-
-import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:bloc/bloc.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:meta/meta.dart';
-import 'package:path/path.dart';
 import '../../../../routes.dart';
 import '../../../widget/tossetMassage.dart';
 
@@ -21,7 +13,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(RegisterInitial());
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String _verificationId = '';
-  
+
   var box = Hive.box('myBox');
 
   Future<void> verifyPhoneNumber(phoneNumber, context) async {
@@ -109,6 +101,4 @@ class RegisterCubit extends Cubit<RegisterState> {
       emit(Error(e.toString()));
     }
   }
-
-
 }
