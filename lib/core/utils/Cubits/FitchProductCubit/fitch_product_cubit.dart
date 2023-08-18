@@ -1,11 +1,9 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:nob/constant.dart';
-
 import '../../../../features/home/data/product.dart';
 import '../UserOperationCubit/user_operation_cubit.dart';
 

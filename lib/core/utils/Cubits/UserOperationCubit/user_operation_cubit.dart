@@ -32,11 +32,11 @@ class UserOperationCubit extends Cubit<UserOperationState> {
   Future<String?> updateProfilePhoto() async {
     emit(Waitting());
     final FirebaseStorage storage = FirebaseStorage.instance;
-    User? user = FirebaseAuth.instance.currentUser;
+    
     try {
       var newPhoto = await _uploadImageFromGallery();
       if (newPhoto != null) {
-        if (user!.photoURL != null) {
+        if (user.photoURL != null) {
           await storage.refFromURL(user.photoURL!).delete();
         }
 
@@ -70,12 +70,12 @@ class UserOperationCubit extends Cubit<UserOperationState> {
   Future<void> updateDisplayName(String newuserName) async {
     try {
       emit(Waitting());
-      await FirebaseAuth.instance.currentUser!.updateDisplayName(newuserName);
+      await user.updateDisplayName(newuserName);
       //ubdata user data in firestore
       await FirebaseFirestore.instance.collection("Users").doc(user.uid).set({
         "user": {
           'uid': user.uid,
-          "displayName": user.displayName,
+          "displayName": newuserName,
           "phoneNumber": user.phoneNumber,
           "profileimage": user.photoURL,
         }
@@ -93,7 +93,7 @@ class UserOperationCubit extends Cubit<UserOperationState> {
         await FirebaseFirestore.instance.collection("Users").doc(uid).get();
 
     try {
-      DocumentSnapshot<Map<String, dynamic>> snapshot = await futureSnapshot;
+      DocumentSnapshot<Map<String, dynamic>> snapshot = futureSnapshot;
       if (snapshot.exists) {
         Map<String, dynamic> data = snapshot.data()!;
         Map<String, dynamic> user = data['user'];
@@ -101,7 +101,7 @@ class UserOperationCubit extends Cubit<UserOperationState> {
           uid: user['uid'] ?? '',
           displayName: user['displayName'] ?? '',
           phoneNumber: user['phoneNumber'] ?? '',
-          profileImage: user['profileImage'] ?? '',
+          profileImage: user['profileimage'] ?? '',
         );
       } else {
         // Handle case when the document doesn't exist
