@@ -32,7 +32,9 @@ class ChatCubit extends Cubit<ChatState> {
             displayName: x["displayName"],
             phoneNumber: x["phoneNumber"],
             profileImage: x["profileimage"]));
+            
       }
+      print(users);
       emit(Success());
     } catch (e) {
       // ignore: avoid_print
@@ -114,7 +116,7 @@ class ChatCubit extends Cubit<ChatState> {
     return users!;
   }
 
-  Future<List<Map<String, dynamic>>> getusers() async {
+  Stream<List<Map<String, dynamic>>> getusers() async* {
     CollectionReference adsCollection =
         FirebaseFirestore.instance.collection('chat');
 
@@ -152,6 +154,6 @@ class ChatCubit extends Cubit<ChatState> {
       }
       chats.add({"user": user, "notread": notread, "messages": messages});
     }
-   return chats; 
+   yield chats; 
   }
 }

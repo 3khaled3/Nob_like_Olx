@@ -1,14 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nob/features/Chat/data/message_data_model.dart';
 import '../../../../core/utils/indicator.dart';
 import '../../../home/data/product.dart';
 
 class ContactWidget extends StatelessWidget {
   final UserDataModel user;
+  final List<MessageDataModel>? messages;
+  final int unRead;
+
   const ContactWidget({
     super.key,
     required this.user,
+    required this.messages,
+    required this.unRead,
   });
 
   @override
@@ -35,13 +41,18 @@ class ContactWidget extends StatelessWidget {
               ),
       ),
       title: Text("${user.displayName}"),
-      subtitle: Text("${user.phoneNumber}"),
+      subtitle:
+          messages!.isEmpty ? const Text("") : Text(messages!.last.content),
       onTap: () {},
-      trailing: const CircleAvatar(
-        backgroundColor: Colors.red,
-        radius: 13,
-        child: Text("5"),
-      ),
+      trailing: unRead != 0
+          ? CircleAvatar(
+              backgroundColor: Colors.red,
+              radius: 13,
+              child: Text("$unRead"),
+            )
+          : const SizedBox(
+              width: 0,
+            ),
     );
   }
 }
