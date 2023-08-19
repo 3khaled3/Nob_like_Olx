@@ -23,7 +23,7 @@ abstract class AppRouter {
   static const kcategoriesview = "/kcategoriesview";
   static const kcontactsview = "/kcontactsview";
   static const kchatview = "/kchatview";
-  static const kuserdata= "/kuserdata";
+  static const kuserdata = "/kuserdata";
 
   static final router = GoRouter(
     routes: [
@@ -60,12 +60,17 @@ abstract class AppRouter {
         builder: (context, state) => PhoneSignInScreen(),
       ),
       GoRoute(
-        path:  kuserdata,
+        path: kuserdata,
         builder: (context, state) => UserData(),
       ),
       GoRoute(
         path: kchatview,
-        builder: (context, state) => ChatView(),
+        builder: (context, state) {
+          UserDataModel user = state.extra as UserDataModel;
+          return ChatView(
+            user: user,
+          );
+        },
       ),
       GoRoute(
         path: kcontactsview,

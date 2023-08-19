@@ -15,7 +15,7 @@ class ContactsView extends StatelessWidget {
   Widget build(BuildContext context) {
     String Search = "";
     return StreamBuilder<List<Map<String, dynamic>>>(
-        stream: BlocProvider.of<ChatCubit>(context).getusers(),
+        stream: BlocProvider.of<ChatCubit>(context).getChatsStream(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return buildCircleIndicator();
@@ -48,7 +48,7 @@ class ContactsView extends StatelessWidget {
                                     await BlocProvider.of<ChatCubit>(context)
                                         .search(value);
                                 for (var i = 0; i < a.length; i++) {
-                                   List<MessageDataModel> x=[];
+                                  List<MessageDataModel> x = [];
                                   search.add({
                                     "user": a[i],
                                     "notread": 0,

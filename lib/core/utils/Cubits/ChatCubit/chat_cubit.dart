@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nob/features/Chat/data/message_data_model.dart';
 import 'package:nob/features/home/data/product.dart';
 
-
 part 'chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {
@@ -32,7 +31,6 @@ class ChatCubit extends Cubit<ChatState> {
             displayName: x["displayName"],
             phoneNumber: x["phoneNumber"],
             profileImage: x["profileimage"]));
-            
       }
       print(users);
       emit(Success());
@@ -44,50 +42,122 @@ class ChatCubit extends Cubit<ChatState> {
     return users;
   }
 
-  Future<void> sendMessage({required String message, required receiver}) async {
+  Future<void> sendMessage(
+      {required String message, required String receiver}) async {
     // Get chat ID by sorting and concatenating user IDs
     List<String> ids = [FirebaseAuth.instance.currentUser!.uid, receiver];
     ids.sort();
-    ids.join("").contains(receiver);
+    final chatId = ids.join(" ");
 
-    final newMessage = MessageDataModel(
-        content: message,
-        timestamp: DateTime.now(),
-        sender: FirebaseAuth.instance.currentUser!.uid,
-        receiver: receiver,
-        isRead: false);
+    final newMessage = {
+      "content": message,
+      "timestamp": DateTime.now(),
+      "sender": FirebaseAuth.instance.currentUser!.uid,
+      "receiver": receiver,
+      "isRead": false,
+    };
 
-    List<MessageDataModel> messages = await getChat(receiver);
-    messages.add(newMessage); // Add the new message to the existing messages
-    // Update the chat document with the updated list of messages
-    FirebaseFirestore.instance
-        .collection("chat")
-        .doc(ids.join(" "))
-        .set({"messages": messages});
+    try {
+      // Get the current chat document
+      DocumentSnapshot chatDocument =
+          await FirebaseFirestore.instance.collection("chat").doc(chatId).get();
+      List<Map<String, dynamic>> messages = [];
+
+      if (chatDocument.exists) {
+        // If the chat document exists, retrieve its messages
+        List<dynamic> messageList =
+            (chatDocument.data() as Map<String, dynamic>)['messages'];
+
+        for (var messageData in messageList) {
+          Map<String, dynamic> messageMap = {
+            "timestamp": (messageData['timestamp'] as Timestamp).toDate(),
+            "content": messageData['content'],
+            "receiver": messageData['receiver'],
+            "sender": messageData['sender'],
+            "isRead": messageData['isRead'] ?? false,
+          };
+          messages.add(messageMap);
+        }
+      }
+
+      messages.add(newMessage); // Add the new message to the existing messages
+      // Update the chat document with the updated list of messages
+      print("3333333333333333333333333");
+      await FirebaseFirestore.instance
+          .collection("chat")
+          .doc(chatId)
+          .set({"messages": messages});
+
+      emit(Success());
+    } catch (e) {
+      emit(Error(e.toString()));
+      print("=====================================");
+      print(e.toString());
+      print("=====================================");
+      // Handle the error as needed
+    }
   }
 
-  Future<List<MessageDataModel>> getChat(receiver) async {
-    List<MessageDataModel> messages = [];
-    // Get chat ID by sorting and concatenating user IDs
+  Stream<List<MessageDataModel>> messagesStream(String receiver) {
     List<String> ids = [FirebaseAuth.instance.currentUser!.uid, receiver];
     ids.sort();
-    DocumentSnapshot snapshot = await FirebaseFirestore.instance
-        .collection("chat")
-        .doc(ids.join(" "))
-        .get();
+    final chatId = ids.join(" ");
 
-    if (snapshot.exists) {
-      List<dynamic> messageList =
-          (snapshot.data() as Map<String, dynamic>)['messages'];
+    return FirebaseFirestore.instance
+        .collection("chat")
+        .doc(chatId)
+        .snapshots()
+        .map((chatDocument) {
+      List<MessageDataModel> messages = [];
+      List<Map<String, dynamic>> messageList =
+          (chatDocument.data()!['messages'] as List<dynamic>)
+              .cast<Map<String, dynamic>>();
+
       for (var messageData in messageList) {
         messages.add(MessageDataModel(
           timestamp: (messageData['timestamp'] as Timestamp).toDate(),
           content: messageData['content'],
           receiver: messageData['receiver'],
           sender: messageData['sender'],
+          isRead: messageData['isRead'] ?? false,
         ));
       }
+
+      return messages;
+    });
+  }
+
+  Future<List<MessageDataModel>> _fetchMessages(String receiver) async {
+    List<String> ids = [FirebaseAuth.instance.currentUser!.uid, receiver];
+    ids.sort();
+    final chatId = ids.join(" ");
+
+    DocumentSnapshot chatDocument =
+        await FirebaseFirestore.instance.collection("chat").doc(chatId).get();
+
+    List<MessageDataModel> messages = [];
+
+    if (chatDocument.exists) {
+      Map<String, dynamic> data = chatDocument.data() as Map<String, dynamic>;
+
+      if (data.containsKey('messages') && data['messages'] is List<dynamic>) {
+        List<Map<String, dynamic>> messageList =
+            (data['messages'] as List<dynamic>)
+                .cast<Map<String, dynamic>>()
+                .toList();
+
+        for (var messageData in messageList) {
+          messages.add(MessageDataModel(
+            timestamp: (messageData['timestamp'] as Timestamp).toDate(),
+            content: messageData['content'],
+            receiver: messageData['receiver'],
+            sender: messageData['sender'],
+            isRead: messageData['isRead'] ?? false,
+          ));
+        }
+      }
     }
+
     return messages;
   }
 
@@ -116,44 +186,46 @@ class ChatCubit extends Cubit<ChatState> {
     return users!;
   }
 
-  Stream<List<Map<String, dynamic>>> getusers() async* {
-    CollectionReference adsCollection =
+  Stream<List<Map<String, dynamic>>> getChatsStream() async* {
+    CollectionReference chatCollection =
         FirebaseFirestore.instance.collection('chat');
 
-    // Get all documents from the 'chat' collection
-    QuerySnapshot querySnapshot = await adsCollection.get();
+    QuerySnapshot querySnapshot = await chatCollection.get();
 
     List<Map<String, dynamic>> chats = [];
-    List<String> uidsResiver = [];
+    List<String> uidsReceiver = [];
 
-    // Process each document in the query result
     for (var documentSnapshot in querySnapshot.docs) {
       if (documentSnapshot.exists) {
         List<String> uids = documentSnapshot.id.split(" ");
-        int? uidcutterntindex;
+        int? currentUserIndex;
+
         for (var i = 0; i < uids.length; i++) {
           if (uids[i] == FirebaseAuth.instance.currentUser!.uid) {
-            uidcutterntindex = i;
+            currentUserIndex = i;
+            break;
           }
         }
-        if (uidcutterntindex != null) {
-          uidcutterntindex == 1
-              ? uidsResiver.add(uids[0])
-              : uidsResiver.add(uids[1]);
+
+        if (currentUserIndex != null) {
+          int otherUserIndex = 1 - currentUserIndex;
+          uidsReceiver.add(uids[otherUserIndex]);
         }
       }
     }
-    for (var i = 0; i < uidsResiver.length; i++) {
-      final UserDataModel user = await _getUserUseingUid(uidsResiver[i]);
-      final List<MessageDataModel> messages = await getChat(uidsResiver[i]);
-      int notread = 0;
-      for (var i = 0; i < messages.length; i++) {
-        if (messages[i].isRead == false) {
-          notread++;
-        }
-      }
-      chats.add({"user": user, "notread": notread, "messages": messages});
+
+    for (var i = 0; i < uidsReceiver.length; i++) {
+      UserDataModel? user = await _getUserUseingUid(uidsReceiver[i]);
+      List<MessageDataModel> messages = await _fetchMessages(uidsReceiver[i]);
+      int notReadCount = messages.where((message) => !message.isRead).length;
+
+      chats.add({
+        "user": user,
+        "notread": notReadCount,
+        "messages": messages,
+      });
     }
-   yield chats; 
+
+    yield chats;
   }
 }

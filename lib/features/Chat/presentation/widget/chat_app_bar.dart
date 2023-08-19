@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../core/utils/indicator.dart';
 import '../../../home/data/product.dart';
 
@@ -19,7 +20,9 @@ class ChatAppBar extends StatelessWidget {
       elevation: .5,
       leadingWidth: MediaQuery.sizeOf(context).width * .09,
       leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            GoRouter.of(context).pop();
+          },
           icon: const Icon(
             Icons.arrow_back,
             color: Colors.black,

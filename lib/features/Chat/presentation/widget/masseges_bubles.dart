@@ -2,31 +2,35 @@ import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:flutter/material.dart';
 
 class BuildSendMassegeBuble extends StatelessWidget {
+  final String containt;
   const BuildSendMassegeBuble({
     super.key,
+    required this.containt,
   });
 
   @override
   Widget build(BuildContext context) {
-    return const BubbleSpecialThree(
-      text: "a",
-      color: Color(0xFF1B97F3),
+    return BubbleSpecialThree(
+      text: containt,
+      color: const Color(0xFF1B97F3),
       tail: false,
-      textStyle: TextStyle(color: Colors.white, fontSize: 16),
+      textStyle: const TextStyle(color: Colors.white, fontSize: 16),
     );
   }
 }
 
 class BuildResiveMassegeBuble extends StatelessWidget {
+  final String containt;
   const BuildResiveMassegeBuble({
     super.key,
+    required this.containt,
   });
 
   @override
   Widget build(BuildContext context) {
-    return const BubbleSpecialThree(
-      text: "aaaa", // Use the actual message content here
-      color: Color(0xFFE8E8EE),
+    return BubbleSpecialThree(
+      text: containt,
+      color: const Color(0xFFE8E8EE),
       tail: false,
       isSender: false,
     );

@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nob/features/Chat/data/message_data_model.dart';
+import 'package:nob/routes.dart';
 import '../../../../core/utils/indicator.dart';
 import '../../../home/data/product.dart';
 
@@ -43,7 +45,9 @@ class ContactWidget extends StatelessWidget {
       title: Text("${user.displayName}"),
       subtitle:
           messages!.isEmpty ? const Text("") : Text(messages!.last.content),
-      onTap: () {},
+      onTap: () {
+        GoRouter.of(context).push(AppRouter.kchatview,extra: user);
+      },
       trailing: unRead != 0
           ? CircleAvatar(
               backgroundColor: Colors.red,
