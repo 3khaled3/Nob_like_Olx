@@ -74,7 +74,7 @@ class ChatCubit extends Cubit<ChatState> {
             "content": messageData['content'],
             "receiver": messageData['receiver'],
             "sender": messageData['sender'],
-            "isRead": messageData['isRead'] ?? false,
+            "isRead": messageData['isRead'],
           };
           messages.add(messageMap);
         }
@@ -82,7 +82,6 @@ class ChatCubit extends Cubit<ChatState> {
 
       messages.add(newMessage); // Add the new message to the existing messages
       // Update the chat document with the updated list of messages
-      print("3333333333333333333333333");
       await FirebaseFirestore.instance
           .collection("chat")
           .doc(chatId)
@@ -114,12 +113,19 @@ class ChatCubit extends Cubit<ChatState> {
               .cast<Map<String, dynamic>>();
 
       for (var messageData in messageList) {
+        messageData['isRead'] =
+            messageData['receiver'] == FirebaseAuth.instance.currentUser!.uid;
+      }
+       FirebaseFirestore.instance
+        .collection("chat")
+        .doc(chatId).set({"messages": messageList});
+      for (var messageData in messageList) {
         messages.add(MessageDataModel(
           timestamp: (messageData['timestamp'] as Timestamp).toDate(),
           content: messageData['content'],
           receiver: messageData['receiver'],
           sender: messageData['sender'],
-          isRead: messageData['isRead'] ?? false,
+          isRead: messageData['isRead'],
         ));
       }
 
