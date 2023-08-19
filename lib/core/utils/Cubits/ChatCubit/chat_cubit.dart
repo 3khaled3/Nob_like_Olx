@@ -32,7 +32,6 @@ class ChatCubit extends Cubit<ChatState> {
             phoneNumber: x["phoneNumber"],
             profileImage: x["profileimage"]));
       }
-      print(users);
       emit(Success());
     } catch (e) {
       // ignore: avoid_print
@@ -90,15 +89,16 @@ class ChatCubit extends Cubit<ChatState> {
       emit(Success());
     } catch (e) {
       emit(Error(e.toString()));
-      print("=====================================");
+      // ignore: avoid_print
       print(e.toString());
-      print("=====================================");
+
       // Handle the error as needed
     }
   }
 
   Stream<List<MessageDataModel>> messagesStream(String receiver) {
     List<String> ids = [FirebaseAuth.instance.currentUser!.uid, receiver];
+
     ids.sort();
     final chatId = ids.join(" ");
 
@@ -108,17 +108,25 @@ class ChatCubit extends Cubit<ChatState> {
         .snapshots()
         .map((chatDocument) {
       List<MessageDataModel> messages = [];
-      List<Map<String, dynamic>> messageList =
-          (chatDocument.data()!['messages'] as List<dynamic>)
-              .cast<Map<String, dynamic>>();
+      List<Map<String, dynamic>> messageList = [];
+      if (chatDocument.data() != null) {
+        List<dynamic>? messagesData =
+            chatDocument.data()!['messages'] as List<dynamic>?;
+        if (messagesData != null) {
+          messageList.addAll(messagesData.cast<Map<String, dynamic>>());
+          // Now you can use messageList
+        }
+      }
 
       for (var messageData in messageList) {
         messageData['isRead'] =
             messageData['receiver'] == FirebaseAuth.instance.currentUser!.uid;
       }
-       FirebaseFirestore.instance
-        .collection("chat")
-        .doc(chatId).set({"messages": messageList});
+      FirebaseFirestore.instance
+          .collection("chat")
+          .doc(chatId)
+          .set({"messages": messageList});
+
       for (var messageData in messageList) {
         messages.add(MessageDataModel(
           timestamp: (messageData['timestamp'] as Timestamp).toDate(),
@@ -128,7 +136,6 @@ class ChatCubit extends Cubit<ChatState> {
           isRead: messageData['isRead'],
         ));
       }
-
       return messages;
     });
   }
@@ -227,8 +234,10 @@ class ChatCubit extends Cubit<ChatState> {
         List<MessageDataModel> messages = await _fetchMessages(uidsReceiver[i]);
         int notReadCount = 0;
         for (var i = 0; i < messages.length; i++) {
-          if (messages[i].isRead == false) {
-            notReadCount++;
+          if (messages[i].receiver == FirebaseAuth.instance.currentUser!.uid) {
+            if (messages[i].isRead == false) {
+              notReadCount++;
+            }
           }
         }
 
