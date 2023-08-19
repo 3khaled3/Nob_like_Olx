@@ -152,16 +152,19 @@ class ChatCubit extends Cubit<ChatState> {
             content: messageData['content'],
             receiver: messageData['receiver'],
             sender: messageData['sender'],
-            isRead: messageData['isRead'] ?? false,
+            isRead: messageData['isRead'],
           ));
         }
       }
     }
+    // for (var i = 0; i < messages.length; i++) {
+    //   messages[i].isRead=true;
+    // }
 
     return messages;
   }
 
-  Future<UserDataModel> _getUserUseingUid(String searchQuery) async {
+  Future<UserDataModel> _getUserUsingUid(String searchQuery) async {
     UserDataModel? users;
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
@@ -186,46 +189,51 @@ class ChatCubit extends Cubit<ChatState> {
     return users!;
   }
 
-  Stream<List<Map<String, dynamic>>> getChatsStream() async* {
-    CollectionReference chatCollection =
-        FirebaseFirestore.instance.collection('chat');
+  Stream<List<Map<String, dynamic>>> getChatsStream() {
+    return FirebaseFirestore.instance
+        .collection('chat')
+        .snapshots()
+        .asyncMap<List<Map<String, dynamic>>>((chatQuerySnapshot) async {
+      List<Map<String, dynamic>> chats = [];
+      List<String> uidsReceiver = [];
 
-    QuerySnapshot querySnapshot = await chatCollection.get();
+      for (var documentSnapshot in chatQuerySnapshot.docs) {
+        if (documentSnapshot.exists) {
+          List<String> uids = documentSnapshot.id.split(" ");
+          int? currentUserIndex;
 
-    List<Map<String, dynamic>> chats = [];
-    List<String> uidsReceiver = [];
+          for (var i = 0; i < uids.length; i++) {
+            if (uids[i] == FirebaseAuth.instance.currentUser!.uid) {
+              currentUserIndex = i;
+              break;
+            }
+          }
 
-    for (var documentSnapshot in querySnapshot.docs) {
-      if (documentSnapshot.exists) {
-        List<String> uids = documentSnapshot.id.split(" ");
-        int? currentUserIndex;
+          if (currentUserIndex != null) {
+            int otherUserIndex = 1 - currentUserIndex;
+            uidsReceiver.add(uids[otherUserIndex]);
+          }
+        }
+      }
 
-        for (var i = 0; i < uids.length; i++) {
-          if (uids[i] == FirebaseAuth.instance.currentUser!.uid) {
-            currentUserIndex = i;
-            break;
+      for (var i = 0; i < uidsReceiver.length; i++) {
+        UserDataModel? user = await _getUserUsingUid(uidsReceiver[i]);
+        List<MessageDataModel> messages = await _fetchMessages(uidsReceiver[i]);
+        int notReadCount = 0;
+        for (var i = 0; i < messages.length; i++) {
+          if (messages[i].isRead == false) {
+            notReadCount++;
           }
         }
 
-        if (currentUserIndex != null) {
-          int otherUserIndex = 1 - currentUserIndex;
-          uidsReceiver.add(uids[otherUserIndex]);
-        }
+        chats.add({
+          "user": user,
+          "notread": notReadCount,
+          "messages": messages,
+        });
       }
-    }
 
-    for (var i = 0; i < uidsReceiver.length; i++) {
-      UserDataModel? user = await _getUserUseingUid(uidsReceiver[i]);
-      List<MessageDataModel> messages = await _fetchMessages(uidsReceiver[i]);
-      int notReadCount = messages.where((message) => !message.isRead).length;
-
-      chats.add({
-        "user": user,
-        "notread": notReadCount,
-        "messages": messages,
-      });
-    }
-
-    yield chats;
+      return chats;
+    });
   }
 }
