@@ -42,7 +42,6 @@ class FitchProductCubit extends Cubit<FitchProductState> {
       final List<String> Categories =
           categories.map((categoryData) => categoryData.keys.first).toList();
 
-      // Map to hold categorized products
 
       // Categorize products based on their 'categore' field
       for (var i = 0; i < Categories.length; i++) {

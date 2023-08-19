@@ -1,5 +1,4 @@
 class MessageDataModel {
-  final String id;
   final String sender;
   final String receiver;
   final String content;
@@ -7,7 +6,6 @@ class MessageDataModel {
   bool isRead;
 
   MessageDataModel({
-    required this.id,
     required this.sender,
     required this.receiver,
     required this.content,
@@ -17,8 +15,7 @@ class MessageDataModel {
 
   // Empty constructor
   MessageDataModel.empty()
-      : id = '',
-        sender = '',
+      : sender = '',
         receiver = '',
         content = '',
         timestamp = DateTime.now(),
