@@ -42,7 +42,6 @@ class FitchProductCubit extends Cubit<FitchProductState> {
       final List<String> Categories =
           categories.map((categoryData) => categoryData.keys.first).toList();
 
-
       // Categorize products based on their 'categore' field
       for (var i = 0; i < Categories.length; i++) {
         products[Categories[i]] = [];
@@ -72,6 +71,7 @@ class FitchProductCubit extends Cubit<FitchProductState> {
 
           // Extract product data from the current data point
           ProductDataModel productData = ProductDataModel.empty()
+            ..id = data['id'] ?? ''
             ..title = product['titel'] ?? ''
             ..description = product['describiton'] ?? ''
             ..category = product['categore'] ?? ''

@@ -1,13 +1,16 @@
 class ProductDataModel {
+  late String id;
   late String title;
   late String description;
   late double price;
   late String? rating;
   late String category;
   late String status;
+
   List<dynamic> images;
 
   ProductDataModel({
+    required this.id,
     required this.title,
     required this.description,
     required this.price,
@@ -19,6 +22,7 @@ class ProductDataModel {
   // Constructor with some default values
   ProductDataModel.empty()
       : title = '',
+        id = '',
         description = '',
         price = 0,
         rating = null,
