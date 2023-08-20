@@ -20,7 +20,8 @@ class ChatView extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return buildCircleIndicator();
-          } else if (snapshot.hasError) {
+          }
+           else if (snapshot.hasError) {
             print("========================");
             print(snapshot.error);
             print("========================");
