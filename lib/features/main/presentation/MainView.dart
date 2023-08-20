@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nob/routes.dart';
 import 'package:nob/features/home/presentation/home_view.dart';
+import '../../Favorite/presentation/fav_view.dart';
 import '../../contacts/presentation/contacts_view.dart';
 import 'widget/CustomNavItem.dart';
 
@@ -19,9 +20,8 @@ class _MainViewState extends State<MainView> {
   final List<Widget> _screens = [
     const homeView(),
     const ContactsView(),
-    const homeView(),
-    const homeView(),
-    const homeView(),
+    const FavoriteView(),
+    const FavoriteView(),
   ];
 
   @override
@@ -80,12 +80,11 @@ class _MainViewState extends State<MainView> {
                 child: CustomNavItem(
                   activeIcon: Icons.favorite_rounded,
                   inactiveIcon: Icons.favorite_border_rounded,
-                  label: "MY ADS",
+                  label: "FAVORITS",
                   isActive: _currentIndex == 2,
                   onPressed: () {
-                    setState(() {
-                      _currentIndex = 2;
-                    });
+                    _currentIndex = 2;
+                    setState(() {});
                   },
                 ),
               ),
@@ -96,9 +95,8 @@ class _MainViewState extends State<MainView> {
                   label: "ACCOUNT",
                   isActive: _currentIndex == 3,
                   onPressed: () {
-                    setState(() {
-                      _currentIndex = 3;
-                    });
+                    _currentIndex = 3;
+                    setState(() {});
                   },
                 ),
               ),
