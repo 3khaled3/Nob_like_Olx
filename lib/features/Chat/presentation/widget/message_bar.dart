@@ -19,14 +19,6 @@ class Messagebar extends StatelessWidget {
             .sendMessage(message: value, receiver: resever);
       },
       actions: [
-        InkWell(
-          child: const Icon(
-            Icons.add,
-            color: Colors.black,
-            size: 24,
-          ),
-          onTap: () {},
-        ),
         const SizedBox(width: 4),
         InkWell(
           child: const Icon(

@@ -3,14 +3,18 @@ import 'package:flutter/material.dart';
 
 class BuildSendMassegeBuble extends StatelessWidget {
   final String containt;
+  final bool seen;
   const BuildSendMassegeBuble({
     super.key,
     required this.containt,
+    required this.seen,
   });
 
   @override
   Widget build(BuildContext context) {
     return BubbleSpecialThree(
+      sent: true,
+      seen: seen,
       text: containt,
       color: const Color(0xFF1B97F3),
       tail: false,
