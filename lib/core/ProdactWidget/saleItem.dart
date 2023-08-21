@@ -169,19 +169,15 @@ class SaleItem extends StatelessWidget {
                           ? Icons.favorite_rounded
                           : Icons.favorite_border_rounded,
                       onTap: () async {
+                        final favCubit = BlocProvider.of<FavCubit>(context);
+                        final fetchProductCubit =
+                            BlocProvider.of<FitchProductCubit>(context);
+
                         product.favorte = !product.favorte;
-                        await BlocProvider.of<FavCubit>(context)
-                            .addToFav(product.id);
-                        List<ProductDataModel> x =
-                            // ignore: use_build_context_synchronously
-                            BlocProvider.of<FitchProductCubit>(context)
-                                .allProduct;
-                        for (var i = 0; i < x.length; i++) {
-                          if (x[i].id == product.id) {
-                            x[i].favorte = !x[i].favorte;
-                            break;
-                          }
-                        }
+                        await favCubit.addToFav(product.id);
+                        List<ProductDataModel>? x =
+                            fetchProductCubit.allProduct;
+                        print(x![0].favorte);
                       },
                     ),
                   ),

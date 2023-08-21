@@ -12,7 +12,8 @@ part 'fitch_product_state.dart';
 
 class FitchProductCubit extends Cubit<FitchProductState> {
   FitchProductCubit() : super(FitchProductInitial());
-  List<ProductDataModel> allProduct = [];
+  List<ProductDataModel>? allProduct;
+  List<UserDataModel>? users;
   Future<List<List<Map<UserDataModel, ProductDataModel>>>> getdata(
       context) async {
     List<List<Map<UserDataModel, ProductDataModel>>> finalOutput = [];
@@ -126,8 +127,12 @@ class FitchProductCubit extends Cubit<FitchProductState> {
     } catch (e) {
       print("========${e.toString()}");
     }
+    allProduct = [];
+    users = [];
     for (var i = 0; i < finalOutput.length; i++) {
-      allProduct.addAll(finalOutput[i].map((map) => map.values.first).toList());
+      allProduct!
+          .addAll(finalOutput[i].map((map) => map.values.first).toList());
+      users!.addAll(finalOutput[i].map((map) => map.keys.first).toList());
     }
     return finalOutput;
   }
