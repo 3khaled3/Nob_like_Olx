@@ -1,10 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nob/core/utils/Cubits/ChatCubit/chat_cubit.dart';
 import 'package:nob/features/Chat/presentation/widget/chat_app_bar.dart';
-import 'package:nob/features/Chat/presentation/widget/masseges_bubles.dart';
 import 'package:nob/features/Chat/presentation/widget/message_bar.dart';
+import 'package:nob/features/Chat/presentation/widget/message_builder.dart';
 import '../../../core/utils/indicator.dart';
 import '../../home/data/product.dart';
 import '../data/message_data_model.dart';
@@ -20,8 +19,7 @@ class ChatView extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return buildCircleIndicator();
-          }
-           else if (snapshot.hasError) {
+          } else if (snapshot.hasError) {
             print("========================");
             print(snapshot.error);
             print("========================");
@@ -39,11 +37,12 @@ class ChatView extends StatelessWidget {
                       child: ChatAppBar(user: user)),
                   body: Column(
                     children: [
-                      const SizedBox(
-                        height: 10,
+                      MessageBuilder(
+                        messages: finalOutput,
                       ),
-                      MessageBuilder(messages: finalOutput,),
-                      Messagebar(resever:user.uid!,),
+                      Messagebar(
+                        resever: user.uid!,
+                      ),
                     ],
                   ),
                 );
@@ -54,25 +53,29 @@ class ChatView extends StatelessWidget {
   }
 }
 
-class MessageBuilder extends StatelessWidget {
-  final List<MessageDataModel> messages;
-  const MessageBuilder({
-    super.key,
-    required this.messages,
-  });
+// class MessageBuilder extends StatelessWidget {
+//   final List<MessageDataModel> messages;
+//   const MessageBuilder({
+//     super.key,
+//     required this.messages,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: messages.length,
-        itemBuilder: (context, index) {
-          return messages[index].sender ==
-                  FirebaseAuth.instance.currentUser!.uid
-              ? BuildSendMassegeBuble(containt:messages[index].content,)
-              : BuildResiveMassegeBuble(containt:messages[index].content);
-        },
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Expanded(
+//       child: ListView.builder(
+//         itemCount: messages.length,
+//         physics: const BouncingScrollPhysics(),
+//         itemBuilder: (context, index) {
+//           return messages[index].sender ==
+//                   FirebaseAuth.instance.currentUser!.uid
+//               ? BuildSendMassegeBuble(
+//                   containt: messages[index].content,
+//                   seen: messages[index].isRead,
+//                 )
+//               : BuildResiveMassegeBuble(containt: messages[index].content);
+//         },
+//       ),
+//     );
+//   }
+// }
