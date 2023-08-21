@@ -8,7 +8,7 @@ final class FavInitial extends FavState {}
 
 class Waitting extends  FavState{}
 
-class Success extends  FavState {}
+class Succes extends  FavState {}
 
 class Error extends  FavState{
   final String errorMessage;

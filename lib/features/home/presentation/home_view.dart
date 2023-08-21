@@ -18,63 +18,61 @@ class homeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<List<Map<UserDataModel, ProductDataModel>>>>(
-        future: BlocProvider.of<FitchProductCubit>(context).getdata(context),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return buildCircleIndicator();
-          } else if (snapshot.hasError) {
-            return const Center(
-              child: Text('Error loading data'),
-            );
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(
-              child: Text('No data available'),
-            );
-          } else {
-            List<List<Map<UserDataModel, ProductDataModel>>> finalOutput =
-                snapshot.data!;
+      future: BlocProvider.of<FitchProductCubit>(context).getdata(context),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return buildCircleIndicator();
+        } else if (snapshot.hasError) {
+          return const Center(
+            child: Text('Error loading data'),
+          );
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(
+            child: Text('No data available'),
+          );
+        } else {
+          List<List<Map<UserDataModel, ProductDataModel>>> finalOutput =
+              snapshot.data!;
 
-            return
-                //  BlocBuilder<FitchProductCubit, FitchProductState>(
-                //     builder: (context, state) {
-                //   return
-                Scaffold(
-                    backgroundColor: Colors.white,
-                    body: SafeArea(
-                      child: SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const HomeAppBar(),
-                              const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: customTextfaild(
-                                  labelText: "Gulberg Phase 4 , Lahore",
-                                  inithialText: "Gulberg Phase 4 , Lahore",
-                                  prefixIcon: Icon(Icons.location_on_outlined),
-                                  suffixIcon: Icon(
-                                    Icons.arrow_forward_ios,
-                                    size: 18,
-                                  ),
-                                ),
-                              ),
-                              titelcatogrey(
-                                titelfontSize: 18,
-                                titel: "Browse Categories",
-                                onPressed: () {
-                                  GoRouter.of(context)
-                                      .push(AppRouter.kcategoriesview);
-                                  //     extra: "${categorieslist[index]}");
-                                },
-                              ),
-                              const HomeCategory(),
-                              ProductBuilderListView(finalOutput: finalOutput)
-                            ]),
+          return Scaffold(
+            backgroundColor: Colors.white,
+            body: SafeArea(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const HomeAppBar(),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: customTextfaild(
+                        labelText: "Gulberg Phase 4 , Lahore",
+                        inithialText: "Gulberg Phase 4 , Lahore",
+                        prefixIcon: Icon(Icons.location_on_outlined),
+                        suffixIcon: Icon(
+                          Icons.arrow_forward_ios,
+                          size: 18,
+                        ),
                       ),
-                    ));
-          }
-        });
+                    ),
+                    titelcatogrey(
+                      titelfontSize: 18,
+                      titel: "Browse Categories",
+                      onPressed: () {
+                        GoRouter.of(context).push(AppRouter.kcategoriesview);
+                        //     extra: "${categorieslist[index]}");
+                      },
+                    ),
+                    const HomeCategory(),
+                    ProductBuilderListView(finalOutput: finalOutput)
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+      },
+    );
   }
 }

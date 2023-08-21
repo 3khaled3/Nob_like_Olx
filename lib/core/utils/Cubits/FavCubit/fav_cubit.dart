@@ -43,6 +43,6 @@ class FavCubit extends Cubit<FavState> {
         .collection('favorite')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .set({"favorite": fav});
-    emit(Success());
+    emit(Succes());
   }
 }

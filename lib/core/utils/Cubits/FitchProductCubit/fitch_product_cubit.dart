@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nob/constant.dart';
 import '../../../../features/home/data/product.dart';
+import '../FavCubit/fav_cubit.dart';
 import '../UserOperationCubit/user_operation_cubit.dart';
 
 part 'fitch_product_state.dart';
@@ -19,10 +20,7 @@ class FitchProductCubit extends Cubit<FitchProductState> {
     List<List<Map<UserDataModel, ProductDataModel>>> finalOutput = [];
     Map<String, List> products = {};
     try {
-      // Emit a waiting state here if needed
       emit(Waitting());
-
-      // Reference to the Firestore collection
       CollectionReference adsCollection =
           FirebaseFirestore.instance.collection('ads');
 
@@ -57,7 +55,8 @@ class FitchProductCubit extends Cubit<FitchProductState> {
 
       // Remove categories with no products
       products.removeWhere((category, products) => products.isEmpty);
-      //fitch if Favorite
+
+      //Fitch if Favorite
       DocumentSnapshot<Map<String, dynamic>> querySnaps =
           await FirebaseFirestore.instance
               .collection('favorite')
@@ -76,7 +75,7 @@ class FitchProductCubit extends Cubit<FitchProductState> {
       List fav = [];
       fav.addAll(allFavorite["favorite"] ?? []);
 
-// Iterate through each category
+      // Iterate through each category
       for (String category in Categories) {
         List<Map<UserDataModel, ProductDataModel>> categoryOutput = [];
 
@@ -89,6 +88,8 @@ class FitchProductCubit extends Cubit<FitchProductState> {
           if (product == null || user == null) {
             continue;
           }
+
+          //test if Fav
           bool favorite = false;
           for (var i = 0; i < fav.length; i++) {
             if (fav[i] == data['id']) {
@@ -134,6 +135,9 @@ class FitchProductCubit extends Cubit<FitchProductState> {
           .addAll(finalOutput[i].map((map) => map.values.first).toList());
       users!.addAll(finalOutput[i].map((map) => map.keys.first).toList());
     }
+    emit(Success());
+    BlocProvider.of<FavCubit>(context).emit(Succes());
+
     return finalOutput;
   }
 }

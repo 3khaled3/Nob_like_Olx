@@ -22,8 +22,8 @@ class FavoriteView extends StatelessWidget {
               BlocProvider.of<FitchProductCubit>(context).allProduct!;
           List<UserDataModel> users =
               BlocProvider.of<FitchProductCubit>(context).users!;
-List<UserDataModel> finalusers=[]; 
-List<ProductDataModel> finalallProduct =[];
+          List<UserDataModel> finalusers = [];
+          List<ProductDataModel> finalallProduct = [];
           for (var i = 0; i < allProduct.length; i++) {
             if (allProduct[i].favorte) {
               finalallProduct.add(allProduct[i]);
