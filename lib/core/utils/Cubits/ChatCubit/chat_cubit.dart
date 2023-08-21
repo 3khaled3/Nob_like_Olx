@@ -119,8 +119,10 @@ class ChatCubit extends Cubit<ChatState> {
       }
 
       for (var messageData in messageList) {
-        messageData['isRead'] =
-            messageData['receiver'] == FirebaseAuth.instance.currentUser!.uid;
+        if (!messageData['isRead']) {
+          messageData['isRead'] =
+              messageData['receiver'] == FirebaseAuth.instance.currentUser!.uid;
+        }
       }
       FirebaseFirestore.instance
           .collection("chat")

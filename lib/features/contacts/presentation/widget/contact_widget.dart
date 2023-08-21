@@ -22,41 +22,46 @@ class ContactWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: ClipRRect(
-        borderRadius: BorderRadius.circular(1000000),
-        child: user.profileImage == null || user.profileImage!.isEmpty
-            ? SvgPicture.asset(
-                "assets/defultprofile.svg",
-                fit: BoxFit.cover,
-                height: 49,
-                width: 49,
-              )
-            : CachedNetworkImage(
-                fit: BoxFit.cover,
-                height: 49,
-                width: 49,
-                imageUrl: "${user.profileImage}",
-                progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    buildCircleIndicator(),
-                errorWidget: (context, url, error) =>
-                    const Center(child: Icon(Icons.error)),
-              ),
-      ),
-      title: Text("${user.displayName}"),
-      subtitle:
-          messages!.isEmpty ? const Text("") : Text(messages!.last.content),
-      onTap: () {
-        GoRouter.of(context).push(AppRouter.kchatview,extra: user);
-      },
-      trailing: unRead != 0
-          ? CircleAvatar(
-              backgroundColor: Colors.red,
-              radius: 13,
-              child: Text("$unRead"),
-            )
-          : const SizedBox(
-              width: 0,
-            ),
-    );
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(1000000),
+          child: user.profileImage == null || user.profileImage!.isEmpty
+              ? SvgPicture.asset(
+                  "assets/defultprofile.svg",
+                  fit: BoxFit.cover,
+                  height: 49,
+                  width: 49,
+                )
+              : CachedNetworkImage(
+                  fit: BoxFit.cover,
+                  height: 49,
+                  width: 49,
+                  imageUrl: "${user.profileImage}",
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      buildCircleIndicator(),
+                  errorWidget: (context, url, error) =>
+                      const Center(child: Icon(Icons.error)),
+                ),
+        ),
+        title: Text("${user.displayName}"),
+        subtitle:
+            messages!.isEmpty ? const Text("") : Text(messages!.last.content),
+        onTap: () {
+          GoRouter.of(context).push(AppRouter.kchatview, extra: user);
+        },
+        trailing: Column(
+          children: [
+            Text(
+                "${messages!.last.timestamp.hour}:${messages!.last.timestamp.minute}"),
+            unRead != 0
+                ? CircleAvatar(
+                    backgroundColor: Colors.red,
+                    radius: 13,
+                    child: Text("$unRead"),
+                  )
+                : const SizedBox(
+                    width: 0,
+                  ),
+          ],
+        ));
   }
 }
