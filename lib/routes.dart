@@ -24,6 +24,7 @@ abstract class AppRouter {
   static const kcontactsview = "/kcontactsview";
   static const kchatview = "/kchatview";
   static const kuserdata = "/kuserdata";
+  static const start = "/";
 
   static final router = GoRouter(
     routes: [
@@ -56,7 +57,7 @@ abstract class AppRouter {
         builder: (context, state) => const CategoriesView(),
       ),
       GoRoute(
-        path: '/',
+        path: start,
         builder: (context, state) => PhoneSignInScreen(),
       ),
       GoRoute(

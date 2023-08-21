@@ -3,6 +3,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 import 'package:nob/features/home/data/product.dart';
@@ -32,7 +33,7 @@ class UserOperationCubit extends Cubit<UserOperationState> {
   Future<String?> updateProfilePhoto() async {
     emit(Waitting());
     final FirebaseStorage storage = FirebaseStorage.instance;
-    
+
     try {
       var newPhoto = await _uploadImageFromGallery();
       if (newPhoto != null) {
@@ -110,5 +111,18 @@ class UserOperationCubit extends Cubit<UserOperationState> {
       // Handle any errors that might occur during the data fetching process
     }
     return userData!;
+  }
+
+  Future<void> signOut() async {
+    var box = Hive.box('myBox');
+
+    try {
+      emit(Waitting());
+      box.put('customToken', null);
+      await FirebaseAuth.instance.signOut();
+      emit(Success());
+    } catch (e) {
+      emit(Error(e.toString()));
+    }
   }
 }

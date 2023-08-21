@@ -13,6 +13,7 @@ class ContactsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: non_constant_identifier_names
     String Search = "";
     return StreamBuilder<List<Map<String, dynamic>>>(
         stream: BlocProvider.of<ChatCubit>(context).getChatsStream(),
@@ -30,13 +31,12 @@ class ContactsView extends StatelessWidget {
             return BlocBuilder<ChatCubit, ChatState>(
               builder: (context, state) {
                 return Scaffold(
-                  backgroundColor: Colors.white,
+                  appBar: contactAppBar(context),
                   body: SafeArea(
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const ContactsAppBar(),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8, horizontal: 16),
@@ -71,4 +71,6 @@ class ContactsView extends StatelessWidget {
           }
         });
   }
+
+  
 }
