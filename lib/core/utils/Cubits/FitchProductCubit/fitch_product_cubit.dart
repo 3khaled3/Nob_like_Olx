@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nob/constant.dart';
@@ -11,6 +12,7 @@ part 'fitch_product_state.dart';
 
 class FitchProductCubit extends Cubit<FitchProductState> {
   FitchProductCubit() : super(FitchProductInitial());
+  List<ProductDataModel> allProduct = [];
   Future<List<List<Map<UserDataModel, ProductDataModel>>>> getdata(
       context) async {
     List<List<Map<UserDataModel, ProductDataModel>>> finalOutput = [];
@@ -54,6 +56,24 @@ class FitchProductCubit extends Cubit<FitchProductState> {
 
       // Remove categories with no products
       products.removeWhere((category, products) => products.isEmpty);
+      //fitch if Favorite
+      DocumentSnapshot<Map<String, dynamic>> querySnaps =
+          await FirebaseFirestore.instance
+              .collection('favorite')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .get();
+
+      Map<String, dynamic> allFavorite = {};
+      if (querySnaps.exists) {
+        Map<String, dynamic>? favoriteData = querySnaps.data();
+
+        if (favoriteData != null) {
+          allFavorite.addAll(favoriteData);
+        }
+      }
+
+      List fav = [];
+      fav.addAll(allFavorite["favorite"] ?? []);
 
 // Iterate through each category
       for (String category in Categories) {
@@ -68,10 +88,17 @@ class FitchProductCubit extends Cubit<FitchProductState> {
           if (product == null || user == null) {
             continue;
           }
+          bool favorite = false;
+          for (var i = 0; i < fav.length; i++) {
+            if (fav[i] == data['id']) {
+              favorite = true;
+            }
+          }
 
           // Extract product data from the current data point
           ProductDataModel productData = ProductDataModel.empty()
             ..id = data['id'] ?? ''
+            ..favorte = favorite
             ..title = product['titel'] ?? ''
             ..description = product['describiton'] ?? ''
             ..category = product['categore'] ?? ''
@@ -99,7 +126,9 @@ class FitchProductCubit extends Cubit<FitchProductState> {
     } catch (e) {
       print("========${e.toString()}");
     }
-
+    for (var i = 0; i < finalOutput.length; i++) {
+      allProduct.addAll(finalOutput[i].map((map) => map.values.first).toList());
+    }
     return finalOutput;
   }
 }

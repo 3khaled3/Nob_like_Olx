@@ -40,7 +40,7 @@ class FavBuilder extends StatelessWidget {
                           product: ProductDataModel(id: "",
                             images: [
                               "https://firebasestorage.googleapis.com/v0/b/nob-d0c2f.appspot.com/o/ads%2FR2oEofDmNWab5F2TGBx8vKgz0Lg1%2F2023-08-18-15-19-23-IMG_20230712_091049.jpg?alt=media&token=cb297227-a00d-4f35-81ec-9b84bca8d56b"
-                            ],
+                            ],favorte: false,
                             price: 555555,
                             category: "Mobile Phones, Tablets, & Accessories",
                             description: "lol",

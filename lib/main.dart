@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:nob/core/utils/Cubits/AddProductCubit/add_product_cubit.dart';
 import 'package:nob/core/utils/Cubits/ChatCubit/chat_cubit.dart';
+import 'package:nob/core/utils/Cubits/FavCubit/fav_cubit.dart';
 import 'package:nob/core/utils/Cubits/FitchProductCubit/fitch_product_cubit.dart';
 import 'package:flutter/services.dart';
 import 'package:nob/core/utils/Cubits/UserOperationCubit/user_operation_cubit.dart';
@@ -42,6 +43,9 @@ Future<void> main() async {
         ),
         BlocProvider(
           create: (context) => ChatCubit(),
+        ),
+        BlocProvider(
+          create: (context) => FavCubit(),
         ),
       ],
       child: MaterialApp.router(

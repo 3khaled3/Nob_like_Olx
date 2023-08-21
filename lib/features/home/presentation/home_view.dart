@@ -11,7 +11,6 @@ import 'package:nob/features/home/presentation/widget/titelCatogry.dart';
 import '../../../core/utils/indicator.dart';
 import '../../../routes.dart';
 
-
 // ignore: camel_case_types
 class homeView extends StatelessWidget {
   const homeView({Key? key}) : super(key: key);
@@ -35,45 +34,46 @@ class homeView extends StatelessWidget {
             List<List<Map<UserDataModel, ProductDataModel>>> finalOutput =
                 snapshot.data!;
 
-            return BlocBuilder<FitchProductCubit, FitchProductState>(
-                builder: (context, state) {
-              return Scaffold(
-                  backgroundColor: Colors.white,
-                  body: SafeArea(
-                    child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const HomeAppBar(),
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: customTextfaild(
-                                labelText: "Gulberg Phase 4 , Lahore",
-                                inithialText: "Gulberg Phase 4 , Lahore",
-                                prefixIcon: Icon(Icons.location_on_outlined),
-                                suffixIcon: Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 18,
+            return
+                //  BlocBuilder<FitchProductCubit, FitchProductState>(
+                //     builder: (context, state) {
+                //   return
+                Scaffold(
+                    backgroundColor: Colors.white,
+                    body: SafeArea(
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const HomeAppBar(),
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: customTextfaild(
+                                  labelText: "Gulberg Phase 4 , Lahore",
+                                  inithialText: "Gulberg Phase 4 , Lahore",
+                                  prefixIcon: Icon(Icons.location_on_outlined),
+                                  suffixIcon: Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 18,
+                                  ),
                                 ),
                               ),
-                            ),
-                            titelcatogrey(
-                              titelfontSize: 18,
-                              titel: "Browse Categories",
-                              onPressed: () {
-                                GoRouter.of(context)
-                                    .push(AppRouter.kcategoriesview);
-                                //     extra: "${categorieslist[index]}");
-                              },
-                            ),
-                            const HomeCategory(),
-                            ProductBuilderListView(finalOutput: finalOutput)
-                          ]),
-                    ),
-                  ));
-            });
+                              titelcatogrey(
+                                titelfontSize: 18,
+                                titel: "Browse Categories",
+                                onPressed: () {
+                                  GoRouter.of(context)
+                                      .push(AppRouter.kcategoriesview);
+                                  //     extra: "${categorieslist[index]}");
+                                },
+                              ),
+                              const HomeCategory(),
+                              ProductBuilderListView(finalOutput: finalOutput)
+                            ]),
+                      ),
+                    ));
           }
         });
   }
