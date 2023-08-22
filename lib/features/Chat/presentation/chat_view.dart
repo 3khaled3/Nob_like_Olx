@@ -1,11 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nob/core/utils/Cubits/ChatCubit/chat_cubit.dart';
 import 'package:nob/features/Chat/presentation/widget/chat_app_bar.dart';
-import 'package:nob/features/Chat/presentation/widget/masseges_bubles.dart';
 import 'package:nob/features/Chat/presentation/widget/message_bar.dart';
-// import 'package:nob/features/Chat/presentation/widget/message_builder.dart';
+import 'package:nob/features/Chat/presentation/widget/message_builder.dart';
 import '../../../core/utils/indicator.dart';
 import '../../home/data/product.dart';
 import '../data/message_data_model.dart';
@@ -16,7 +14,11 @@ class ChatView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ScrollController _scrollController = ScrollController();
+    final ScrollController scrollController = ScrollController();
+    final TextEditingController textEditingController =
+        TextEditingController(); // Add this line
+
+    String message = "";
 
     return StreamBuilder<List<MessageDataModel>>(
         stream: BlocProvider.of<ChatCubit>(context).messagesStream(user.uid!),
@@ -26,15 +28,14 @@ class ChatView extends StatelessWidget {
           } else if (snapshot.hasError) {
             print("========================");
             print(snapshot.error);
-            print("========================");
             return const Center(
               child: Text('Error loading data'),
             );
           } else {
             List<MessageDataModel> finalOutput = snapshot.data!;
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              _scrollController
-                  .jumpTo(_scrollController.position.maxScrollExtent);
+              scrollController
+                  .jumpTo(scrollController.position.maxScrollExtent);
             });
             return BlocBuilder<ChatCubit, ChatState>(
               builder: (context, state) {
@@ -47,19 +48,25 @@ class ChatView extends StatelessWidget {
                     children: [
                       MessageBuilder(
                         messages: finalOutput,
-                        controller: _scrollController,
+                        scrollController: scrollController,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            _scrollController.jumpTo(
-                                _scrollController.position.maxScrollExtent);
-                          });
+                      SendMessageBar(
+                        onChanged: (value) {
+                          message = value;
+                          scrollController.jumpTo(
+                              scrollController.position.maxScrollExtent);
                         },
-                        child: Messagebar(
-                          resever: user.uid!,
-                        ),
+                        onSaved: () async {
+                          if (message.isNotEmpty) {
+                            textEditingController.clear();
+                            await BlocProvider.of<ChatCubit>(context)
+                                .sendMessage(
+                                    message: message, receiver: user.uid!);
+                          }
+                        },
+                        textEditingController: textEditingController,
                       ),
+                      // SizedBox(height:  MediaQuery.of(context).viewInsets.bottom,)
                     ],
                   ),
                 );
@@ -67,39 +74,5 @@ class ChatView extends StatelessWidget {
             );
           }
         });
-  }
-}
-
-class MessageBuilder extends StatelessWidget {
-  final List<MessageDataModel> messages;
-  final ScrollController controller;
-  const MessageBuilder({
-    super.key,
-    required this.messages,
-    required this.controller,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        controller: controller,
-        itemCount: messages.length,
-        physics: const BouncingScrollPhysics(),
-        itemBuilder: (context, index) {
-          return messages[index].sender ==
-                  FirebaseAuth.instance.currentUser!.uid
-              ? BuildSendMassegeBuble(
-                  containt: messages[index].content,
-                  seen: messages[index].isRead,
-                  time:
-                      "${messages[index].timestamp.hour}:${messages[index].timestamp.minute} ")
-              : BuildResiveMassegeBuble(
-                  time:
-                      "${messages[index].timestamp.hour}:${messages[index].timestamp.minute} ",
-                  containt: messages[index].content);
-        },
-      ),
-    );
   }
 }
