@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nob/core/utils/Cubits/ChatCubit/chat_cubit.dart';
 import 'package:nob/features/Chat/presentation/widget/chat_app_bar.dart';
+import 'package:nob/features/Chat/presentation/widget/masseges_bubles.dart';
 import 'package:nob/features/Chat/presentation/widget/message_bar.dart';
-import 'package:nob/features/Chat/presentation/widget/message_builder.dart';
+// import 'package:nob/features/Chat/presentation/widget/message_builder.dart';
 import '../../../core/utils/indicator.dart';
 import '../../home/data/product.dart';
 import '../data/message_data_model.dart';
@@ -14,6 +16,8 @@ class ChatView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController _scrollController = ScrollController();
+
     return StreamBuilder<List<MessageDataModel>>(
         stream: BlocProvider.of<ChatCubit>(context).messagesStream(user.uid!),
         builder: (context, snapshot) {
@@ -28,6 +32,10 @@ class ChatView extends StatelessWidget {
             );
           } else {
             List<MessageDataModel> finalOutput = snapshot.data!;
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              _scrollController
+                  .jumpTo(_scrollController.position.maxScrollExtent);
+            });
             return BlocBuilder<ChatCubit, ChatState>(
               builder: (context, state) {
                 return Scaffold(
@@ -39,9 +47,18 @@ class ChatView extends StatelessWidget {
                     children: [
                       MessageBuilder(
                         messages: finalOutput,
+                        controller: _scrollController,
                       ),
-                      Messagebar(
-                        resever: user.uid!,
+                      GestureDetector(
+                        onTap: () {
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            _scrollController.jumpTo(
+                                _scrollController.position.maxScrollExtent);
+                          });
+                        },
+                        child: Messagebar(
+                          resever: user.uid!,
+                        ),
                       ),
                     ],
                   ),
@@ -53,29 +70,36 @@ class ChatView extends StatelessWidget {
   }
 }
 
-// class MessageBuilder extends StatelessWidget {
-//   final List<MessageDataModel> messages;
-//   const MessageBuilder({
-//     super.key,
-//     required this.messages,
-//   });
+class MessageBuilder extends StatelessWidget {
+  final List<MessageDataModel> messages;
+  final ScrollController controller;
+  const MessageBuilder({
+    super.key,
+    required this.messages,
+    required this.controller,
+  });
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Expanded(
-//       child: ListView.builder(
-//         itemCount: messages.length,
-//         physics: const BouncingScrollPhysics(),
-//         itemBuilder: (context, index) {
-//           return messages[index].sender ==
-//                   FirebaseAuth.instance.currentUser!.uid
-//               ? BuildSendMassegeBuble(
-//                   containt: messages[index].content,
-//                   seen: messages[index].isRead,
-//                 )
-//               : BuildResiveMassegeBuble(containt: messages[index].content);
-//         },
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: ListView.builder(
+        controller: controller,
+        itemCount: messages.length,
+        physics: const BouncingScrollPhysics(),
+        itemBuilder: (context, index) {
+          return messages[index].sender ==
+                  FirebaseAuth.instance.currentUser!.uid
+              ? BuildSendMassegeBuble(
+                  containt: messages[index].content,
+                  seen: messages[index].isRead,
+                  time:
+                      "${messages[index].timestamp.hour}:${messages[index].timestamp.minute} ")
+              : BuildResiveMassegeBuble(
+                  time:
+                      "${messages[index].timestamp.hour}:${messages[index].timestamp.minute} ",
+                  containt: messages[index].content);
+        },
+      ),
+    );
+  }
+}

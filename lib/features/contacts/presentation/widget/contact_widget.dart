@@ -59,8 +59,13 @@ class ContactWidget extends StatelessWidget {
                 ),
         ),
         title: Text("${user.displayName}"),
-        subtitle:
-            messages!.isEmpty ? const Text("") : Text(messages!.last.content),
+        subtitle: messages!.isEmpty
+            ? const Text("")
+            : Text(
+                messages!.last.content,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
         onTap: () {
           GoRouter.of(context).push(AppRouter.kchatview, extra: user);
         },
