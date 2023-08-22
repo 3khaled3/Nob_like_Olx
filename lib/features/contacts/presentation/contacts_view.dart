@@ -43,6 +43,7 @@ class ContactsView extends StatelessWidget {
                             child: customTextfaild(
                               labelText: "Search",
                               onChanged: (value) async {
+                                search.clear();
                                 Search = value;
                                 List a =
                                     await BlocProvider.of<ChatCubit>(context)

@@ -50,8 +50,10 @@ class ContactWidget extends StatelessWidget {
         },
         trailing: Column(
           children: [
-            Text(
-                "${messages!.last.timestamp.hour}:${messages!.last.timestamp.minute}"),
+            messages!.isEmpty
+                ? const Text("")
+                : Text(
+                    "${messages!.last.timestamp.hour}:${messages!.last.timestamp.minute}"),
             unRead != 0
                 ? CircleAvatar(
                     backgroundColor: Colors.red,
