@@ -21,6 +21,22 @@ class ContactWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String time = " ";
+    try {
+      DateTime now = DateTime.now();
+      DateTime messageTime = messages!.last.timestamp;
+      if (now.year == messageTime.year &&
+          now.month == messageTime.month &&
+          now.day == messageTime.day) {
+        // Message was sent today, show the time
+        time = '${messageTime.hour}:${messageTime.minute}';
+      } else {
+        // Message was sent on a different day, show the date in "d/m/y" format
+        time = '${messageTime.day}/${messageTime.month}/${messageTime.year}';
+      }
+      // ignore: empty_catches
+    } catch (e) {}
+
     return ListTile(
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(1000000),
@@ -50,10 +66,9 @@ class ContactWidget extends StatelessWidget {
         },
         trailing: Column(
           children: [
-            messages!.isEmpty
-                ? const Text("")
-                : Text(
-                    "${messages!.last.timestamp.hour}:${messages!.last.timestamp.minute}"),
+            Text(time),
+            // : Text(
+            //     "${messages!.last.timestamp.hour}:${messages!.last.timestamp.minute}"),
             unRead != 0
                 ? CircleAvatar(
                     backgroundColor: Colors.red,
