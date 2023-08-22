@@ -1,35 +1,51 @@
-import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nob/core/utils/Cubits/ChatCubit/chat_cubit.dart';
 
-class Messagebar extends StatelessWidget {
-  final String resever;
-  const Messagebar({
+import '../../../../core/widget/customtextFaild.dart';
+
+
+class SendMessageBar extends StatelessWidget {
+  final dynamic Function(String)? onChanged;
+  final void Function()? onSaved;
+  
+  final TextEditingController textEditingController;
+
+  const SendMessageBar({
     super.key,
-    required this.resever,
+    required this.onChanged,
+    required this.onSaved,
+    required this.textEditingController,
   });
 
   @override
   Widget build(BuildContext context) {
-    return MessageBar(
-      messageBarColor: const Color.fromARGB(82, 214, 214, 214),
-      onSend: (value) async {
-        await BlocProvider.of<ChatCubit>(context)
-            .sendMessage(message: value, receiver: resever);
-      },
-      actions: [
-        const SizedBox(width: 4),
-        InkWell(
-          child: const Icon(
-            Icons.camera_alt,
-            color: Colors.blue,
-            size: 24,
-          ),
-          onTap: () {},
-        ),
-        const SizedBox(width: 4),
-      ],
+    return Container(
+      color: const Color.fromARGB(82, 214, 214, 214),
+      height: 60,
+      width: double.infinity,
+      child: Row(
+        children: [
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.camera_alt_outlined,
+                color: Colors.blue,
+              )),
+          Expanded(
+              child: SendMessageTextfaild(
+                          textEditingController: textEditingController,
+                          labelText: "Type your message",
+                          borderRadius: 300,
+                          onChanged: onChanged,
+                        ),
+              ),
+          IconButton(
+              onPressed: onSaved,
+              icon: const Icon(
+                Icons.send_rounded,
+                color: Colors.blue,
+              )),
+        ],
+      ),
     );
   }
 }
