@@ -34,7 +34,7 @@ class _MessageBuilderState extends State<MessageBuilder> {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
-        controller: _scrollController, 
+        controller: _scrollController,
         itemCount: widget.messages.length,
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) {
@@ -43,8 +43,15 @@ class _MessageBuilderState extends State<MessageBuilder> {
               ? BuildSendMassegeBuble(
                   containt: widget.messages[index].content,
                   seen: widget.messages[index].isRead,
-                )
-              : BuildResiveMassegeBuble(containt: widget.messages[index].content);
+                  time:
+                      "${widget.messages[index].timestamp.hour}:${widget.messages[index].timestamp.minute} ")
+              : BuildResiveMassegeBuble(
+                 time:
+                      "${widget.messages[index].timestamp.hour}:${widget.messages[index].timestamp.minute} "
+              ,
+                
+                  containt: widget.messages[index].content
+                  );
         },
       ),
     );
