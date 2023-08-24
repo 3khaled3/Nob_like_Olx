@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -22,6 +23,7 @@ class ContactWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String time = " ";
+    String suptitel = " ";
     try {
       DateTime now = DateTime.now();
       DateTime messageTime = messages!.last.timestamp;
@@ -36,7 +38,14 @@ class ContactWidget extends StatelessWidget {
       }
       // ignore: empty_catches
     } catch (e) {}
-
+    if (messages!.isNotEmpty) {
+      suptitel =
+          "${messages!.last.sender == FirebaseAuth.instance.currentUser!.uid ? "you" : {
+              user.displayName
+            }}";
+      suptitel +=
+          " : ${messages!.last.type == "String" ?"\" ${messages!.last.content} \" " : "Image"}";
+    }
     return ListTile(
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(1000000),
@@ -59,13 +68,11 @@ class ContactWidget extends StatelessWidget {
                 ),
         ),
         title: Text("${user.displayName}"),
-        subtitle: messages!.isEmpty
-            ? const Text("")
-            : Text(messages!.last.type=="String"?
-                messages!.last.content:"Image",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
+        subtitle: Text(
+          suptitel,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
         onTap: () {
           GoRouter.of(context).push(AppRouter.kchatview, extra: user);
         },
