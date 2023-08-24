@@ -8,6 +8,7 @@ import 'package:nob/features/login/presintaion/phone_signin.dart';
 import 'package:nob/features/login/presintaion/validation.dart';
 import 'package:nob/features/main/presentation/MainView.dart';
 import 'package:nob/features/productDetails/presentation/product_details_view.dart';
+import 'features/CategoriesFind/presentation/categoriesFind_view.dart';
 import 'features/Chat/presentation/chat_view.dart';
 import 'features/contacts/presentation/contacts_view.dart';
 import 'features/login/presintaion/user_data.dart';
@@ -95,13 +96,13 @@ abstract class AppRouter {
       //     return productView(product: product);
       //   },
       // ),
-      // GoRoute(
-      //   path: kallproductsView,
-      //   builder: (context, state) {
-      //     String product = state.extra as String;
-      //     return CategoriesFindView(Categorie: product);
-      //   },
-      // ),
+      GoRoute(
+        path: kallproductsView,
+        builder: (context, state) {
+          String product = state.extra as String;
+          return CategoriesFindView(Categorie: product);
+        },
+      ),
       GoRoute(
         path: kaddProductView,
         builder: (context, state) {

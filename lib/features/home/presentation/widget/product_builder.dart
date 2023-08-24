@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nob/features/home/data/product.dart';
 import 'package:nob/features/home/presentation/widget/titelCatogry.dart';
 
+import '../../../../routes.dart';
 import 'categoriy_list_view.dart';
 
 class ProductBuilderListView extends StatelessWidget {
@@ -27,8 +29,8 @@ class ProductBuilderListView extends StatelessWidget {
               titelcatogrey(
                 titel: finalOutput[index][0].values.first.category,
                 onPressed: () {
-                  // GoRouter.of(context).push(AppRouter.kallproductsView,
-                  //     extra: "${categorieslist[index]}");
+                  GoRouter.of(context).push(AppRouter.kallproductsView,
+                      extra: finalOutput[index][0].values.first.category);
                 },
               ),
               saleListView(
