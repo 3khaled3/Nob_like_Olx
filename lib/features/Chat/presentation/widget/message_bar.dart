@@ -8,12 +8,13 @@ class SendMessageBar extends StatelessWidget {
   final void Function()? onSaved;
   
   final TextEditingController textEditingController;
+  final void Function()? imageOnPressed;
 
   const SendMessageBar({
     super.key,
     required this.onChanged,
     required this.onSaved,
-    required this.textEditingController,
+    required this.textEditingController,required this.imageOnPressed,
   });
 
   @override
@@ -25,7 +26,7 @@ class SendMessageBar extends StatelessWidget {
       child: Row(
         children: [
           IconButton(
-              onPressed: () {},
+              onPressed: imageOnPressed,
               icon: const Icon(
                 Icons.camera_alt_outlined,
                 color: Colors.blue,

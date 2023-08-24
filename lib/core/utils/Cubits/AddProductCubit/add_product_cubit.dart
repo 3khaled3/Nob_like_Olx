@@ -62,7 +62,7 @@ class AddProductCubit extends Cubit<AddProductState> {
       }
 
       if (selectedImages.isNotEmpty) {
-        int countID= await CountAds(); 
+        int countID = await CountAds();
         CollectionReference usersCollection =
             FirebaseFirestore.instance.collection('ads');
         final DocumentSnapshot Snaps = await usersCollection
@@ -78,9 +78,9 @@ class AddProductCubit extends Cubit<AddProductState> {
         Product.images.addAll(images);
 
         ads.add({
-          "id":"${FirebaseAuth.instance.currentUser!.uid} $countID",
+          "id": "${FirebaseAuth.instance.currentUser!.uid} $countID",
           "user": {
-            'uid':  FirebaseAuth.instance.currentUser!.uid,
+            'uid': FirebaseAuth.instance.currentUser!.uid,
           },
           "product": {
             'titel': Product.title,

@@ -24,12 +24,12 @@ class MessageBuilder extends StatelessWidget {
         itemBuilder: (context, index) {
           return messages[index].sender ==
                   FirebaseAuth.instance.currentUser!.uid
-              ? BuildSendMassegeBuble(
+              ? BuildSendMassegeBuble(type:messages[index].type,
                   containt: messages[index].content,
                   seen: messages[index].isRead,
                   time:
                       "${messages[index].timestamp.hour}:${messages[index].timestamp.minute} ")
-              : BuildResiveMassegeBuble(
+              : BuildResiveMassegeBuble(type:messages[index].type,
                  time:
                       "${messages[index].timestamp.hour}:${messages[index].timestamp.minute} "
               ,

@@ -61,8 +61,8 @@ class ContactWidget extends StatelessWidget {
         title: Text("${user.displayName}"),
         subtitle: messages!.isEmpty
             ? const Text("")
-            : Text(
-                messages!.last.content,
+            : Text(messages!.last.type=="String"?
+                messages!.last.content:"Image",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),

@@ -1,10 +1,16 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:nob/features/Chat/data/message_data_model.dart';
 import 'package:nob/features/home/data/product.dart';
-
+import 'package:path/path.dart';
+import 'package:meta/meta.dart';
+import 'package:intl/intl.dart';
 part 'chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {
@@ -41,20 +47,70 @@ class ChatCubit extends Cubit<ChatState> {
     return users;
   }
 
+  File? _selectedImage;
+  Future<File?>? uploadImageFromGallery() async {
+    final picker = ImagePicker();
+    XFile? pickedImage = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      _selectedImage = File(pickedImage.path);
+      return _selectedImage;
+    } else {
+      return null;
+      // Navigate back if no image selected
+    }
+  }
+
   Future<void> sendMessage(
       {required String message, required String receiver}) async {
     // Get chat ID by sorting and concatenating user IDs
     List<String> ids = [FirebaseAuth.instance.currentUser!.uid, receiver];
+    String downloadUrl = "";
     ids.sort();
     final chatId = ids.join(" ");
 
-    final newMessage = {
-      "content": message,
-      "timestamp": DateTime.now(),
-      "sender": FirebaseAuth.instance.currentUser!.uid,
-      "receiver": receiver,
-      "isRead": false,
-    };
+    if (_selectedImage != null) {
+      final FirebaseStorage storage = FirebaseStorage.instance;
+      String originalFileName = basename(_selectedImage!.path);
+
+// Get the current date and time
+      String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+      String currentTime = DateFormat('HH-mm-ss').format(DateTime.now());
+
+// Construct a new file name using the current date and time
+      String newFileName = '$currentDate-$currentTime-$originalFileName';
+
+      Reference reference = storage.ref(
+          'massegeImage/${FirebaseAuth.instance.currentUser!.uid}/$newFileName');
+
+      await reference.putFile(_selectedImage!);
+      downloadUrl = await reference.getDownloadURL();
+      print("Image Saved Done");
+      print("Image Saved Done");
+      print("Image Saved Done");
+      _selectedImage = null;
+    }
+    Map<String, dynamic> newMessage = {};
+    if (downloadUrl.isNotEmpty) {
+      newMessage.addAll({
+        "type":"File",
+        "content": downloadUrl,
+        "timestamp": DateTime.now(),
+        "sender": FirebaseAuth.instance.currentUser!.uid,
+        "receiver": receiver,
+        "isRead": false,
+      });
+      print("==============================");
+     }else
+    {
+      newMessage.addAll({
+        "type":"String",
+        "content": message,
+        "timestamp": DateTime.now(),
+        "sender": FirebaseAuth.instance.currentUser!.uid,
+        "receiver": receiver,
+        "isRead": false,
+      });
+    }
 
     try {
       // Get the current chat document
@@ -74,6 +130,7 @@ class ChatCubit extends Cubit<ChatState> {
             "receiver": messageData['receiver'],
             "sender": messageData['sender'],
             "isRead": messageData['isRead'],
+            "type":messageData['type'],
           };
           messages.add(messageMap);
         }
@@ -96,6 +153,7 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
+// Stream for Chat Screen
   Stream<List<MessageDataModel>> messagesStream(String receiver) {
     List<String> ids = [FirebaseAuth.instance.currentUser!.uid, receiver];
 
@@ -131,6 +189,7 @@ class ChatCubit extends Cubit<ChatState> {
 
       for (var messageData in messageList) {
         messages.add(MessageDataModel(
+          type:messageData['type'] ,
           timestamp: (messageData['timestamp'] as Timestamp).toDate(),
           content: messageData['content'],
           receiver: messageData['receiver'],
@@ -163,6 +222,7 @@ class ChatCubit extends Cubit<ChatState> {
 
         for (var messageData in messageList) {
           messages.add(MessageDataModel(
+            type:messageData['type'],
             timestamp: (messageData['timestamp'] as Timestamp).toDate(),
             content: messageData['content'],
             receiver: messageData['receiver'],
@@ -204,6 +264,7 @@ class ChatCubit extends Cubit<ChatState> {
     return users!;
   }
 
+// Stream for Contact Screen
   Stream<List<Map<String, dynamic>>> getChatsStream() {
     return FirebaseFirestore.instance
         .collection('chat')
