@@ -16,13 +16,13 @@ class CategoriesView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: ListView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 5),
               child: SizedBox(
                 width: double.infinity,
-                child: customElevationButtom(
+                child: customElevationButtom(borderRadius: 30,
                   text: "VIEW ALL ITEMS",
                   onPressed: () {
                     GoRouter.of(context)
