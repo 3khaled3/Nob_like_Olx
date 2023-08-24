@@ -8,13 +8,14 @@ class customElevationButtom extends StatelessWidget {
   final Color textColor;
   final void Function() onPressed;
   final String text;
+  final double borderRadius ;
 
   const customElevationButtom({
     required this.text,
     required this.onPressed,
     this.buttomColor = Colors.blue,
     this.textColor = Colors.white,
-    super.key,
+    super.key,  this.borderRadius=4,
   });
 
   @override
@@ -27,11 +28,11 @@ class customElevationButtom extends StatelessWidget {
           buttomColor,
         ),
         elevation: MaterialStateProperty.all(0),
-        // shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        //   RoundedRectangleBorder(
-        //     borderRadius: BorderRadius.circular(20),
-        //   ),
-        // ),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+        ),
       ),
       child: Text(text,
           style: GoogleFonts.inter(
