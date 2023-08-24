@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../routes.dart';
 
 class CategoriesItem extends StatelessWidget {
-  final String imageUrl;
+  final String image;
   final String title;
 
   const CategoriesItem(
-      {super.key, required this.title, required this.imageUrl});
+      {super.key, required this.title, required this.image});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // GoRouter.of(context).push(AppRouter.kallproductsView, extra: Categorie);
+        GoRouter.of(context).push(AppRouter.kallproductsView, extra: title);
       },
       child: Material(
         elevation: 1,
@@ -47,7 +50,7 @@ class CategoriesItem extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(imageUrl),
+                    image: AssetImage(image),
                     fit: BoxFit.cover,
                   ),
                   color: Colors.white,

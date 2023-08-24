@@ -19,7 +19,7 @@ class CategoriesListView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 5.0),
           child: CategoriesItem(
               title: categories[index].keys.first,
-              imageUrl: categories[index][categories[index].keys.first]!),
+              image: categories[index][categories[index].keys.first]!),
         );
       },
     );
