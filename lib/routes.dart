@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:nob/features/AddProduct/presentation/AddProduct.dart';
 import 'package:nob/features/Categories/presentation/categories_view.dart';
+import 'package:nob/features/Chat/presentation/widget/masseges_bubles.dart';
 import 'package:nob/features/home/data/product.dart';
 import 'package:nob/features/home/presentation/home_view.dart';
 import 'package:nob/features/login/presintaion/phone_signin.dart';
@@ -25,6 +26,7 @@ abstract class AppRouter {
   static const kchatview = "/kchatview";
   static const kuserdata = "/kuserdata";
   static const start = "/";
+ static const  kimageviewscreen="/kimageviewscreen";
 
   static final router = GoRouter(
     routes: [
@@ -70,6 +72,15 @@ abstract class AppRouter {
           UserDataModel user = state.extra as UserDataModel;
           return ChatView(
             user: user,
+          );
+        },
+      ),
+       GoRoute(
+        path: kimageviewscreen,
+        builder: (context, state) {
+          String url = state.extra as String;
+          return ImageViewScreen(
+            url:url,
           );
         },
       ),
