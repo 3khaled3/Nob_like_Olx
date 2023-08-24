@@ -8,20 +8,59 @@ import '../../../core/utils/indicator.dart';
 import '../../home/data/product.dart';
 import '../data/message_data_model.dart';
 
-class ChatView extends StatelessWidget {
+class ChatView extends StatefulWidget {
   final UserDataModel user;
   const ChatView({super.key, required this.user});
 
   @override
+  State<ChatView> createState() => _ChatViewState();
+}
+
+class _ChatViewState extends State<ChatView> with WidgetsBindingObserver {
+  final ScrollController scrollController = ScrollController();
+  final TextEditingController textEditingController = TextEditingController();
+
+  String message = "";
+  late Stream<List<MessageDataModel>> _messageStream;
+  bool _isKeyboardVisible = false;
+  @override
+  void initState() {
+    super.initState();
+    _messageStream =
+        BlocProvider.of<ChatCubit>(context).messagesStream(widget.user.uid!);
+
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeMetrics() {
+    final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+    setState(() {
+      _isKeyboardVisible = keyboardHeight > 0;
+      if (!_isKeyboardVisible) {
+        _scrollToBottom();
+      }
+    });
+  }
+
+  void _scrollToBottom() {
+    scrollController.animateTo(
+      scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final ScrollController scrollController = ScrollController();
-    final TextEditingController textEditingController =
-        TextEditingController(); // Add this line
-
-    String message = "";
-
     return StreamBuilder<List<MessageDataModel>>(
-        stream: BlocProvider.of<ChatCubit>(context).messagesStream(user.uid!),
+        stream: _messageStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return buildCircleIndicator();
@@ -43,7 +82,7 @@ class ChatView extends StatelessWidget {
                   backgroundColor: Colors.grey[200],
                   appBar: PreferredSize(
                       preferredSize: const Size(double.infinity, 55),
-                      child: ChatAppBar(user: user)),
+                      child: ChatAppBar(user: widget.user)),
                   body: Column(
                     children: [
                       MessageBuilder(
@@ -61,7 +100,8 @@ class ChatView extends StatelessWidget {
                             textEditingController.clear();
                             await BlocProvider.of<ChatCubit>(context)
                                 .sendMessage(
-                                    message: message, receiver: user.uid!);
+                                    message: message,
+                                    receiver: widget.user.uid!);
                           }
                         },
                         textEditingController: textEditingController,
