@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart';
@@ -68,7 +70,6 @@ class ChatCubit extends Cubit<ChatState> {
         "receiver": receiver,
         "isRead": false,
       });
-      print("==============================");
     } else {
       newMessage.addAll({
         "type": "String",
@@ -110,6 +111,8 @@ class ChatCubit extends Cubit<ChatState> {
           .collection("chat")
           .doc(chatId)
           .set({"messages": messages});
+      print("==========11111111111111111111============");
+      // sendNotification
       await sendNotification(
           message: MessageDataModel(
             type: newMessage['type'],
@@ -120,6 +123,7 @@ class ChatCubit extends Cubit<ChatState> {
             isRead: newMessage['isRead'],
           ),
           receiver: receiver);
+      print("==========2222222222222222222222============");
       emit(Success());
     } catch (e) {
       emit(Error(e.toString()));
@@ -187,30 +191,56 @@ class ChatCubit extends Cubit<ChatState> {
       final user = await getUserUsingUid(receiver);
 
       String receiverDeviceToken = user.fcmToken!;
-      await post(
-        Uri.parse('https://fcm.googleapis.com/fcm/send'),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization':
-              'key=AAAAXHZNpqE:APA91bGWgQVFKCBF9pTd2IpBiDLg4aBUGgC7eYlusU3hapKiDVyUGOZvBL9eJQx3DAAvQjEeg1qraSWPA3n0cyKUnJ9U4dzEfazgiPz3Ea4adhLrZ9Acao9vvScV9DBolZiHE2Bpfrnb',
-        },
-        body: jsonEncode(
-          <String, dynamic>{
-            'notification': <String, dynamic>{
-              'body': message.type == "String" ? message.content : "Image",
-              'title': user.displayName,
-              'image': message.type == "String" ? null : message.content,
-            },
-            'priority': 'high',
-            'data': <String, dynamic>{
-              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-              'id': '1',
-              'status': 'done'
-            },
-            'to': receiverDeviceToken,
+      if (message.type == "String") {
+        await post(
+          Uri.parse('https://fcm.googleapis.com/fcm/send'),
+          headers: <String, String>{
+            'Content-Type': 'application/json',
+            'Authorization':
+                'key=AAAAXHZNpqE:APA91bGWgQVFKCBF9pTd2IpBiDLg4aBUGgC7eYlusU3hapKiDVyUGOZvBL9eJQx3DAAvQjEeg1qraSWPA3n0cyKUnJ9U4dzEfazgiPz3Ea4adhLrZ9Acao9vvScV9DBolZiHE2Bpfrnb',
           },
-        ),
-      );
+          body: jsonEncode(
+            <String, dynamic>{
+              'notification': <String, dynamic>{
+                'body': message.content,
+                'title': user.displayName,
+              },
+              'priority': 'high',
+              'data': <String, dynamic>{
+                'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+                'id': message.content.hashCode,
+                'status': 'done'
+              },
+              'to': receiverDeviceToken,
+            },
+          ),
+        );
+      } else {
+        await post(
+          Uri.parse('https://fcm.googleapis.com/fcm/send'),
+          headers: <String, String>{
+            'Content-Type': 'application/json',
+            'Authorization':
+                'key=AAAAXHZNpqE:APA91bGWgQVFKCBF9pTd2IpBiDLg4aBUGgC7eYlusU3hapKiDVyUGOZvBL9eJQx3DAAvQjEeg1qraSWPA3n0cyKUnJ9U4dzEfazgiPz3Ea4adhLrZ9Acao9vvScV9DBolZiHE2Bpfrnb',
+          },
+          body: jsonEncode(
+            <String, dynamic>{
+              'notification': <String, dynamic>{
+                'title': user.displayName,
+                'body': "Image",
+                'image': message.content,
+              },
+              'priority': 'high',
+              'data': <String, dynamic>{
+                'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+                'id': message.content.hashCode,
+                'status': 'done'
+              },
+              'to': receiverDeviceToken,
+            },
+          ),
+        );
+      }
     }
   }
 }

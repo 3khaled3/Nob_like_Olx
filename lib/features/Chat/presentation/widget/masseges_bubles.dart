@@ -36,7 +36,7 @@ class BuildSendMassegeBuble extends StatelessWidget {
                 },
                 sent: true,
                 seen: seen,
-                id: 'id001',
+                id: "${containt.hashCode}",
                 image: CachedNetworkImage(
                     imageUrl: containt,
                     progressIndicatorBuilder:
@@ -47,7 +47,7 @@ class BuildSendMassegeBuble extends StatelessWidget {
                     fit: BoxFit.cover),
                 color: const Color(0xFF1B97F3),
                 tail: true,
-                delivered: true,
+                // delivered: true,
               )
             : BubbleSpecialThree(
                 sent: true,
@@ -90,14 +90,14 @@ class BuildResiveMassegeBuble extends StatelessWidget {
         ),
         type == "File"
             ? BubbleNormalImage(
-                sent: false,
-                seen: false,
+                // sent: false,
+                // seen: false,
                 onTap: () {
                   GoRouter.of(context)
                       .push(AppRouter.kimageviewscreen, extra: containt);
                 },
                 isSender: false,
-                id: 'id1',
+                id: "${containt.hashCode}",
                 image: CachedNetworkImage(
                     imageUrl: containt,
                     progressIndicatorBuilder:
@@ -108,7 +108,7 @@ class BuildResiveMassegeBuble extends StatelessWidget {
                     fit: BoxFit.cover),
                 color: Colors.grey[350]!,
                 tail: true,
-                delivered: true,
+                // delivered: true,
               )
             : BubbleSpecialThree(
                 text: containt,
@@ -139,10 +139,10 @@ class ImageViewScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Image View'),
         backgroundColor: Colors.black87,
-        // systemOverlayStyle: SystemUiOverlayStyle(
-        //   systemNavigationBarColor: Colors.black, // Navigation bar
-        //   statusBarColor: Colors.black, // Status bar
-        // ),
+        systemOverlayStyle: SystemUiOverlayStyle(
+          systemNavigationBarColor: Colors.black, // Navigation bar
+          statusBarColor: Colors.black, // Status bar
+        ),
       ),
       body: Center(
         child: CachedNetworkImage(

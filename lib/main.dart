@@ -60,7 +60,7 @@ Future<void> main() async {
   );
 
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
+    SystemUiOverlayStyle(systemNavigationBarColor: Colors.black,
       statusBarColor:
           Colors.grey[100], // Change this color to your desired color
     ),

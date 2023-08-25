@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/utils/indicator.dart';
@@ -16,6 +17,10 @@ class ChatAppBar extends StatelessWidget {
   @override
    build(BuildContext context) {
     return AppBar(
+      systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor:
+          Colors.grey[100], // Change this color to your desired color
+    ),
       backgroundColor: Colors.white,
       elevation: .5,
       leadingWidth: MediaQuery.sizeOf(context).width * .09,
