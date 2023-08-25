@@ -26,6 +26,7 @@ class ContactsView extends StatelessWidget {
             );
           } else {
             List<Map<String, dynamic>> finalOutput = snapshot.data!;
+            finalOutput.removeWhere((map) => (map["messages"] as List).isEmpty);
             List<Map<String, dynamic>> search = [];
 
             return BlocBuilder<ChatCubit, ChatState>(
