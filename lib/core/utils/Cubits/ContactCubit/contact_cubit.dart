@@ -12,7 +12,6 @@ part 'contact_state.dart';
 class ContactCubit extends Cubit<ContactState> {
   ContactCubit() : super(ContactInitial());
 
-
   Future<List<UserDataModel>> search(String searchQuery) async {
     emit(Waitting());
     List<UserDataModel> users = [];
@@ -129,6 +128,4 @@ class ContactCubit extends Cubit<ContactState> {
       return chats;
     });
   }
-
-
 }

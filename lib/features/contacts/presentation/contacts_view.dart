@@ -72,6 +72,4 @@ class ContactsView extends StatelessWidget {
           }
         });
   }
-
-  
 }

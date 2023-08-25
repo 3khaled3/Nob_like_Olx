@@ -27,7 +27,7 @@ abstract class AppRouter {
   static const kchatview = "/kchatview";
   static const kuserdata = "/kuserdata";
   static const start = "/";
- static const  kimageviewscreen="/kimageviewscreen";
+  static const kimageviewscreen = "/kimageviewscreen";
 
   static final router = GoRouter(
     routes: [
@@ -76,12 +76,12 @@ abstract class AppRouter {
           );
         },
       ),
-       GoRoute(
+      GoRoute(
         path: kimageviewscreen,
         builder: (context, state) {
           String url = state.extra as String;
           return ImageViewScreen(
-            url:url,
+            url: url,
           );
         },
       ),

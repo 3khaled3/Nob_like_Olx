@@ -12,7 +12,7 @@ class CategoriesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: categoriesAppBar(onPressed: () {},context: context),
+      appBar: categoriesAppBar(onPressed: () {}, context: context),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: ListView(
@@ -22,7 +22,8 @@ class CategoriesView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 5),
               child: SizedBox(
                 width: double.infinity,
-                child: customElevationButtom(borderRadius: 30,
+                child: customElevationButtom(
+                  borderRadius: 30,
                   text: "VIEW ALL ITEMS",
                   onPressed: () {
                     GoRouter.of(context)
@@ -32,7 +33,9 @@ class CategoriesView extends StatelessWidget {
               ),
             ),
             CategoriesListView(),
-            SizedBox(height: 10,)
+            SizedBox(
+              height: 10,
+            )
           ],
         ),
       ),

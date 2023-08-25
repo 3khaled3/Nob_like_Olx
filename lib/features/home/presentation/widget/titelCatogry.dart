@@ -6,7 +6,7 @@ class titelcatogrey extends StatelessWidget {
   const titelcatogrey({
     required this.titel,
     required this.onPressed,
-    this.titelfontSize=28,
+    this.titelfontSize = 28,
     super.key,
   });
   final String titel;
@@ -17,11 +17,13 @@ class titelcatogrey extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        titel,maxLines: 1,overflow: TextOverflow.ellipsis,
-        style:  TextStyle(
+        titel,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.w600,
-          fontSize:titelfontSize,
+          fontSize: titelfontSize,
         ),
       ),
       trailing: TextButton(

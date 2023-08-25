@@ -15,12 +15,12 @@ class ChatAppBar extends StatelessWidget {
   final UserDataModel user;
 
   @override
-   build(BuildContext context) {
+  build(BuildContext context) {
     return AppBar(
       systemOverlayStyle: SystemUiOverlayStyle(
-      statusBarColor:
-          Colors.grey[100], // Change this color to your desired color
-    ),
+        statusBarColor:
+            Colors.grey[100], // Change this color to your desired color
+      ),
       backgroundColor: Colors.white,
       elevation: .5,
       leadingWidth: MediaQuery.sizeOf(context).width * .09,

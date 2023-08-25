@@ -8,14 +8,15 @@ class customElevationButtom extends StatelessWidget {
   final Color textColor;
   final void Function() onPressed;
   final String text;
-  final double borderRadius ;
+  final double borderRadius;
 
   const customElevationButtom({
     required this.text,
     required this.onPressed,
     this.buttomColor = Colors.blue,
     this.textColor = Colors.white,
-    super.key,  this.borderRadius=4,
+    super.key,
+    this.borderRadius = 4,
   });
 
   @override

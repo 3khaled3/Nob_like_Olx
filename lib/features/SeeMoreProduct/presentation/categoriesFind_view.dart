@@ -38,11 +38,10 @@ class CategoriesFindView extends StatelessWidget {
         }
       } else if ("All" == Categorie) {
         for (var x = 0; x < allProduct!.length; x++) {
-            productlist.add(allProduct[x]);
-            userslist.add(users![x]);
+          productlist.add(allProduct[x]);
+          userslist.add(users![x]);
         }
         break;
-        
       }
     }
 

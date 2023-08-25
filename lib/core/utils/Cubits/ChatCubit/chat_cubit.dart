@@ -46,11 +46,11 @@ class ChatCubit extends Cubit<ChatState> {
       final FirebaseStorage storage = FirebaseStorage.instance;
       String originalFileName = basename(newimage!.path);
 
-// Get the current date and time
+      // Get the current date and time
       String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
       String currentTime = DateFormat('HH-mm-ss').format(DateTime.now());
 
-// Construct a new file name using the current date and time
+      // Construct a new file name using the current date and time
       String newFileName =
           '$currentDate-$currentTime-${DateTime.now().millisecond}${DateTime.now().microsecondsSinceEpoch}-$originalFileName';
 

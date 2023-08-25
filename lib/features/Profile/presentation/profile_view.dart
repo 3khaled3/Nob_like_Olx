@@ -10,13 +10,16 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: Center(
-          child: customElevationButtom(text: "logOut", onPressed:() {
-            BlocProvider.of<UserOperationCubit>(context).signOut();
-            GoRouter.of(context).pushReplacement(AppRouter.start);
-          },),
+          child: customElevationButtom(
+            text: "logOut",
+            onPressed: () {
+              BlocProvider.of<UserOperationCubit>(context).signOut();
+              GoRouter.of(context).pushReplacement(AppRouter.start);
+            },
+          ),
         ),
       ),
     );

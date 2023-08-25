@@ -18,7 +18,7 @@ class MessageDataModel {
   // Empty constructor
   MessageDataModel.empty()
       : sender = '',
-      type= String,
+        type = String,
         receiver = '',
         content = '',
         timestamp = DateTime.now(),

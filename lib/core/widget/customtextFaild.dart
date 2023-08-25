@@ -73,7 +73,6 @@ class customTextfaild extends StatelessWidget {
   }
 }
 
-
 class SendMessageTextfaild extends StatelessWidget {
   final String labelText;
   final Function(String)? onChanged;
@@ -108,7 +107,7 @@ class SendMessageTextfaild extends StatelessWidget {
       elevation: elevation,
       borderRadius: BorderRadius.circular(borderRadius!),
       child: TextFormField(
-         controller: textEditingController, 
+        controller: textEditingController,
         validator: validator,
         onChanged: onChanged,
         maxLines: maxLines,

@@ -39,11 +39,11 @@ class ContactWidget extends StatelessWidget {
       // ignore: empty_catches
     } catch (e) {}
     if (messages!.isNotEmpty) {
-      suptitel =
-          messages!.last.sender == FirebaseAuth.instance.currentUser!.uid ? "you" : 
-              "${user.displayName}";
+      suptitel = messages!.last.sender == FirebaseAuth.instance.currentUser!.uid
+          ? "you"
+          : "${user.displayName}";
       suptitel +=
-          " : ${messages!.last.type == "String" ?"\" ${messages!.last.content} \" " : "Image"}";
+          " : ${messages!.last.type == "String" ? "\" ${messages!.last.content} \" " : "Image"}";
     }
     return ListTile(
         leading: ClipRRect(

@@ -25,10 +25,11 @@ AppBar CategorieFindAppBar({required titel, required ontapArrow}) {
     centerTitle: true,
     title: Text(
       titel,
-       style: GoogleFonts.josefinSans(
+      style: GoogleFonts.josefinSans(
         color: Colors.black,
-              fontSize: 22.0,
-              fontWeight: FontWeight.w600,
-            ),),
+        fontSize: 22.0,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }

@@ -91,12 +91,11 @@ class _ChatViewState extends State<ChatView> with WidgetsBindingObserver {
                       ),
                       SendMessageBar(
                         imageOnPressed: () async {
-                          
-                            await BlocProvider.of<ChatCubit>(context).uploadImageFromGallery();
-                           // ignore: use_build_context_synchronously
-                           await BlocProvider.of<ChatCubit>(context).sendMessage(
-                                    message: message,
-                                    receiver: widget.user.uid!);
+                          await BlocProvider.of<ChatCubit>(context)
+                              .uploadImageFromGallery();
+                          // ignore: use_build_context_synchronously
+                          await BlocProvider.of<ChatCubit>(context).sendMessage(
+                              message: message, receiver: widget.user.uid!);
                         },
                         onChanged: (value) {
                           message = value;

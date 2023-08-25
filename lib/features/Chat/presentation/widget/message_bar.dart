@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/widget/customtextFaild.dart';
 
-
 class SendMessageBar extends StatelessWidget {
   final dynamic Function(String)? onChanged;
   final void Function()? onSaved;
-  
+
   final TextEditingController textEditingController;
   final void Function()? imageOnPressed;
 
@@ -14,7 +13,8 @@ class SendMessageBar extends StatelessWidget {
     super.key,
     required this.onChanged,
     required this.onSaved,
-    required this.textEditingController,required this.imageOnPressed,
+    required this.textEditingController,
+    required this.imageOnPressed,
   });
 
   @override
@@ -32,13 +32,13 @@ class SendMessageBar extends StatelessWidget {
                 color: Colors.blue,
               )),
           Expanded(
-              child: SendMessageTextfaild(
-                          textEditingController: textEditingController,
-                          labelText: "Type your message",
-                          borderRadius: 300,
-                          onChanged: onChanged,
-                        ),
-              ),
+            child: SendMessageTextfaild(
+              textEditingController: textEditingController,
+              labelText: "Type your message",
+              borderRadius: 300,
+              onChanged: onChanged,
+            ),
+          ),
           IconButton(
               onPressed: onSaved,
               icon: const Icon(

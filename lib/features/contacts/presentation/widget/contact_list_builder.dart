@@ -10,23 +10,19 @@ class ContactListBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        //sortUsers debend on last message time
+    //sortUsers debend on last message time
     try {
       users.sort((a, b) {
-      final aTimestamp = a["messages"].last.timestamp;
-      final bTimestamp = b["messages"].last.timestamp;
-      return bTimestamp.compareTo(aTimestamp); 
-    });
-    } catch (e) {
-      
-    }    
+        final aTimestamp = a["messages"].last.timestamp;
+        final bTimestamp = b["messages"].last.timestamp;
+        return bTimestamp.compareTo(aTimestamp);
+      });
+    } catch (e) {}
     return ListView.builder(
       itemCount: users.length,
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) {
-        
-        
         return ContactWidget(
           // "user": user, "notread": notread, "messages": messages
           user: users[index]["user"],

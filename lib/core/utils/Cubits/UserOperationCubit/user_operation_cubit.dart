@@ -17,7 +17,6 @@ part 'user_operation_state.dart';
 
 class UserOperationCubit extends Cubit<UserOperationState> {
   UserOperationCubit() : super(UserOperationInitial());
-  
 
   _uploadImageFromGallery() async {
     final picker = ImagePicker();
@@ -39,17 +38,22 @@ class UserOperationCubit extends Cubit<UserOperationState> {
       var newPhoto = await _uploadImageFromGallery();
       if (newPhoto != null) {
         if (FirebaseAuth.instance.currentUser!.photoURL != null) {
-          await storage.refFromURL(FirebaseAuth.instance.currentUser!.photoURL!).delete();
+          await storage
+              .refFromURL(FirebaseAuth.instance.currentUser!.photoURL!)
+              .delete();
         }
 
         String fileName = basename(newPhoto.path);
-        Reference reference =
-            storage.ref('profile_photos/${FirebaseAuth.instance.currentUser!.uid}/$fileName');
+        Reference reference = storage.ref(
+            'profile_photos/${FirebaseAuth.instance.currentUser!.uid}/$fileName');
         await reference.putFile(newPhoto);
         String downloadUrl = await reference.getDownloadURL();
         await FirebaseAuth.instance.currentUser!.updatePhotoURL(downloadUrl);
         //ubdata user data in firestore
-        await FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).set({
+        await FirebaseFirestore.instance
+            .collection("Users")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .set({
           "user": {
             'uid': FirebaseAuth.instance.currentUser!.uid,
             "displayName": FirebaseAuth.instance.currentUser!.displayName,
@@ -72,11 +76,14 @@ class UserOperationCubit extends Cubit<UserOperationState> {
   Future<void> updateDisplayName(String newuserName) async {
     try {
       emit(Waitting());
-      await  FirebaseAuth.instance.currentUser!.updateDisplayName(newuserName);
+      await FirebaseAuth.instance.currentUser!.updateDisplayName(newuserName);
       FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
       String? fcmToken = await _firebaseMessaging.getToken();
       //ubdata user data in firestore
-      await FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).set({
+      await FirebaseFirestore.instance
+          .collection("Users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .set({
         "user": {
           'uid': FirebaseAuth.instance.currentUser!.uid,
           "displayName": newuserName,

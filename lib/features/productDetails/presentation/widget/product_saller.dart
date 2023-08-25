@@ -21,7 +21,9 @@ class Saller extends StatelessWidget {
         const Divider(height: 1),
         ListTile(
           title: Text(
-            user.displayName==null||user.displayName!.isEmpty ? "user": user.displayName!,
+            user.displayName == null || user.displayName!.isEmpty
+                ? "user"
+                : user.displayName!,
             style: GoogleFonts.inter(
               color: const Color(0xFF393F42),
               fontSize: 16,
@@ -38,7 +40,7 @@ class Saller extends StatelessWidget {
           ),
           leading: ClipRRect(
               borderRadius: BorderRadius.circular(100000),
-              child: user.profileImage == null||user.profileImage!.isEmpty
+              child: user.profileImage == null || user.profileImage!.isEmpty
                   ? SvgPicture.asset(
                       "assets/defultprofile.svg",
                       fit: BoxFit.cover,

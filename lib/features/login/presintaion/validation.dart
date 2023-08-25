@@ -67,7 +67,8 @@ class _OTPScreenState extends State<OTPScreen> {
 
                             if (state is Success) {
                               print(FirebaseAuth.instance.currentUser);
-                              GoRouter.of(context).pushReplacement(AppRouter.kuserdata);
+                              GoRouter.of(context)
+                                  .pushReplacement(AppRouter.kuserdata);
                             }
                           }
                         }

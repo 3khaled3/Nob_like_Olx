@@ -7,8 +7,7 @@ class CategoriesItem extends StatelessWidget {
   final String image;
   final String title;
 
-  const CategoriesItem(
-      {super.key, required this.title, required this.image});
+  const CategoriesItem({super.key, required this.title, required this.image});
 
   @override
   Widget build(BuildContext context) {

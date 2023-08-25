@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import '../../../../constant.dart';
 import '../../../../routes.dart';
 
-
 class tabstogel extends StatelessWidget {
   final int initial;
   const tabstogel({
@@ -17,9 +16,9 @@ class tabstogel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     late TabController tabController;
-     // ignore: non_constant_identifier_names
-     final List<String> Categories =
-          categories.map((categoryData) => categoryData.keys.first).toList();
+    // ignore: non_constant_identifier_names
+    final List<String> Categories =
+        categories.map((categoryData) => categoryData.keys.first).toList();
     List<Widget> taps = [];
     taps.add(const Tab(
       child: Tap(tap: "All"),
