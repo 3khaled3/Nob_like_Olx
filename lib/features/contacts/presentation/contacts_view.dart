@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nob/core/utils/Cubits/ChatCubit/chat_cubit.dart';
 import 'package:nob/core/widget/customtextFaild.dart';
 import 'package:nob/features/contacts/presentation/widget/contact_list_builder.dart';
 import 'package:nob/features/contacts/presentation/widget/contacts_app_bar.dart';
-
+import '../../../core/utils/Cubits/ContactCubit/contact_cubit.dart';
 import '../../../core/utils/indicator.dart';
 import '../../Chat/data/message_data_model.dart';
 
@@ -16,7 +15,7 @@ class ContactsView extends StatelessWidget {
     // ignore: non_constant_identifier_names
     String Search = "";
     return StreamBuilder<List<Map<String, dynamic>>>(
-        stream: BlocProvider.of<ChatCubit>(context).getChatsStream(),
+        stream: BlocProvider.of<ContactCubit>(context).getChatsStream(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return buildCircleIndicator();
@@ -29,7 +28,7 @@ class ContactsView extends StatelessWidget {
             finalOutput.removeWhere((map) => (map["messages"] as List).isEmpty);
             List<Map<String, dynamic>> search = [];
 
-            return BlocBuilder<ChatCubit, ChatState>(
+            return BlocBuilder<ContactCubit, ContactState>(
               builder: (context, state) {
                 return Scaffold(
                   appBar: contactAppBar(context),
@@ -47,7 +46,7 @@ class ContactsView extends StatelessWidget {
                                 search.clear();
                                 Search = value;
                                 List a =
-                                    await BlocProvider.of<ChatCubit>(context)
+                                    await BlocProvider.of<ContactCubit>(context)
                                         .search(value);
                                 for (var i = 0; i < a.length; i++) {
                                   List<MessageDataModel> x = [];
