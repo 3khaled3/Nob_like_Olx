@@ -40,9 +40,8 @@ class ContactWidget extends StatelessWidget {
     } catch (e) {}
     if (messages!.isNotEmpty) {
       suptitel =
-          "${messages!.last.sender == FirebaseAuth.instance.currentUser!.uid ? "you" : {
-              user.displayName
-            }}";
+          messages!.last.sender == FirebaseAuth.instance.currentUser!.uid ? "you" : 
+              "${user.displayName}";
       suptitel +=
           " : ${messages!.last.type == "String" ?"\" ${messages!.last.content} \" " : "Image"}";
     }

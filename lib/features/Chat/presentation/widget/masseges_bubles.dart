@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nob/routes.dart';
 
@@ -29,9 +30,10 @@ class BuildSendMassegeBuble extends StatelessWidget {
         ),
         type == "File"
             ? BubbleNormalImage(
-              onTap: () {
-                GoRouter.of(context).push(AppRouter.kimageviewscreen,extra: containt);
-              },
+                onTap: () {
+                  GoRouter.of(context)
+                      .push(AppRouter.kimageviewscreen, extra: containt);
+                },
                 sent: true,
                 seen: seen,
                 id: 'id001',
@@ -87,11 +89,13 @@ class BuildResiveMassegeBuble extends StatelessWidget {
           height: 4,
         ),
         type == "File"
-            ? BubbleNormalImage(sent: false,
-            seen: false,
-              onTap: () {
-                GoRouter.of(context).push(AppRouter.kimageviewscreen,extra: containt);
-              },
+            ? BubbleNormalImage(
+                sent: false,
+                seen: false,
+                onTap: () {
+                  GoRouter.of(context)
+                      .push(AppRouter.kimageviewscreen, extra: containt);
+                },
                 isSender: false,
                 id: 'id1',
                 image: CachedNetworkImage(
@@ -123,26 +127,31 @@ class BuildResiveMassegeBuble extends StatelessWidget {
     );
   }
 }
+
 class ImageViewScreen extends StatelessWidget {
-  final String url; 
+  final String url;
   const ImageViewScreen({super.key, required this.url});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: Colors.black87,
+    return Scaffold(
+      backgroundColor: Colors.black87,
       appBar: AppBar(
-        title: Text('Image View'),
+        title: const Text('Image View'),
+        backgroundColor: Colors.black87,
+        // systemOverlayStyle: SystemUiOverlayStyle(
+        //   systemNavigationBarColor: Colors.black, // Navigation bar
+        //   statusBarColor: Colors.black, // Status bar
+        // ),
       ),
       body: Center(
-        child:   CachedNetworkImage(
-                    imageUrl: url,
-                    progressIndicatorBuilder:
-                        (context, url, downloadProgress) =>
-                            buildCircleIndicator(),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-),
-                  ),
+        child: CachedNetworkImage(
+          imageUrl: url,
+          progressIndicatorBuilder: (context, url, downloadProgress) =>
+              buildCircleIndicator(),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
+        ),
+      ),
     );
   }
 }

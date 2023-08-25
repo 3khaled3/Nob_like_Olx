@@ -39,8 +39,9 @@ class UserDataModel {
   final String? displayName;
   final String? phoneNumber;
   final String? profileImage;
+  final String?fcmToken;
 
-  const UserDataModel({
+  const UserDataModel( {required this.fcmToken,
     required this.uid,
     required this.displayName,
     required this.phoneNumber,

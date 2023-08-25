@@ -1,5 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
-
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:http/http.dart' as http;
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -11,6 +14,8 @@ import 'package:nob/features/home/data/product.dart';
 import 'package:path/path.dart';
 import 'package:meta/meta.dart';
 import 'package:intl/intl.dart';
+
+import '../../notification_handler.dart';
 part 'chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {
@@ -36,6 +41,7 @@ class ChatCubit extends Cubit<ChatState> {
             uid: x["uid"],
             displayName: x["displayName"],
             phoneNumber: x["phoneNumber"],
+            fcmToken: x["fcmToken"],
             profileImage: x["profileimage"]));
       }
       emit(Success());
@@ -69,30 +75,29 @@ class ChatCubit extends Cubit<ChatState> {
     final chatId = ids.join(" ");
 
     if (_selectedImage != null) {
+      final newimage = _selectedImage;
+      _selectedImage = null;
       final FirebaseStorage storage = FirebaseStorage.instance;
-      String originalFileName = basename(_selectedImage!.path);
+      String originalFileName = basename(newimage!.path);
 
 // Get the current date and time
       String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
       String currentTime = DateFormat('HH-mm-ss').format(DateTime.now());
 
 // Construct a new file name using the current date and time
-      String newFileName = '$currentDate-$currentTime-$originalFileName';
+      String newFileName =
+          '$currentDate-$currentTime-${DateTime.now().millisecond}${DateTime.now().microsecondsSinceEpoch}-$originalFileName';
 
       Reference reference = storage.ref(
           'massegeImage/${FirebaseAuth.instance.currentUser!.uid}/$newFileName');
 
-      await reference.putFile(_selectedImage!);
+      await reference.putFile(newimage);
       downloadUrl = await reference.getDownloadURL();
-      print("Image Saved Done");
-      print("Image Saved Done");
-      print("Image Saved Done");
-      _selectedImage = null;
     }
     Map<String, dynamic> newMessage = {};
     if (downloadUrl.isNotEmpty) {
       newMessage.addAll({
-        "type":"File",
+        "type": "File",
         "content": downloadUrl,
         "timestamp": DateTime.now(),
         "sender": FirebaseAuth.instance.currentUser!.uid,
@@ -100,10 +105,9 @@ class ChatCubit extends Cubit<ChatState> {
         "isRead": false,
       });
       print("==============================");
-     }else
-    {
+    } else {
       newMessage.addAll({
-        "type":"String",
+        "type": "String",
         "content": message,
         "timestamp": DateTime.now(),
         "sender": FirebaseAuth.instance.currentUser!.uid,
@@ -125,12 +129,12 @@ class ChatCubit extends Cubit<ChatState> {
 
         for (var messageData in messageList) {
           Map<String, dynamic> messageMap = {
-            "timestamp": (messageData['timestamp'] as Timestamp).toDate(),
+            "timestamp":  (messageData['timestamp'] as Timestamp).toDate(),
             "content": messageData['content'],
             "receiver": messageData['receiver'],
             "sender": messageData['sender'],
             "isRead": messageData['isRead'],
-            "type":messageData['type'],
+            "type": messageData['type'],
           };
           messages.add(messageMap);
         }
@@ -143,6 +147,19 @@ class ChatCubit extends Cubit<ChatState> {
           .doc(chatId)
           .set({"messages": messages});
 
+      print("=========111111111111=============");
+      await sendNotification(
+          message: MessageDataModel(
+            type: newMessage['type'],
+            timestamp: newMessage['timestamp'] ,
+            content: newMessage['content'],
+            receiver: newMessage['receiver'],
+            sender: newMessage['sender'],
+            isRead: newMessage['isRead'],
+          ),
+          receiver: receiver);
+
+      print("==========22222222222222222222222============");
       emit(Success());
     } catch (e) {
       emit(Error(e.toString()));
@@ -182,6 +199,7 @@ class ChatCubit extends Cubit<ChatState> {
               messageData['receiver'] == FirebaseAuth.instance.currentUser!.uid;
         }
       }
+
       FirebaseFirestore.instance
           .collection("chat")
           .doc(chatId)
@@ -189,7 +207,7 @@ class ChatCubit extends Cubit<ChatState> {
 
       for (var messageData in messageList) {
         messages.add(MessageDataModel(
-          type:messageData['type'] ,
+          type: messageData['type'],
           timestamp: (messageData['timestamp'] as Timestamp).toDate(),
           content: messageData['content'],
           receiver: messageData['receiver'],
@@ -222,7 +240,7 @@ class ChatCubit extends Cubit<ChatState> {
 
         for (var messageData in messageList) {
           messages.add(MessageDataModel(
-            type:messageData['type'],
+            type: messageData['type'],
             timestamp: (messageData['timestamp'] as Timestamp).toDate(),
             content: messageData['content'],
             receiver: messageData['receiver'],
@@ -232,10 +250,6 @@ class ChatCubit extends Cubit<ChatState> {
         }
       }
     }
-    // for (var i = 0; i < messages.length; i++) {
-    //   messages[i].isRead=true;
-    // }
-
     return messages;
   }
 
@@ -256,7 +270,8 @@ class ChatCubit extends Cubit<ChatState> {
           uid: results!["user"]["uid"],
           displayName: results["user"]["displayName"],
           phoneNumber: results["user"]["phoneNumber"],
-          profileImage: results["user"]["profileimage"]);
+          profileImage: results["user"]["profileimage"],
+          fcmToken: results["user"]["fcmToken"]);
     } catch (e) {
       // ignore: avoid_print
       print(e.toString());
@@ -314,4 +329,70 @@ class ChatCubit extends Cubit<ChatState> {
       return chats;
     });
   }
+
+  // Future<void> sendNotification(
+  //     {required String message, required String receiver}) async {
+  //   final FirebaseAuth auth = FirebaseAuth.instance;
+
+  //   if (receiver != auth.currentUser!.uid) {
+  //     final user = await _getUserUsingUid(receiver);
+
+  //     String receiverDeviceToken = user.fcmToken!;
+
+  //     // Send a notification to the specific device token
+  //     NotificationHandler.showNotification(
+  //       RemoteMessage(
+  //         notification: RemoteNotification(
+  //           title: user.displayName,
+  //           body: message,
+  //         ),
+  //       ),
+  //     );
+  //   }
+  // }
+
+  Future<void> sendNotification(
+      {required MessageDataModel message, required String receiver}) async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+
+    if (receiver != auth.currentUser!.uid) {
+      final user = await _getUserUsingUid(receiver);
+
+      String receiverDeviceToken = user.fcmToken!;
+      await http.post(
+        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization':
+              'key=AAAAXHZNpqE:APA91bGWgQVFKCBF9pTd2IpBiDLg4aBUGgC7eYlusU3hapKiDVyUGOZvBL9eJQx3DAAvQjEeg1qraSWPA3n0cyKUnJ9U4dzEfazgiPz3Ea4adhLrZ9Acao9vvScV9DBolZiHE2Bpfrnb',
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            'notification': <String, dynamic>{
+              'body': message.type == "String" ? message.content : "Image",
+              'title': user.displayName,
+              'image': message.type == "String" ? null : message.content,
+            },
+            'priority': 'high',
+            'data': <String, dynamic>{
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'id': '1',
+              'status': 'done'
+            },
+            'to': receiverDeviceToken,
+          },
+        ),
+      );
+    }
+  }
+  //     NotificationHandler.showNotification(
+  //       RemoteMessage(
+  //         notification: RemoteNotification(
+  //           title: user.displayName,
+  //           body: message,
+  //         ),
+  //       ),
+  //     );
+  //   }
+  // }
 }
