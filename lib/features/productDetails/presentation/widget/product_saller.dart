@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:nob/core/widget/CustomElvationBottom.dart';
 import 'package:nob/features/home/data/product.dart';
 
 import '../../../../core/utils/indicator.dart';
+import '../../../../routes.dart';
 
 class Saller extends StatelessWidget {
   final UserDataModel user;
@@ -39,29 +40,29 @@ class Saller extends StatelessWidget {
             ),
           ),
           leading: ClipRRect(
-              borderRadius: BorderRadius.circular(100000),
-              child: user.profileImage == null || user.profileImage!.isEmpty
-                  ? SvgPicture.asset(
-                      "assets/defultprofile.svg",
-                      fit: BoxFit.cover,
-                      height: 49,
-                      width: 49,
-                    )
-                  : CachedNetworkImage(
-                      fit: BoxFit.cover,
-                      height: 49,
-                      width: 49,
-                      imageUrl: "${user.profileImage}",
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) =>
-                              buildCircleIndicator(),
-                      errorWidget: (context, url, error) =>
-                          const Center(child: Icon(Icons.error)),
-                    )),
-          trailing: CustomSideButton(
-            text: "Follow",
-            onPressed: () {},
+            borderRadius: BorderRadius.circular(100000),
+            child: user.profileImage == null || user.profileImage!.isEmpty
+                ? SvgPicture.asset(
+                    "assets/defultprofile.svg",
+                    fit: BoxFit.cover,
+                    height: 49,
+                    width: 49,
+                  )
+                : CachedNetworkImage(
+                    fit: BoxFit.cover,
+                    height: 49,
+                    width: 49,
+                    imageUrl: "${user.profileImage}",
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) =>
+                            buildCircleIndicator(),
+                    errorWidget: (context, url, error) =>
+                        const Center(child: Icon(Icons.error)),
+                  ),
           ),
+          onTap: () {
+            GoRouter.of(context).push(AppRouter.kuserprofileView, extra: user);
+          },
         ),
         const Divider(height: 1),
       ],
