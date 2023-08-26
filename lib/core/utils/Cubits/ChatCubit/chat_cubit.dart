@@ -231,6 +231,9 @@ class ChatCubit extends Cubit<ChatState> {
                 'image': message.content,
               },
               'priority': 'high',
+              "importance": "high",
+              "autoCancel": true,
+              "ticker": "Message received",
               'data': <String, dynamic>{
                 'click_action': 'FLUTTER_NOTIFICATION_CLICK',
                 'id': message.content.hashCode,
