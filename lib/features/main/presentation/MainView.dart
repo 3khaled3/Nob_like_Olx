@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:nob/routes.dart';
 import 'package:nob/features/home/presentation/home_view.dart';
 import '../../Favorite/presentation/fav_view.dart';
-import '../../Profile/presentation/profile_view.dart';
+import '../../PersonalProfile/presentation/profile_view.dart';
 import '../../contacts/presentation/contacts_view.dart';
 import 'widget/CustomNavItem.dart';
 
@@ -22,7 +22,7 @@ class _MainViewState extends State<MainView> {
     const homeView(),
     const ContactsView(),
     const FavoriteView(),
-    const ProfileView(),
+    const PresonalProfileView(),
   ];
 
   @override
