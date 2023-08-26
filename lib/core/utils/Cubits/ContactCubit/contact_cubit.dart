@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nob/features/Chat/data/message_data_model.dart';
 import 'package:nob/features/home/data/product.dart';
 
-import '../../getUserUsingUid.dart';
+import '../../funcation/getUserUsingUid.dart';
 
 part 'contact_state.dart';
 

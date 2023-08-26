@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../features/home/data/product.dart';
+import '../../../features/home/data/product.dart';
 
 Future<UserDataModel> getUserUsingUid(String searchQuery) async {
   UserDataModel? users;

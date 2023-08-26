@@ -13,7 +13,7 @@ import 'package:nob/features/Chat/data/message_data_model.dart';
 import 'package:path/path.dart';
 import 'package:intl/intl.dart';
 
-import '../../getUserUsingUid.dart';
+import '../../funcation/getUserUsingUid.dart';
 part 'chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {
