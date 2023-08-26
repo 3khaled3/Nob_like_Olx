@@ -123,30 +123,4 @@ class AddProductCubit extends Cubit<AddProductState> {
     return AdsNum;
   }
 
-  // _getCurrentData() async {
-  //   List<String> images = [];
-  //   try {
-  //     DocumentSnapshot snapshot = await FirebaseFirestore.instance
-  //         .collection('stores')
-  //         .doc(FirebaseAuth.instance.currentUser!.uid)
-  //         .get();
-
-  //     if (snapshot.exists) {
-  //       Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
-  //       if (data != null) {
-  //         List<dynamic> storyUrls = data['storyURL'];
-  //         List<String> stories =
-  //             storyUrls.map((url) => url.toString()).toList();
-  //         return stories;
-  //       }
-  //     } else {
-  //       return images;
-  //     }
-
-  //     // Return an empty list if the document doesn't exist or encounters an error
-  //     return images;
-  //   } catch (e) {
-  //     return images;
-  //   }
-  // }
 }
