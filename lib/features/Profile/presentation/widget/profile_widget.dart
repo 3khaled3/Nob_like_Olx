@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nob/features/Profile/presentation/widget/profile_image.dart';
-
 import '../../../../core/ProdactWidget/saleItem.dart';
 import '../../../home/data/product.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class ProfileWidget extends StatelessWidget {
   const ProfileWidget({
@@ -25,8 +26,16 @@ class ProfileWidget extends StatelessWidget {
             fontWeight: FontWeight.w800,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
+        TextButton(
+          onPressed: () async {
+             String url = 'tel:${user.phoneNumber!}';
+            bool x = await canLaunchUrl(Uri.parse(url));
+            if (x) {
+              await launchUrl(Uri.parse(url));
+            } else {
+              throw 'Could not launch $url';
+            }
+          },
           child: Text(
             user.phoneNumber!,
             style: GoogleFonts.josefinSans(
