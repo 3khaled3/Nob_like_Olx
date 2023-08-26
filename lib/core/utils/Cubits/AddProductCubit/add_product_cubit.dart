@@ -16,12 +16,6 @@ class AddProductCubit extends Cubit<AddProductState> {
   AddProductCubit() : super(AddProductInitial());
   File? _selectedImage;
   List<File?> selectedImages = [];
-  // UserDataModel user = UserDataModel(
-  //   uid: FirebaseAuth.instance.currentUser!.uid,
-  //   displayName: FirebaseAuth.instance.currentUser!.displayName,
-  //   phoneNumber: FirebaseAuth.instance.currentUser!.displayName,
-  //   profileImage: FirebaseAuth.instance.currentUser!.photoURL,
-  // );
 
   Future<File?>? uploadImageFromGallery() async {
     final picker = ImagePicker();
@@ -61,7 +55,11 @@ class AddProductCubit extends Cubit<AddProductState> {
         images.add(downloadUrl);
       }
 
-      if (selectedImages.isNotEmpty) {
+      if (selectedImages.isEmpty) {
+        String inithialImage="https://firebasestorage.googleapis.com/v0/b/nob-d0c2f.appspot.com/o/ads%2Fnoimage.png?alt=media&token=9c73de63-970e-4b59-8d5e-e7942dfa34bd";
+        images.add(inithialImage);
+
+      }
         int countID = await CountAds();
         CollectionReference usersCollection =
             FirebaseFirestore.instance.collection('ads');
@@ -100,10 +98,7 @@ class AddProductCubit extends Cubit<AddProductState> {
         images.clear();
         emit(Success());
         return downloadUrl;
-      } else {
-        emit(Error("errrrrrrror"));
-        return null;
-      }
+      
     } catch (e) {
       emit(Error(e.toString()));
       return null;

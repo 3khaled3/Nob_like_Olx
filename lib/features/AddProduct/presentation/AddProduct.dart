@@ -98,7 +98,13 @@ class addProductView extends StatelessWidget {
                         child: Text("Product Price", style: widgetTitelStyle()),
                       ),
                       priceTextFaild(onChanged: (value) {
-                        product.price = double.parse(value);
+                        try {
+                        product.price = double.parse(value);  
+                        // ignore: empty_catches
+                        } catch (e) {
+                          
+                        }
+                        
                       }),
                       const SizedBox(height: 20),
                       const AddImageButtom(),

@@ -1,7 +1,10 @@
 // ignore_for_file: file_names, camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nob/constant.dart';
+
+import '../../../../routes.dart';
 
 class HomeCategory extends StatelessWidget {
   const HomeCategory({
@@ -54,8 +57,8 @@ class homeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          // GoRouter.of(context)
-          // .push(AppRouter.kallproductsView, extra: categorieslist[i]);
+          GoRouter.of(context)
+          .push(AppRouter.kallproductsView, extra: categoriesTitel);
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),

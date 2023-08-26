@@ -1,7 +1,9 @@
-// ignore_for_file: camel_case_types
+
+// ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
 
+// ignore: camel_case_types
 class customTextfaild extends StatelessWidget {
   final String labelText;
   final Function(String)? onChanged;
@@ -81,6 +83,7 @@ class SendMessageTextfaild extends StatelessWidget {
   final double? borderRadius;
   final String? Function(String?)? validator;
   final int? maxLines;
+  // ignore: prefer_typing_uninitialized_variables
   final textEditingController;
   final double elevation;
   final TextStyle? labelStyle;
