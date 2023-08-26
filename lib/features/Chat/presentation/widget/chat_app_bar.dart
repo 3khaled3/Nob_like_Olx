@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nob/routes.dart';
 import '../../../../core/utils/indicator.dart';
 import '../../../home/data/product.dart';
 
@@ -56,7 +57,9 @@ class ChatAppBar extends StatelessWidget {
         ),
         title: Text("${user.displayName}"),
         subtitle: Text("${user.phoneNumber}"),
-        onTap: () {},
+        onTap: () {
+          GoRouter.of(context).push(AppRouter.kuserprofileView,extra: user);
+        },
       ),
     );
   }

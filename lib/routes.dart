@@ -10,16 +10,17 @@ import 'package:nob/features/main/presentation/MainView.dart';
 import 'package:nob/features/productDetails/presentation/product_details_view.dart';
 import 'features/SeeMoreProduct/presentation/categoriesFind_view.dart';
 import 'features/Chat/presentation/chat_view.dart';
+import 'features/Userprofile/presentation/profile_view.dart';
 import 'features/contacts/presentation/contacts_view.dart';
 import 'features/login/presintaion/user_data.dart';
 
 abstract class AppRouter {
   static const kHomeView = '/homeView';
   static const kloginview = '/loginView';
-  static const kforgetPssView = '/forgetPssView';
+  // static const kforgetPssView = '/forgetPssView';
   static const kallproductsView = '/productsView';
   static const kaddProductView = '/addProductView';
-  static const kPhoneSignInScreen = '/PhoneSignInScreen';
+  // static const kPhoneSignInScreen = '/PhoneSignInScreen';
   static const kvirtfienum = '/virtfienum';
   static const kprodctdetailsview = "/ProdctDetailsView";
   static const kcategoriesview = "/kcategoriesview";
@@ -28,6 +29,7 @@ abstract class AppRouter {
   static const kuserdata = "/kuserdata";
   static const start = "/";
   static const kimageviewscreen = "/kimageviewscreen";
+  static const kuserprofileView = "/kuserprofileView";
 
   static final router = GoRouter(
     routes: [
@@ -101,6 +103,13 @@ abstract class AppRouter {
         builder: (context, state) {
           String product = state.extra as String;
           return CategoriesFindView(Categorie: product);
+        },
+      ),
+      GoRoute(
+        path: kuserprofileView,
+        builder: (context, state) {
+          UserDataModel user = state.extra as UserDataModel;
+          return Userprofile(user: user);
         },
       ),
       GoRoute(

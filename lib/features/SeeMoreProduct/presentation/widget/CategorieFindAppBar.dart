@@ -20,7 +20,7 @@ AppBar CategorieFindAppBar({required titel, required ontapArrow}) {
             color: Colors.black,
           ))
     ],
-    elevation: .5,
+    elevation: .2,
     backgroundColor: Colors.white,
     centerTitle: true,
     title: Text(

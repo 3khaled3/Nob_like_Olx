@@ -21,7 +21,7 @@ AppBar categoriesAppBar({required onPressed, context}) {
             color: Colors.black,
           ))
     ],
-    elevation: .5,
+    elevation: .2,
     title: const Text(
       "Categories",
       style: TextStyle(
