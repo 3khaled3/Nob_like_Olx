@@ -4,9 +4,11 @@ import 'package:nob/features/home/data/product.dart';
 
 class ProductTitle extends StatelessWidget {
   final ProductDataModel product;
+  final void Function()? favoriteTap;
   const ProductTitle({
     required this.product,
     super.key,
+    required this.favoriteTap,
   });
 
   @override
@@ -58,7 +60,7 @@ class ProductTitle extends StatelessWidget {
           ),
         ),
         trailing: InkWell(
-          onTap: () {},
+          onTap: favoriteTap,
           borderRadius: BorderRadius.circular(50),
           child: Container(
             width: 46,
@@ -69,7 +71,12 @@ class ProductTitle extends StatelessWidget {
                 borderRadius: BorderRadius.circular(50),
               ),
             ),
-            child: const Icon(Icons.favorite_border_rounded),
+            child: Icon(
+              product.favorte
+                  ? Icons.favorite_rounded
+                  : Icons.favorite_border_rounded,
+              color: product.favorte ? Colors.red : Colors.white,
+            ),
           ),
         ),
       ),
