@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:nob/features/Profile/presentation/widget/profile_app_bar.dart';
 import 'package:nob/features/Profile/presentation/widget/profile_widget.dart';
@@ -8,20 +10,21 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const user = UserDataModel(
+    User currentUser = FirebaseAuth.instance.currentUser!;
+    final user = UserDataModel(
         fcmToken:
             "fB-1m7snSPWivCJVnP9GFl:APA91bEuLNP8-Ki-N3diKRngVWoAJZH0fqRDeN-Pbxn2icCwBuTA9o6TFhOPJj_TUvPMoTunBJrCQ5arbDHObgOoOVH37Vsjy_bAJJaOw9v1EwScR1Gk9ebyfEADBtTKNrzpaAjWJcPL",
-        uid: "uzeCpT8SUFWHc3Jkmpo4Ky4rtzs2",
-        displayName: "Khaled tarek",
-        phoneNumber: "+201234567890",
+        uid: currentUser.uid,
+        displayName: currentUser.displayName,
+        phoneNumber: currentUser.phoneNumber,
         profileImage: null);
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              ProfileAppBar(),
+              const ProfileAppBar(),
               ProfileWidget(user: user),
             ],
           ),
