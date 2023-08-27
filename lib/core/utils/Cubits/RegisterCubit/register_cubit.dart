@@ -35,7 +35,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       codeAutoRetrievalTimeout(String verificationId) {
         _verificationId = verificationId;
         showToastMessage("code Timeout", Colors.red);
-        emit(Error("code Timeout"));
+        emit(RegisterInitial());
       }
 
       await _auth.verifyPhoneNumber(

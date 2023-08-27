@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:nob/core/utils/Cubits/RegisterCubit/register_cubit.dart';
+import 'package:nob/core/widget/CustomElvationBottom.dart';
 
 import '../../../routes.dart';
 
@@ -33,49 +35,57 @@ class _OTPScreenState extends State<OTPScreen> {
               padding: const EdgeInsets.all(20.0),
               child: Form(
                 key: formkey,
-                child: ListView(
-                  children: [
-                    const Text(
-                      'Verify your number',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    SvgPicture.asset(
-                      "assets/verify-code-pic.svg",
-                      height: MediaQuery.sizeOf(context).height * .4,
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: List.generate(
-                        6,
-                        (index) => smsFaild(index, context),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SvgPicture.asset(
+                        "assets/verify-code-pic.svg",
+                        height: MediaQuery.sizeOf(context).height * .4,
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (formkey.currentState!.validate()) {
-                          String enteredOTP = _otpDigits.join('');
-                          if (enteredOTP.length == 6) {
-                            print(FirebaseAuth.instance.currentUser);
-                            print("=======================");
-                            await BlocProvider.of<RegisterCubit>(context)
-                                .signInWithPhoneNumber(enteredOTP);
-                            final state =
-                                BlocProvider.of<RegisterCubit>(context).state;
-
-                            if (state is Success) {
-                              print(FirebaseAuth.instance.currentUser);
-                              GoRouter.of(context)
-                                  .pushReplacement(AppRouter.kuserdata);
+                       Text(
+                          "Please Enter Code Sent To You",
+                          style: GoogleFonts.outfit(
+                            color: Colors.grey,
+                            fontSize: 15,
+                            // fontFamily: 'Outfit',
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: List.generate(
+                          6,
+                          (index) => smsFaild(index, context),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      SizedBox(width: double.infinity,
+                        child: customElevationButtom(
+                          onPressed: () async {
+                            if (formkey.currentState!.validate()) {
+                              String enteredOTP = _otpDigits.join('');
+                              if (enteredOTP.length == 6) {
+                                print(FirebaseAuth.instance.currentUser);
+                                print("=======================");
+                                await BlocProvider.of<RegisterCubit>(context)
+                                    .signInWithPhoneNumber(enteredOTP);
+                                final state =
+                                    BlocProvider.of<RegisterCubit>(context).state;
+                                      
+                                if (state is Success) {
+                                  print(FirebaseAuth.instance.currentUser);
+                                  GoRouter.of(context)
+                                      .pushReplacement(AppRouter.kuserdata);
+                                }
+                              }
                             }
-                          }
-                        }
-                      },
-                      child: const Text('Submit OTP'),
-                    ),
-                  ],
+                          },
+                          text: "VERIFY & CONTINUE",
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

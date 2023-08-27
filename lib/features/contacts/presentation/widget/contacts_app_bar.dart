@@ -20,17 +20,17 @@ AppBar contactAppBar(BuildContext context) {
             GoRouter.of(context).pop();
           },
         ),
-        const Text(
+         Text(
           "Chats",
           style: TextStyle(
-            fontWeight: FontWeight.w500,
-            color: Colors.black,
-            fontSize: 22,
-          ),
+        fontSize: 22.0,
+        fontWeight: FontWeight.w800,
+        color: Colors.blue[500],
+      ),
         ),
       ],
     ),
     backgroundColor: Colors.white,
-    elevation: 0,
+    elevation: 0.2,
   );
 }

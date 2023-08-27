@@ -58,7 +58,7 @@ class ChatAppBar extends StatelessWidget {
         title: Text("${user.displayName}"),
         subtitle: Text("${user.phoneNumber}"),
         onTap: () {
-          GoRouter.of(context).push(AppRouter.kuserprofileView,extra: user);
+          GoRouter.of(context).push(AppRouter.kuserprofileView, extra: user);
         },
       ),
     );
