@@ -43,13 +43,6 @@ class SaleItem extends StatelessWidget {
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(8),
                             child:
-                                //   Image.asset(
-                                //     "assets/te.jpg",
-                                //     fit: BoxFit.cover,
-                                //     width: MediaQuery.sizeOf(context).width * .43,
-                                //     height: MediaQuery.sizeOf(context).height * .19,
-                                //   ),
-                                // )
                                 CachedNetworkImage(
                               fit: BoxFit.cover,
                               width: MediaQuery.sizeOf(context).width * .43,
@@ -117,34 +110,6 @@ class SaleItem extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.sizeOf(context).width * .3,
-                            child: const Text(
-                              "Gulberg Phase 4, LahGulberg Phase Gulberg Phase Gulberg Phase   ",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Expanded(
-                            child: Text(
-                              "22 Sep",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ),
-                        ],
-                      )
                     ],
                   ),
                 ),

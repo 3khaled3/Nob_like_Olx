@@ -31,7 +31,7 @@ class FavoriteView extends StatelessWidget {
             }
           }
 
-          return Scaffold(
+          return Scaffold(backgroundColor: Colors.white,
             body: SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,

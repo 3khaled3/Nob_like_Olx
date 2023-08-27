@@ -66,7 +66,7 @@ class ProductTitle extends StatelessWidget {
             width: 46,
             height: 46,
             decoration: ShapeDecoration(
-              color: const Color(0x19939393),
+              color: Colors.grey[350],
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
               ),
