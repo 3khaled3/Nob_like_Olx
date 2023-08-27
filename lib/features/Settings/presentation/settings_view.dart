@@ -34,7 +34,7 @@ class SettingsView extends StatelessWidget {
           ListTile(
             onTap: () {
               BlocProvider.of<UserOperationCubit>(context).signOut();
-              AppRouter.router.go(AppRouter.start);
+              AppRouter.router.go(AppRouter.kPhoneSignInScreen);
             },
             splashColor: Colors.red,
             iconColor: Colors.red,

@@ -1,12 +1,12 @@
-
-  import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Future<void> lunchPhoneNum(phoneNumber) async {
-    String url = 'tel:$phoneNumber';
-                bool x = await canLaunchUrl(Uri.parse(url));
-                if (x) {
-     await launchUrl(Uri.parse(url));
-                } else {
-     throw 'Could not launch $url';
-                }
+  try {
+    Uri phoneno = Uri.parse('tel:$phoneNumber');
+    if (await launchUrl(phoneno)) {
+      }
+  } catch (e) {
+    // ignore: avoid_print
+    print(e.toString());
   }
+}

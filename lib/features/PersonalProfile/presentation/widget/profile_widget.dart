@@ -29,7 +29,7 @@ class ProfileWidget extends StatelessWidget {
         ),
         TextButton(
           onPressed: () async {
-            await lunchPhoneNum(user.phoneNumber);
+            await lunchPhoneNum(user.phoneNumber!);
           },
           child: Text(
             user.phoneNumber!,

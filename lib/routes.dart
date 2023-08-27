@@ -9,6 +9,7 @@ import 'package:nob/features/login/presintaion/phone_signin.dart';
 import 'package:nob/features/login/presintaion/validation.dart';
 import 'package:nob/features/main/presentation/MainView.dart';
 import 'package:nob/features/productDetails/presentation/product_details_view.dart';
+import 'core/utils/Splash.dart';
 import 'features/Search/presentation/search_view.dart';
 import 'features/SeeMoreProduct/presentation/categoriesFind_view.dart';
 import 'features/Chat/presentation/chat_view.dart';
@@ -24,14 +25,15 @@ abstract class AppRouter {
   // static const kforgetPssView = '/forgetPssView';
   static const kallproductsView = '/productsView';
   static const kaddProductView = '/addProductView';
-  // static const kPhoneSignInScreen = '/PhoneSignInScreen';
+  static const kPhoneSignInScreen = '/PhoneSignInScreen';
   static const kvirtfienum = '/virtfienum';
   static const kprodctdetailsview = "/ProdctDetailsView";
   static const kcategoriesview = "/kcategoriesview";
   static const kcontactsview = "/kcontactsview";
   static const kchatview = "/kchatview";
   static const kuserdata = "/kuserdata";
-  static const start = "/";
+  static const kSplasher = "/";
+  // static const start = "kPhoneSignInScreen";
   static const kimageviewscreen = "/kimageviewscreen";
   static const kuserprofileView = "/kuserprofileView";
   static const kSettingsView = "/kSettingsView";
@@ -70,8 +72,12 @@ abstract class AppRouter {
         builder: (context, state) => const CategoriesView(),
       ),
       GoRoute(
-        path: start,
+        path: kPhoneSignInScreen,
         builder: (context, state) => const PhoneSignInScreen(),
+      ),
+      GoRoute(
+        path: kSplasher,
+        builder: (context, state) => const Splasher(),
       ),
       GoRoute(
         path: kuserdata,

@@ -26,18 +26,13 @@ class _PhoneSignInScreenState extends State<PhoneSignInScreen> {
   @override
   void initState() {
     super.initState();
-    _initializeState();
-  }
-
-  Future<void> _initializeState() async {
-    await BlocProvider.of<RegisterCubit>(context).autoLogin(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterCubit, RegisterState>(
       builder: (context, state) {
-          if (state is Waitting) {
+        if (state is Waitting) {
           return const Indicator();
         }
         return Scaffold(

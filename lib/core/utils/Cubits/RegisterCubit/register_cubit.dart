@@ -95,6 +95,10 @@ class RegisterCubit extends Cubit<RegisterState> {
           // ignore: empty_catches
         } catch (e) {}
         GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
+      } else {
+        await Future.delayed(const Duration(seconds: 3));
+
+        GoRouter.of(context).pushReplacement(AppRouter.kPhoneSignInScreen);
       }
       emit(Success());
     } catch (e) {

@@ -1,50 +1,51 @@
-// // ignore_for_file: file_names
+// ignore_for_file: file_names
 
-// import 'package:flutter/material.dart';
-// import 'package:lottie/lottie.dart';
-// import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
-// class Splasher extends StatefulWidget {
-//   const Splasher({super.key});
+import 'Cubits/RegisterCubit/register_cubit.dart';
 
-//   @override
-//   State<Splasher> createState() => _SplasherState();
-// }
+class Splasher extends StatefulWidget {
+  const Splasher({super.key});
 
-// class _SplasherState extends State<Splasher> {
-//   @override
-//   void initState() {
-//     super.initState();
-//     // loginAuto(context);
-//   }
+  @override
+  State<Splasher> createState() => _SplasherState();
+}
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       body: SizedBox(
-//         width: double.infinity,
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             const Spacer(
-//               flex: 2,
-//             ),
-//             SizedBox(
-//                 width: MediaQuery.sizeOf(context).width,
-//                 child: LottieBuilder.asset("assets/shop.json")),
-//             const Spacer(),
-//             Text(
-//               "4YOU",
-//               style: GoogleFonts.lobsterTwo(
-//                   color: Colors.black,
-//                   fontSize: 23,
-//                   fontWeight: FontWeight.w900),
-//             ),
-//             const Spacer(),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+class _SplasherState extends State<Splasher> {
+  @override
+  void initState() {
+    super.initState();
+
+    _initializeState();
+  }
+
+  Future<void> _initializeState() async {
+    await BlocProvider.of<RegisterCubit>(context).autoLogin(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Spacer(
+              flex: 1,
+            ),
+            SizedBox(
+                width: MediaQuery.sizeOf(context).width,
+                child: LottieBuilder.asset("assets/nobel.json")),
+            const Spacer(
+              flex: 2,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

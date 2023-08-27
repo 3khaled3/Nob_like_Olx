@@ -65,7 +65,7 @@ class ProdctDetailsView extends StatelessWidget {
             ),
             CallAndChatBottum(
               callOnPressed: () async {
-                await lunchPhoneNum(user.phoneNumber);
+                await lunchPhoneNum(user.phoneNumber!);
               },
               chatOnPressed: () {
                 GoRouter.of(context).push(AppRouter.kchatview, extra: user);
