@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -142,7 +143,9 @@ class SaleItem extends StatelessWidget {
                         await favCubit.addToFav(product.id);
                         List<ProductDataModel>? x =
                             fetchProductCubit.allProduct;
-                        print(x![0].favorte);
+                        if (kDebugMode) {
+                          print(x![0].favorte);
+                        }
                       },
                     ),
                   ),

@@ -9,6 +9,7 @@ import '../../../../core/utils/indicator.dart';
 
 class BuildSendMassegeBuble extends StatelessWidget {
   final String containt;
+  // ignore: prefer_typing_uninitialized_variables
   final type;
   final String time;
   final bool seen;
@@ -72,6 +73,7 @@ class BuildSendMassegeBuble extends StatelessWidget {
 class BuildResiveMassegeBuble extends StatelessWidget {
   final String containt;
   final String time;
+  // ignore: prefer_typing_uninitialized_variables
   final type;
   const BuildResiveMassegeBuble({
     super.key,
@@ -139,7 +141,7 @@ class ImageViewScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Image View'),
         backgroundColor: Colors.black87,
-        systemOverlayStyle: SystemUiOverlayStyle(
+        systemOverlayStyle: const SystemUiOverlayStyle(
           systemNavigationBarColor: Colors.black, // Navigation bar
           statusBarColor: Colors.black, // Status bar
         ),

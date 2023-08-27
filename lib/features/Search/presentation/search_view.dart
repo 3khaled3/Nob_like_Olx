@@ -35,7 +35,6 @@ class SearchView extends StatelessWidget {
                     data.clear();
                     data.addAll(BlocProvider.of<FitchProductCubit>(context)
                         .search(value));
-                    print(data);
                   },
                 ),
               ),

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nob/core/utils/Cubits/ChatCubit/chat_cubit.dart';
@@ -65,8 +66,11 @@ class _ChatViewState extends State<ChatView> with WidgetsBindingObserver {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return buildCircleIndicator();
           } else if (snapshot.hasError) {
-            print("========================");
-            print(snapshot.error);
+            if (kDebugMode) {
+              print("========================");
+              print(snapshot.error);
+            }
+
             return const Center(
               child: Text('Error loading data'),
             );

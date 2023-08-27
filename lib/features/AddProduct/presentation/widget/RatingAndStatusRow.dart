@@ -1,8 +1,10 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:nob/core/widget/customDropdownButton.dart';
 
-class ratingAndStatusRow extends StatelessWidget {
-  const ratingAndStatusRow({
+class RatingAndStatusRow extends StatelessWidget {
+  const RatingAndStatusRow({
     super.key,
     required this.rateing,
     required this.status,

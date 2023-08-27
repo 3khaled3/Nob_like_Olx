@@ -77,8 +77,8 @@ class UserOperationCubit extends Cubit<UserOperationState> {
     try {
       emit(Waitting());
       await FirebaseAuth.instance.currentUser!.updateDisplayName(newuserName);
-      FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-      String? fcmToken = await _firebaseMessaging.getToken();
+      FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+      String? fcmToken = await firebaseMessaging.getToken();
       //ubdata user data in firestore
       await FirebaseFirestore.instance
           .collection("Users")
@@ -133,7 +133,6 @@ class UserOperationCubit extends Cubit<UserOperationState> {
       await FirebaseAuth.instance.signOut();
       emit(Success());
     } catch (e) {
-      print("===================================================$e");
       emit(Error(e.toString()));
     }
   }

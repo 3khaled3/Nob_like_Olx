@@ -32,8 +32,8 @@ class CategoriesView extends StatelessWidget {
                 ),
               ),
             ),
-            CategoriesListView(),
-            SizedBox(
+            const CategoriesListView(),
+            const SizedBox(
               height: 10,
             )
           ],

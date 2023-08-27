@@ -111,7 +111,6 @@ class ChatCubit extends Cubit<ChatState> {
           .collection("chat")
           .doc(chatId)
           .set({"messages": messages});
-      print("==========11111111111111111111============");
       // sendNotification
       await sendNotification(
           message: MessageDataModel(
@@ -123,7 +122,6 @@ class ChatCubit extends Cubit<ChatState> {
             isRead: newMessage['isRead'],
           ),
           receiver: receiver);
-      print("==========2222222222222222222222============");
       emit(Success());
     } catch (e) {
       emit(Error(e.toString()));

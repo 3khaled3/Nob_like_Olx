@@ -17,6 +17,7 @@ class ContactListBuilder extends StatelessWidget {
         final bTimestamp = b["messages"].last.timestamp;
         return bTimestamp.compareTo(aTimestamp);
       });
+    // ignore: empty_catches
     } catch (e) {}
     return ListView.builder(
       itemCount: users.length,

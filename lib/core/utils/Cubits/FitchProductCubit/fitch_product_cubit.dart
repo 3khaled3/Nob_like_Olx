@@ -125,8 +125,8 @@ class FitchProductCubit extends Cubit<FitchProductState> {
       }
 
       finalOutput.removeWhere((innerList) => innerList.isEmpty);
+    // ignore: empty_catches
     } catch (e) {
-      print("========${e.toString()}");
     }
     allProduct = [];
     users = [];

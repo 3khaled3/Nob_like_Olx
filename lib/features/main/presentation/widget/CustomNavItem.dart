@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 class CustomNavItem extends StatelessWidget {
@@ -11,6 +13,7 @@ class CustomNavItem extends StatelessWidget {
   final Function() onPressed;
 
   const CustomNavItem({
+    super.key,
     required this.activeIcon,
     required this.inactiveIcon,
     required this.isActive,

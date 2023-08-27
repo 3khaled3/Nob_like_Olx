@@ -42,14 +42,12 @@ class ProdctDetailsView extends StatelessWidget {
                             favoriteTap: () async {
                               final favCubit =
                                   BlocProvider.of<FavCubit>(context);
-                              final fetchProductCubit =
+                              // final fetchProductCubit =
                                   BlocProvider.of<FitchProductCubit>(context);
 
                               product.favorte = !product.favorte;
                               await favCubit.addToFav(product.id);
-                              List<ProductDataModel>? x =
-                                  fetchProductCubit.allProduct;
-                              print(x![0].favorte);
+                              
                             },
                           ),
                           Saller(user: user),

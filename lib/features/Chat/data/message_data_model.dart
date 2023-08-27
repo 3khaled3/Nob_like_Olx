@@ -2,6 +2,7 @@ class MessageDataModel {
   final String sender;
   final String receiver;
   final String content;
+  // ignore: prefer_typing_uninitialized_variables
   var type;
   final DateTime timestamp;
   bool isRead;
