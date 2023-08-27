@@ -59,10 +59,3 @@ class PresonalProfileView extends StatelessWidget {
   }
 }
 
-// customElevationButtom(
-//             text: "logOut",
-//             onPressed: () {
-//               BlocProvider.of<UserOperationCubit>(context).signOut();
-//               GoRouter.of(context).pushReplacement(AppRouter.start);
-//             },
-//           )
