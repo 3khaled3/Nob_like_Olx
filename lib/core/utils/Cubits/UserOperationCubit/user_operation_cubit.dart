@@ -133,6 +133,7 @@ class UserOperationCubit extends Cubit<UserOperationState> {
       await FirebaseAuth.instance.signOut();
       emit(Success());
     } catch (e) {
+      print("===================================================$e");
       emit(Error(e.toString()));
     }
   }

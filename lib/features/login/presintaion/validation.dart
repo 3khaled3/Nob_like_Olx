@@ -1,6 +1,5 @@
 // ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:nob/core/utils/Cubits/RegisterCubit/register_cubit.dart';
 import 'package:nob/core/widget/CustomElvationBottom.dart';
 
+import '../../../core/utils/indicator.dart';
 import '../../../routes.dart';
 
 class OTPScreen extends StatefulWidget {
@@ -28,6 +28,9 @@ class _OTPScreenState extends State<OTPScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterCubit, RegisterState>(
       builder: (context, state) {
+        if (state is Waitting) {
+          return const Indicator();
+        }
         return Scaffold(
           backgroundColor: Colors.white,
           body: SafeArea(
@@ -42,15 +45,15 @@ class _OTPScreenState extends State<OTPScreen> {
                         "assets/verify-code-pic.svg",
                         height: MediaQuery.sizeOf(context).height * .4,
                       ),
-                       Text(
-                          "Please Enter Code Sent To You",
-                          style: GoogleFonts.outfit(
-                            color: Colors.grey,
-                            fontSize: 15,
-                            // fontFamily: 'Outfit',
-                            fontWeight: FontWeight.w400,
-                          ),
+                      Text(
+                        "Please Enter Code Sent To You",
+                        style: GoogleFonts.outfit(
+                          color: Colors.grey,
+                          fontSize: 15,
+                          // fontFamily: 'Outfit',
+                          fontWeight: FontWeight.w400,
                         ),
+                      ),
                       const SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -60,21 +63,21 @@ class _OTPScreenState extends State<OTPScreen> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      SizedBox(width: double.infinity,
+                      SizedBox(
+                        width: double.infinity,
                         child: customElevationButtom(
                           onPressed: () async {
                             if (formkey.currentState!.validate()) {
                               String enteredOTP = _otpDigits.join('');
                               if (enteredOTP.length == 6) {
-                                print(FirebaseAuth.instance.currentUser);
-                                print("=======================");
                                 await BlocProvider.of<RegisterCubit>(context)
                                     .signInWithPhoneNumber(enteredOTP);
                                 final state =
-                                    BlocProvider.of<RegisterCubit>(context).state;
-                                      
+                                    BlocProvider.of<RegisterCubit>(context)
+                                        .state;
+
                                 if (state is Success) {
-                                  print(FirebaseAuth.instance.currentUser);
+                                  GoRouter.of(context).pop();
                                   GoRouter.of(context)
                                       .pushReplacement(AppRouter.kuserdata);
                                 }

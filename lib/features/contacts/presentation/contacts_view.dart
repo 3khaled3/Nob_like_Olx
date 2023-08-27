@@ -18,7 +18,7 @@ class ContactsView extends StatelessWidget {
         stream: BlocProvider.of<ContactCubit>(context).getChatsStream(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return buildCircleIndicator();
+            return const ContactIndicator();
           } else if (snapshot.hasError) {
             return const Center(
               child: Text('Error loading data'),

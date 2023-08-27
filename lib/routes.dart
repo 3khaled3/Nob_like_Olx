@@ -79,7 +79,7 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: kSearchView,
-        builder: (context, state) => SearchView(),
+        builder: (context, state) => const SearchView(),
       ),
       GoRoute(
         path: kchatview,

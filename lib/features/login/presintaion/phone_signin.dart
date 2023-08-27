@@ -7,6 +7,8 @@ import 'package:nob/core/utils/Cubits/RegisterCubit/register_cubit.dart';
 import 'package:nob/core/widget/CustomElvationBottom.dart';
 import 'package:nob/core/widget/tossetMassage.dart';
 
+import '../../../core/utils/indicator.dart';
+
 class PhoneSignInScreen extends StatefulWidget {
   const PhoneSignInScreen({super.key});
 
@@ -35,6 +37,9 @@ class _PhoneSignInScreenState extends State<PhoneSignInScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<RegisterCubit, RegisterState>(
       builder: (context, state) {
+          if (state is Waitting) {
+          return const Indicator();
+        }
         return Scaffold(
           backgroundColor: Colors.white,
           body: SafeArea(

@@ -9,10 +9,10 @@ class Indicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.white,
       body: Center(
         child: LoadingAnimationWidget.discreteCircle(
-            color: Colors.white,
+            color: Colors.grey[300]!,
             size: 70,
             secondRingColor: Colors.green,
             thirdRingColor: Colors.purple),
@@ -33,4 +33,24 @@ buildCircleIndicator() {
       ),
     ),
   );
+}
+
+class ContactIndicator extends StatelessWidget {
+  const ContactIndicator({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body:Center(
+      child: LoadingAnimationWidget.flickr(
+        leftDotColor: Colors.blue,
+        rightDotColor: Colors.red,
+        size: 20,
+      ),
+    ),
+    );
+  }
 }

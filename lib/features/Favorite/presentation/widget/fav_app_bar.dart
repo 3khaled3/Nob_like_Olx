@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:go_router/go_router.dart';
 
-class FavAppBar extends StatelessWidget {
-  const FavAppBar({
-    super.key,
-  });
+import '../../../../routes.dart';
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      padding: const EdgeInsets.symmetric(vertical: 14),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "Favorite",
-            style: GoogleFonts.josefinSans(
-              fontSize: 22.0,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-        ],
+AppBar favAppBar(BuildContext context) {
+  return AppBar(
+    title: const Text(
+      "Favorite",
+      style: TextStyle(
+        fontSize: 22.0,
+        fontWeight: FontWeight.w800,
+        color: Colors.black,
       ),
-    );
-  }
+    ),
+    centerTitle: true,
+    backgroundColor: Colors.white,
+    elevation: 0,
+    leading: const SizedBox(width: 0),
+    actions: [
+      IconButton(
+          onPressed: () {
+            GoRouter.of(context).push(AppRouter.kSearchView);
+          },
+          icon: const Icon(
+            Icons.search,
+            color: Colors.black,
+          )),
+    ],
+  );
 }

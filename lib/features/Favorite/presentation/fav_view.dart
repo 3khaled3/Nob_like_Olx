@@ -31,18 +31,17 @@ class FavoriteView extends StatelessWidget {
             }
           }
 
-          return Scaffold(backgroundColor: Colors.white,
-            body: SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const FavAppBar(),
-                  FavBuilder(
-                    products: finalallProduct,
-                    users: finalusers,
-                  )
-                ],
-              ),
+          return Scaffold(
+            backgroundColor: Colors.white,
+            appBar: favAppBar(context),
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                FavBuilder(
+                  products: finalallProduct,
+                  users: finalusers,
+                )
+              ],
             ),
           );
         }
