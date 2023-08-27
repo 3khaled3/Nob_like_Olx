@@ -7,7 +7,6 @@ import '../../../core/utils/Cubits/FitchProductCubit/fitch_product_cubit.dart';
 import '../../home/data/product.dart';
 import 'widget/CategorieFindAppBar.dart';
 import 'package:flutter/material.dart';
-import 'widget/FilterAndSortRow.dart';
 import 'widget/tabstogel.dart';
 
 class CategoriesFindView extends StatelessWidget {
@@ -56,8 +55,12 @@ class CategoriesFindView extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            tabstogel(initial: initial),
-            const FilterAndSortRow(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: tabstogel(initial: initial),
+            ),
+            const Divider(height: 0),
+            const SizedBox(height: 10),
             SizedBox(
               width: MediaQuery.sizeOf(context).width,
               child: GridView.builder(
