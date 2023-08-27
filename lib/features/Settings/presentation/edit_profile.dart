@@ -10,7 +10,6 @@ import 'package:nob/features/login/presintaion/widget/show_user_image.dart';
 import '../../../core/utils/indicator.dart';
 import '../../../../core/widget/tossetMassage.dart';
 
-
 class EditProfile extends StatelessWidget {
   const EditProfile({super.key});
 
@@ -28,7 +27,6 @@ class EditProfile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                 
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 120),
                     margin: const EdgeInsets.only(top: 20, bottom: 40),
@@ -38,8 +36,7 @@ class EditProfile extends StatelessWidget {
                       child: state is Waitting
                           ? buildCircleIndicator()
                           : ShowUserImage(onPressed: () async {
-                              await BlocProvider.of<UserOperationCubit>(
-                                      context)
+                              await BlocProvider.of<UserOperationCubit>(context)
                                   .updateProfilePhoto();
                               final state =
                                   // ignore: use_build_context_synchronously
@@ -62,8 +59,7 @@ class EditProfile extends StatelessWidget {
                     child: customTextfaild(
                       labelText: "Username",
                       inithialText:
-                          FirebaseAuth.instance.currentUser!.displayName ??
-                              "",
+                          FirebaseAuth.instance.currentUser!.displayName ?? "",
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter username';
@@ -94,7 +90,7 @@ class EditProfile extends StatelessWidget {
                             if (state is Success) {
                               // ignore: use_build_context_synchronously
                               GoRouter.of(context).pop();
-  
+
                               showToastMessage(
                                 "Username has been updated",
                                 Colors.green,

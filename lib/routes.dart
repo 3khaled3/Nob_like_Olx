@@ -11,6 +11,7 @@ import 'package:nob/features/main/presentation/MainView.dart';
 import 'package:nob/features/productDetails/presentation/product_details_view.dart';
 import 'features/SeeMoreProduct/presentation/categoriesFind_view.dart';
 import 'features/Chat/presentation/chat_view.dart';
+import 'features/Settings/presentation/about_us.dart';
 import 'features/Settings/presentation/edit_profile.dart';
 import 'features/Userprofile/presentation/profile_view.dart';
 import 'features/contacts/presentation/contacts_view.dart';
@@ -33,7 +34,8 @@ abstract class AppRouter {
   static const kimageviewscreen = "/kimageviewscreen";
   static const kuserprofileView = "/kuserprofileView";
   static const kSettingsView = "/kSettingsView";
- static const kEditProfile="/kEditProfile";
+  static const kEditProfile = "/kEditProfile";
+  static const kaboutus = "/kaboutus";
 
   static final router = GoRouter(
     routes: [
@@ -95,7 +97,11 @@ abstract class AppRouter {
         path: kcontactsview,
         builder: (context, state) => const ContactsView(),
       ),
-       GoRoute(
+      GoRoute(
+        path: kaboutus,
+        builder: (context, state) => const appinfo(),
+      ),
+      GoRoute(
         path: kEditProfile,
         builder: (context, state) => const EditProfile(),
       ),

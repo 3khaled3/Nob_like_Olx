@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-AppBar editProfileAppBar(BuildContext context) {
+AppBar aboutusAppBar(BuildContext context) {
   return AppBar(
     title: Text(
-      "Edit Profile",
+      "About us",
       style: TextStyle(
         fontSize: 22.0,
         fontWeight: FontWeight.w800,

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nob/features/Settings/presentation/widget/settings_app_bar.dart';
 import 'package:nob/routes.dart';
+
+import '../../../core/utils/Cubits/UserOperationCubit/user_operation_cubit.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -9,7 +12,6 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: settingsAppBar(context),
       body: ListView(
         children: [
@@ -22,13 +24,18 @@ class SettingsView extends StatelessWidget {
             trailing: const Icon(Icons.arrow_forward_ios),
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              GoRouter.of(context).push(AppRouter.kaboutus);
+            },
             leading: const Icon(Icons.info_outline),
             title: const Text("about us"),
             trailing: const Icon(Icons.arrow_forward_ios),
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              BlocProvider.of<UserOperationCubit>(context).signOut();
+              GoRouter.of(context).pushReplacement(AppRouter.start);
+            },
             splashColor: Colors.red,
             iconColor: Colors.red,
             textColor: Colors.red,
@@ -40,6 +47,4 @@ class SettingsView extends StatelessWidget {
       ),
     );
   }
-
- 
 }
