@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-AppBar categoriesAppBar({required onPressed, context}) {
+import '../../../../routes.dart';
+
+AppBar categoriesAppBar({context}) {
   return AppBar(
     centerTitle: true,
     backgroundColor: Colors.white,
@@ -15,7 +17,9 @@ AppBar categoriesAppBar({required onPressed, context}) {
         )),
     actions: [
       IconButton(
-          onPressed: onPressed,
+          onPressed: () {
+            GoRouter.of(context).push(AppRouter.kSearchView);
+          },
           icon: const Icon(
             Icons.search,
             color: Colors.black,

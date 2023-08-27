@@ -140,4 +140,27 @@ class FitchProductCubit extends Cubit<FitchProductState> {
 
     return finalOutput;
   }
+
+  List<Map<String, dynamic>> search(quary) {
+    emit(Waitting());
+    List<UserDataModel> finalusers = [];
+    List<ProductDataModel> finalallProduct = [];
+    if (quary != "") {
+      for (var i = 0; i < allProduct!.length; i++) {
+        if (allProduct![i].description.contains(quary)) {
+          finalallProduct.add(allProduct![i]);
+          finalusers.add(users![i]);
+        } else if (allProduct![i].title.contains(quary)) {
+          finalallProduct.add(allProduct![i]);
+          finalusers.add(users![i]);
+        }
+      }
+    }
+    List<Map<String, dynamic>> finaldata = [];
+    for (var i = 0; i < finalallProduct.length; i++) {
+      finaldata.add({"product": finalallProduct[i], "user": finalusers[i]});
+    }
+    emit(Success());
+    return finaldata;
+  }
 }

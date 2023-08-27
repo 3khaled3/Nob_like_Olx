@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nob/routes.dart';
 
 import 'iconButtom.dart';
 
@@ -20,7 +22,9 @@ class HomeAppBar extends StatelessWidget {
         const Spacer(),
         iconButtom(
           icon: Icons.search,
-          onTap: () {},
+          onTap: () {
+            GoRouter.of(context).push(AppRouter.kSearchView);
+          },
         ),
       ],
     );

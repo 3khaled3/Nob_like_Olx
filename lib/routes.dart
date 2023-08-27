@@ -9,6 +9,7 @@ import 'package:nob/features/login/presintaion/phone_signin.dart';
 import 'package:nob/features/login/presintaion/validation.dart';
 import 'package:nob/features/main/presentation/MainView.dart';
 import 'package:nob/features/productDetails/presentation/product_details_view.dart';
+import 'features/Search/presentation/search_view.dart';
 import 'features/SeeMoreProduct/presentation/categoriesFind_view.dart';
 import 'features/Chat/presentation/chat_view.dart';
 import 'features/Settings/presentation/about_us.dart';
@@ -36,6 +37,7 @@ abstract class AppRouter {
   static const kSettingsView = "/kSettingsView";
   static const kEditProfile = "/kEditProfile";
   static const kaboutus = "/kaboutus";
+  static const kSearchView = "/kSearchView";
 
   static final router = GoRouter(
     routes: [
@@ -69,11 +71,15 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: start,
-        builder: (context, state) => PhoneSignInScreen(),
+        builder: (context, state) => const PhoneSignInScreen(),
       ),
       GoRoute(
         path: kuserdata,
-        builder: (context, state) => UserData(),
+        builder: (context, state) => const UserData(),
+      ),
+      GoRoute(
+        path: kSearchView,
+        builder: (context, state) => SearchView(),
       ),
       GoRoute(
         path: kchatview,
@@ -105,13 +111,6 @@ abstract class AppRouter {
         path: kEditProfile,
         builder: (context, state) => const EditProfile(),
       ),
-      // GoRoute(
-      //   path: kproductView,
-      //   builder: (context, state) {
-      //     Product product = state.extra as Product;
-      //     return productView(product: product);
-      //   },
-      // ),
       GoRoute(
         path: kallproductsView,
         builder: (context, state) {

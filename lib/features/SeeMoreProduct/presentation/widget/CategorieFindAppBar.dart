@@ -1,10 +1,13 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../routes.dart';
+
 // ignore: non_constant_identifier_names
-AppBar CategorieFindAppBar({required titel, required ontapArrow}) {
+AppBar CategorieFindAppBar({required titel, required ontapArrow,context}) {
   return AppBar(
     leading: IconButton(
         onPressed: ontapArrow,
@@ -14,7 +17,9 @@ AppBar CategorieFindAppBar({required titel, required ontapArrow}) {
         )),
     actions: [
       IconButton(
-          onPressed: () {},
+          onPressed: () {
+             GoRouter.of(context).push(AppRouter.kSearchView);
+          },
           icon: const Icon(
             Icons.search,
             color: Colors.black,

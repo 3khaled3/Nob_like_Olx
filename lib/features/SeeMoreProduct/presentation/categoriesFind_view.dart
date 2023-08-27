@@ -48,6 +48,7 @@ class CategoriesFindView extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: CategorieFindAppBar(
           titel: Categorie,
+          context: context,
           ontapArrow: () {
             GoRouter.of(context).pop();
           }),
