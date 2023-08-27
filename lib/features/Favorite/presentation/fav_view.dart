@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nob/core/utils/Cubits/FavCubit/fav_cubit.dart';
 import 'package:nob/core/utils/Cubits/FitchProductCubit/fitch_product_cubit.dart';
 import 'package:nob/core/utils/indicator.dart';
@@ -34,15 +36,30 @@ class FavoriteView extends StatelessWidget {
           return Scaffold(
             backgroundColor: Colors.white,
             appBar: favAppBar(context),
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                FavBuilder(
-                  products: finalallProduct,
-                  users: finalusers,
-                )
-              ],
-            ),
+            body: finalallProduct.isEmpty
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Center(child: LottieBuilder.asset("assets/empity.json")),
+                      Text(
+                        "Favorite is empity",
+                        style: GoogleFonts.lobsterTwo(
+                          fontSize: 22.0,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.grey,
+                        ),
+                      )
+                    ],
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      FavBuilder(
+                        products: finalallProduct,
+                        users: finalusers,
+                      )
+                    ],
+                  ),
           );
         }
       },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nob/features/Search/presentation/widget/search_app_bar.dart';
 
 import '../../../core/ProdactWidget/saleItem.dart';
@@ -38,7 +39,7 @@ class SearchView extends StatelessWidget {
                   },
                 ),
               ),
-              SizedBox(
+             data.isEmpty?LottieBuilder.asset("assets/empity.json"): SizedBox(
                 width: double.infinity,
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
