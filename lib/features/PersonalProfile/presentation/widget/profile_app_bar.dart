@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nob/routes.dart';
 
 class ProfileAppBar extends StatelessWidget {
   const ProfileAppBar({
@@ -24,7 +26,9 @@ class ProfileAppBar extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(4.0),
           child: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              GoRouter.of(context).push(AppRouter.kSettingsView);
+            },
             icon: const Icon(
               Icons.settings,
               color: Colors.black,

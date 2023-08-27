@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:nob/features/AddProduct/presentation/AddProduct.dart';
 import 'package:nob/features/Categories/presentation/categories_view.dart';
 import 'package:nob/features/Chat/presentation/widget/masseges_bubles.dart';
+import 'package:nob/features/Settings/presentation/settings_view.dart';
 import 'package:nob/features/home/data/product.dart';
 import 'package:nob/features/home/presentation/home_view.dart';
 import 'package:nob/features/login/presintaion/phone_signin.dart';
@@ -10,6 +11,7 @@ import 'package:nob/features/main/presentation/MainView.dart';
 import 'package:nob/features/productDetails/presentation/product_details_view.dart';
 import 'features/SeeMoreProduct/presentation/categoriesFind_view.dart';
 import 'features/Chat/presentation/chat_view.dart';
+import 'features/Settings/presentation/edit_profile.dart';
 import 'features/Userprofile/presentation/profile_view.dart';
 import 'features/contacts/presentation/contacts_view.dart';
 import 'features/login/presintaion/user_data.dart';
@@ -30,6 +32,8 @@ abstract class AppRouter {
   static const start = "/";
   static const kimageviewscreen = "/kimageviewscreen";
   static const kuserprofileView = "/kuserprofileView";
+  static const kSettingsView = "/kSettingsView";
+ static const kEditProfile="/kEditProfile";
 
   static final router = GoRouter(
     routes: [
@@ -91,6 +95,10 @@ abstract class AppRouter {
         path: kcontactsview,
         builder: (context, state) => const ContactsView(),
       ),
+       GoRoute(
+        path: kEditProfile,
+        builder: (context, state) => const EditProfile(),
+      ),
       // GoRoute(
       //   path: kproductView,
       //   builder: (context, state) {
@@ -116,6 +124,12 @@ abstract class AppRouter {
         path: kaddProductView,
         builder: (context, state) {
           return const addProductView();
+        },
+      ),
+      GoRoute(
+        path: kSettingsView,
+        builder: (context, state) {
+          return const SettingsView();
         },
       ),
     ],

@@ -12,6 +12,9 @@ class PresonalProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<FitchProductCubit, FitchProductState>(
+        builder: (context, state) {
+          
     User currentUser = FirebaseAuth.instance.currentUser!;
     final user = UserDataModel(
         fcmToken:
@@ -20,8 +23,6 @@ class PresonalProfileView extends StatelessWidget {
         displayName: currentUser.displayName,
         phoneNumber: currentUser.phoneNumber,
         profileImage: null);
-    return BlocBuilder<FitchProductCubit, FitchProductState>(
-        builder: (context, state) {
       if (BlocProvider.of<FitchProductCubit>(context).allProduct == null) {
         return buildCircleIndicator();
       } else {
