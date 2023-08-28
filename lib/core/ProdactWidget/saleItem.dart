@@ -43,8 +43,7 @@ class SaleItem extends StatelessWidget {
                       Center(
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(8),
-                            child:
-                                CachedNetworkImage(
+                            child: CachedNetworkImage(
                               fit: BoxFit.cover,
                               width: MediaQuery.sizeOf(context).width * .43,
                               height: MediaQuery.sizeOf(context).height * .19,
@@ -127,28 +126,26 @@ class SaleItem extends StatelessWidget {
                   right: 16,
                   top: 10,
                   child: SizedBox(
-                    height: 32,
-                    width: 32,
-                    child: circleIconButtom(
-                      iconColor: product.favorte ? Colors.red : Colors.white,
-                      icon: product.favorte
-                          ? Icons.favorite_rounded
-                          : Icons.favorite_border_rounded,
-                      onTap: () async {
-                        final favCubit = BlocProvider.of<FavCubit>(context);
-                        final fetchProductCubit =
-                            BlocProvider.of<FitchProductCubit>(context);
+                      height: 32,
+                      width: 32,
+                      child: CustomLikeButton(
+                        liked: product.favorte,
+                        isliked: (c) async {
+                          final favCubit = BlocProvider.of<FavCubit>(context);
+                          final fetchProductCubit =
+                              BlocProvider.of<FitchProductCubit>(context);
 
-                        product.favorte = !product.favorte;
-                        await favCubit.addToFav(product.id);
-                        List<ProductDataModel>? x =
-                            fetchProductCubit.allProduct;
-                        if (kDebugMode) {
-                          print(x![0].favorte);
-                        }
-                      },
-                    ),
-                  ),
+                          product.favorte = !product.favorte;
+                          await favCubit.addToFav(product.id);
+                          List<ProductDataModel>? x =
+                              fetchProductCubit.allProduct;
+                          if (kDebugMode) {
+                            print(x![0].favorte);
+                          }
+
+                          return product.favorte;
+                        },
+                      )),
                 ),
               ],
             ));
