@@ -1,11 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nob/core/utils/styles.dart';
-
-import 'Cubits/RegisterCubit/register_cubit.dart';
+import 'funcation/auto_login.dart';
 
 class Splasher extends StatefulWidget {
   const Splasher({super.key});
@@ -23,7 +21,7 @@ class _SplasherState extends State<Splasher> {
   }
 
   Future<void> _initializeState() async {
-    await BlocProvider.of<RegisterCubit>(context).autoLogin(context);
+    await autoLogin(context);
   }
 
   @override

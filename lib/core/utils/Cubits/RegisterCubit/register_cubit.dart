@@ -81,28 +81,4 @@ class RegisterCubit extends Cubit<RegisterState> {
       emit(Error(e.toString()));
     }
   }
-
-  Future<void> autoLogin(context) async {
-    emit(Waitting());
-
-    try {
-      final storedCustomToken = box.get('customToken');
-      if (storedCustomToken != null) {
-        // Sign in with the custom token
-        try {
-          await _auth.signInWithCustomToken(storedCustomToken);
-
-          // ignore: empty_catches
-        } catch (e) {}
-        GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
-      } else {
-        await Future.delayed(const Duration(seconds: 3));
-
-        GoRouter.of(context).pushReplacement(AppRouter.kPhoneSignInScreen);
-      }
-      emit(Success());
-    } catch (e) {
-      emit(Error(e.toString()));
-    }
-  }
 }

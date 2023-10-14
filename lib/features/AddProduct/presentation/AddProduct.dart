@@ -24,122 +24,124 @@ class addProductView extends StatelessWidget {
   Widget build(BuildContext context) {
     GlobalKey<FormState> Kform = GlobalKey();
     ProductDataModel product = ProductDataModel.empty();
-    return BlocBuilder<AddProductCubit, AddProductState>(
-      builder: (context, state) {
-        if (state is Waitting) {
-          return const Indicator();
-        }
-        return Scaffold(
-          backgroundColor: Styles.backgroundColor,
-          body: ListView(
-            physics: const BouncingScrollPhysics(),
-            children: [
-              const SafeArea(child: addProductAppBar()),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Form(
-                  key: Kform,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Text("Product Titel", style: widgetTitelStyle()),
-                      ),
-                      customTextfaild(
-                        labelText: "Product Titel",
-                        onChanged: (value) {
-                          product.title = value;
-                        },
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Product Titel is requird ";
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 30),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Text("Product Description",
-                            style: widgetTitelStyle()),
-                      ),
-                      customTextfaild(
-                        labelText: "Product Description",
-                        maxLines: 4,
-                        onChanged: (value) {
-                          product.description = value;
-                        },
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Product Description is requird ";
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 30),
-                      SelectCategoryDrobdown(
-                        onChanged: (value) {
-                          product.category = value!;
-                        },
-                      ),
-                      const SizedBox(height: 30),
-                      RateingAndStatus(
-                        RatingonChanged: (value) {
-                          product.rating = value;
-                        },
-                        StatusonChanged: (value) {
-                          product.status = value!;
-                        },
-                      ),
-                      const SizedBox(height: 40),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Text("Product Price", style: widgetTitelStyle()),
-                      ),
-                      priceTextFaild(onChanged: (value) {
-                        try {
-                        product.price = double.parse(value);  
-                        // ignore: empty_catches
-                        } catch (e) {
-                          
-                        }
-                        
-                      }),
-                      const SizedBox(height: 20),
-                      const AddImageButtom(),
-                      const SizedBox(height: 20),
-                      ImageLIst(
-                          selectedImages:
-                              BlocProvider.of<AddProductCubit>(context)
-                                  .selectedImages),
-                      SizedBox(
-                        width: MediaQuery.sizeOf(context).width,
-                        child: customElevationButtom(
-                          text: "Save",
-                          onPressed: () async {
-                            if (Kform.currentState!.validate()) {
-                              await BlocProvider.of<AddProductCubit>(context)
-                                  .uploadAds(Product: product);
-                              GoRouter.of(context)
-                                  .pushReplacement(AppRouter.kHomeView);
-                              BlocProvider.of<AddProductCubit>(context)
-                                  .selectedImages
-                                  .clear();
+    return BlocProvider(
+      create: (context) => AddProductCubit(),
+      child: BlocBuilder<AddProductCubit, AddProductState>(
+        builder: (context, state) {
+          if (state is Waitting) {
+            return const Indicator();
+          }
+          return Scaffold(
+            backgroundColor: Styles.backgroundColor,
+            body: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: [
+                const SafeArea(child: addProductAppBar()),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Form(
+                    key: Kform,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child:
+                              Text("Product Titel", style: widgetTitelStyle()),
+                        ),
+                        customTextfaild(
+                          labelText: "Product Titel",
+                          onChanged: (value) {
+                            product.title = value;
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Product Titel is requird ";
                             }
+                            return null;
                           },
                         ),
-                      ),
-                      const SizedBox(height: 10),
-                    ],
+                        const SizedBox(height: 30),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Text("Product Description",
+                              style: widgetTitelStyle()),
+                        ),
+                        customTextfaild(
+                          labelText: "Product Description",
+                          maxLines: 4,
+                          onChanged: (value) {
+                            product.description = value;
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Product Description is requird ";
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 30),
+                        SelectCategoryDrobdown(
+                          onChanged: (value) {
+                            product.category = value!;
+                          },
+                        ),
+                        const SizedBox(height: 30),
+                        RateingAndStatus(
+                          RatingonChanged: (value) {
+                            product.rating = value;
+                          },
+                          StatusonChanged: (value) {
+                            product.status = value!;
+                          },
+                        ),
+                        const SizedBox(height: 40),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child:
+                              Text("Product Price", style: widgetTitelStyle()),
+                        ),
+                        priceTextFaild(onChanged: (value) {
+                          try {
+                            product.price = double.parse(value);
+                            // ignore: empty_catches
+                          } catch (e) {}
+                        }),
+                        const SizedBox(height: 20),
+                        const AddImageButtom(),
+                        const SizedBox(height: 20),
+                        ImageLIst(
+                            selectedImages:
+                                BlocProvider.of<AddProductCubit>(context)
+                                    .selectedImages),
+                        SizedBox(
+                          width: MediaQuery.sizeOf(context).width,
+                          child: customElevationButtom(
+                            text: "Save",
+                            onPressed: () async {
+                              if (Kform.currentState!.validate()) {
+                                await BlocProvider.of<AddProductCubit>(context)
+                                    .uploadAds(Product: product);
+                                GoRouter.of(context)
+                                    .pushReplacement(AppRouter.kHomeView);
+                                BlocProvider.of<AddProductCubit>(context)
+                                    .selectedImages
+                                    .clear();
+                              }
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        );
-      },
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 

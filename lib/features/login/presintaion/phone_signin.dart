@@ -48,14 +48,6 @@ class _PhoneSignInScreenState extends State<PhoneSignInScreen> {
                     children: [
                       SvgPicture.asset("assets/mobile-auth-pic.svg",
                           height: MediaQuery.sizeOf(context).height * .4),
-                      // Text(
-                      //   "Enter Your Phone number",
-                      //   style: GoogleFonts.outfit(
-                      //     // color: ,
-                      //     fontSize: 22,
-                      //     fontWeight: FontWeight.w600,
-                      //   ),
-                      // ),
                       const SizedBox(height: 10),
                       Text(
                         "We Will send you the 6 digit verification Code",

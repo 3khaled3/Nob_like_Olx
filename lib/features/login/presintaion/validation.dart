@@ -27,7 +27,7 @@ class _OTPScreenState extends State<OTPScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RegisterCubit, RegisterState>(
+    return  BlocBuilder<RegisterCubit, RegisterState>(
       builder: (context, state) {
         if (state is Waitting) {
           return const Indicator();
@@ -76,7 +76,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                 final state =
                                     BlocProvider.of<RegisterCubit>(context)
                                         .state;
-
+    
                                 if (state is Success) {
                                   GoRouter.of(context).pop();
                                   GoRouter.of(context)
