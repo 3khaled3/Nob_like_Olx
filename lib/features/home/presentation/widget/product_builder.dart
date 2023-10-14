@@ -33,7 +33,6 @@ class ProductBuilderListView extends StatelessWidget {
                 },
               ),
               saleListView(
-                // List<Map<String,List<Map<UserDataModel, ProductDataModel>>>>
                 products: finalOutput[index],
               ),
               SizedBox(

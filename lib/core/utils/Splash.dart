@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:nob/core/utils/styles.dart';
 
 import 'Cubits/RegisterCubit/register_cubit.dart';
 
@@ -28,7 +29,7 @@ class _SplasherState extends State<Splasher> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Styles.backgroundColor,
       body: SizedBox(
         width: double.infinity,
         child: Column(

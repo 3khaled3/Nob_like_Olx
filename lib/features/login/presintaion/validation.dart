@@ -9,6 +9,7 @@ import 'package:nob/core/utils/Cubits/RegisterCubit/register_cubit.dart';
 import 'package:nob/core/widget/CustomElvationBottom.dart';
 
 import '../../../core/utils/indicator.dart';
+import '../../../core/utils/styles.dart';
 import '../../../routes.dart';
 
 class OTPScreen extends StatefulWidget {
@@ -32,7 +33,7 @@ class _OTPScreenState extends State<OTPScreen> {
           return const Indicator();
         }
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Styles.backgroundColor,
           body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(20.0),

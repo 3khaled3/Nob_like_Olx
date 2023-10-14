@@ -8,6 +8,7 @@ import 'package:nob/core/widget/CustomElvationBottom.dart';
 import 'package:nob/core/widget/tossetMassage.dart';
 
 import '../../../core/utils/indicator.dart';
+import '../../../core/utils/styles.dart';
 
 class PhoneSignInScreen extends StatefulWidget {
   const PhoneSignInScreen({super.key});
@@ -36,7 +37,7 @@ class _PhoneSignInScreenState extends State<PhoneSignInScreen> {
           return const Indicator();
         }
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Styles.backgroundColor,
           body: SafeArea(
             child: Form(
               key: formkey,

@@ -6,6 +6,7 @@ import 'package:nob/features/Search/presentation/widget/search_app_bar.dart';
 import '../../../core/ProdactWidget/saleItem.dart';
 import '../../../core/utils/Cubits/FitchProductCubit/fitch_product_cubit.dart';
 import '../../../core/utils/indicator.dart';
+import '../../../core/utils/styles.dart';
 import '../../../core/widget/customtextFaild.dart';
 
 class SearchView extends StatelessWidget {
@@ -22,7 +23,7 @@ class SearchView extends StatelessWidget {
       }
       return Scaffold(
         appBar: searchAppBar(context),
-        backgroundColor: Colors.white,
+        backgroundColor: Styles.backgroundColor,
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Column(
@@ -44,7 +45,7 @@ class SearchView extends StatelessWidget {
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 250,
-                      mainAxisExtent: 285,
+                      mainAxisExtent: 250,
                       childAspectRatio: 3 / 2,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10),

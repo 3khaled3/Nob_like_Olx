@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/utils/styles.dart';
+
 AppBar profileDetailsAppBar(BuildContext context) {
   return AppBar(leadingWidth: 0,
     title: Text(
@@ -10,7 +12,7 @@ AppBar profileDetailsAppBar(BuildContext context) {
         color: Colors.blue[500],
       ),
     ),
-    backgroundColor: Colors.white,
+    backgroundColor: Styles.backgroundColor,
     elevation: .2,
     leading: const SizedBox(width: 0)
   );

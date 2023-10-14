@@ -17,7 +17,7 @@ class saleListView extends StatelessWidget {
       children: [
         Expanded(
           child: SizedBox(
-            height: 290,
+            height: 250,
             width: 170,
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),

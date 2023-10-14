@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../../constant.dart';
 import '../../../core/ProdactWidget/saleItem.dart';
 import '../../../core/utils/Cubits/FitchProductCubit/fitch_product_cubit.dart';
+import '../../../core/utils/styles.dart';
 import '../../home/data/product.dart';
 import 'widget/CategorieFindAppBar.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ class CategoriesFindView extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Styles.backgroundColor,
       appBar: CategorieFindAppBar(
           titel: Categorie,
           context: context,
@@ -66,8 +67,8 @@ class CategoriesFindView extends StatelessWidget {
               width: MediaQuery.sizeOf(context).width,
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 300,
-                    mainAxisExtent: 300,
+                    maxCrossAxisExtent: 250,
+                    mainAxisExtent: 250,
                     childAspectRatio: 3 / 2,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10),

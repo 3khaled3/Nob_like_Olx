@@ -9,6 +9,7 @@ import 'package:nob/features/home/presentation/widget/home_app_bar.dart';
 import 'package:nob/features/home/presentation/widget/product_builder.dart';
 import 'package:nob/features/home/presentation/widget/titelCatogry.dart';
 import '../../../core/utils/indicator.dart';
+import '../../../core/utils/styles.dart';
 import '../../../routes.dart';
 
 // ignore: camel_case_types
@@ -35,7 +36,7 @@ class homeView extends StatelessWidget {
               snapshot.data!;
 
           return Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: Styles.backgroundColor,
             body: SafeArea(
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),

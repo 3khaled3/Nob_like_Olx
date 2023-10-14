@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/utils/styles.dart';
+
 AppBar searchAppBar(BuildContext context) {
   return AppBar(
     title: Text(
@@ -12,7 +14,7 @@ AppBar searchAppBar(BuildContext context) {
       ),
     ),
 
-    backgroundColor: Colors.white,
+    backgroundColor: Styles.backgroundColor,
     elevation: 0.2,
     leading: IconButton(
         onPressed: () {

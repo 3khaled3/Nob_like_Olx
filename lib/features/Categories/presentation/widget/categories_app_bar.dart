@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/utils/styles.dart';
 import '../../../../routes.dart';
 
 AppBar categoriesAppBar({context}) {
   return AppBar(
     centerTitle: true,
-    backgroundColor: Colors.white,
+    backgroundColor: Styles.backgroundColor,
     leading: IconButton(
         onPressed: () {
           GoRouter.of(context).pop();

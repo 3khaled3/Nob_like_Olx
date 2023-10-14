@@ -51,7 +51,7 @@ class ProfileWidget extends StatelessWidget {
           child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 250,
-                mainAxisExtent: 285,
+                mainAxisExtent: 250,
                 childAspectRatio: 3 / 2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10),

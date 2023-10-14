@@ -6,6 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:nob/features/Settings/presentation/widget/info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../core/utils/styles.dart';
+
 // ignore: camel_case_types
 class appinfo extends StatelessWidget {
   const appinfo({super.key});
@@ -69,7 +71,7 @@ class appinfo extends StatelessWidget {
   CircleAvatar BuildImageSection() {
     return CircleAvatar(
       radius: 112,
-      backgroundColor: Colors.white,
+      backgroundColor: Styles.backgroundColor,
       child: CircleAvatar(
         backgroundImage: CachedNetworkImageProvider(info),
         radius: 110,

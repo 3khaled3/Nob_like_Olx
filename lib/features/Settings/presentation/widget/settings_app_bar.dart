@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/utils/styles.dart';
 import '../../../../routes.dart';
 
 AppBar settingsAppBar(BuildContext context) {
@@ -13,7 +14,7 @@ AppBar settingsAppBar(BuildContext context) {
         color: Colors.blue[500],
       ),
     ),
-    backgroundColor: Colors.white,
+    backgroundColor: Styles.backgroundColor,
     elevation: .2,
     leading: IconButton(
         onPressed: () {

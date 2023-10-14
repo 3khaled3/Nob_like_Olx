@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/utils/styles.dart';
 import '../../../../routes.dart';
 
 AppBar favAppBar(BuildContext context) {
@@ -14,7 +15,7 @@ AppBar favAppBar(BuildContext context) {
       ),
     ),
     centerTitle: true,
-    backgroundColor: Colors.white,
+    backgroundColor: Styles.backgroundColor,
     elevation: 0,
     leading: const SizedBox(width: 0),
     actions: [

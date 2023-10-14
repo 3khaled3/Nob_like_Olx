@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/utils/styles.dart';
+
 AppBar userProfileAppBar(BuildContext context) {
   return AppBar(
     title: Text(
@@ -12,7 +14,7 @@ AppBar userProfileAppBar(BuildContext context) {
       ),
     ),
     centerTitle: true,
-    backgroundColor: Colors.white,
+    backgroundColor: Styles.backgroundColor,
     elevation: 0,
     leading: IconButton(
         onPressed: () {

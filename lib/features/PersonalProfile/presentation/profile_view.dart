@@ -5,6 +5,7 @@ import 'package:nob/features/PersonalProfile/presentation/widget/profile_app_bar
 import 'package:nob/features/PersonalProfile/presentation/widget/profile_widget.dart';
 import '../../../core/utils/Cubits/FitchProductCubit/fitch_product_cubit.dart';
 import '../../../core/utils/indicator.dart';
+import '../../../core/utils/styles.dart';
 import '../../home/data/product.dart';
 
 class PresonalProfileView extends StatelessWidget {
@@ -38,7 +39,7 @@ class PresonalProfileView extends StatelessWidget {
             finalusers.add(users[i]);
           }
         }
-        return Scaffold(backgroundColor: Colors.white,
+        return Scaffold(backgroundColor: Styles.backgroundColor,
           body: SafeArea(
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),

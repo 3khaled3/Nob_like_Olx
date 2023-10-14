@@ -8,6 +8,7 @@ import 'package:nob/core/utils/indicator.dart';
 import 'package:nob/features/Favorite/presentation/widget/fav_app_bar.dart';
 import 'package:nob/features/Favorite/presentation/widget/fav_builder.dart';
 
+import '../../../core/utils/styles.dart';
 import '../../home/data/product.dart';
 
 class FavoriteView extends StatelessWidget {
@@ -34,7 +35,7 @@ class FavoriteView extends StatelessWidget {
           }
 
           return Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: Styles.backgroundColor,
             appBar: favAppBar(context),
             body: finalallProduct.isEmpty
                 ? Column(

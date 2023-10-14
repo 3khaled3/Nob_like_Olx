@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/utils/styles.dart';
+
 AppBar contactAppBar(BuildContext context) {
   return AppBar(
     centerTitle: false,
@@ -30,7 +32,7 @@ AppBar contactAppBar(BuildContext context) {
         ),
       ],
     ),
-    backgroundColor: Colors.white,
+    backgroundColor: Styles.backgroundColor,
     elevation: 0.2,
   );
 }

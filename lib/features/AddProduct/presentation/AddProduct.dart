@@ -13,6 +13,7 @@ import 'package:nob/features/AddProduct/presentation/widget/ShowImage.dart';
 import 'package:nob/features/AddProduct/presentation/widget/addProductAppBar.dart';
 import 'package:nob/features/AddProduct/presentation/widget/priceTextFaild.dart';
 import 'package:nob/features/home/data/product.dart';
+import '../../../core/utils/styles.dart';
 import '../../../core/widget/CustomElvationBottom.dart';
 import 'widget/AddImageButtom.dart';
 
@@ -29,7 +30,7 @@ class addProductView extends StatelessWidget {
           return const Indicator();
         }
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Styles.backgroundColor,
           body: ListView(
             physics: const BouncingScrollPhysics(),
             children: [

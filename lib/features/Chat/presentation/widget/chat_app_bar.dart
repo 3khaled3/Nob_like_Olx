@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nob/routes.dart';
 import '../../../../core/utils/indicator.dart';
+import '../../../../core/utils/styles.dart';
 import '../../../home/data/product.dart';
 
 class ChatAppBar extends StatelessWidget {
@@ -22,8 +23,7 @@ class ChatAppBar extends StatelessWidget {
         statusBarColor:
             Colors.grey[100], // Change this color to your desired color
       ),
-      backgroundColor: Colors.white,
-      elevation: .5,
+backgroundColor: Styles.backgroundColor,      elevation: .5,
       leadingWidth: MediaQuery.sizeOf(context).width * .09,
       leading: IconButton(
           onPressed: () {

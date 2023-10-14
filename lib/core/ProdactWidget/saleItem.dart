@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nob/core/utils/Cubits/FavCubit/fav_cubit.dart';
 import 'package:nob/core/utils/indicator.dart';
+import 'package:nob/core/utils/styles.dart';
 import '../../features/home/data/product.dart';
 import '../../routes.dart';
 import '../utils/Cubits/FitchProductCubit/fitch_product_cubit.dart';
@@ -31,13 +32,15 @@ class SaleItem extends StatelessWidget {
             child: Stack(
               children: [
                 Container(
-                  height: MediaQuery.sizeOf(context).height * .35,
-                  width: MediaQuery.sizeOf(context).width * .43,
+                  // height: MediaQuery.sizeOf(context).height * .35,
+                  // width: MediaQuery.sizeOf(context).width * .43,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.white),
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.white,
+                  ),
+                  padding: const EdgeInsets.only(right: 4, bottom: 4, left: 4),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Center(
@@ -113,15 +116,21 @@ class SaleItem extends StatelessWidget {
                     ],
                   ),
                 ),
-                Positioned.fill(child: MaterialButton(onPressed: () {
-                  GoRouter.of(context).push(
-                    AppRouter.kprodctdetailsview,
-                    extra: {
-                      'product': product,
-                      'user': user,
+                Positioned.fill(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      GoRouter.of(context).push(
+                        AppRouter.kprodctdetailsview,
+                        extra: {
+                          'product': product,
+                          'user': user,
+                        },
+                      );
                     },
-                  );
-                })),
+                    style: Styles.buttomStyle,
+                    child: const SizedBox(),
+                  ),
+                ),
                 Positioned(
                   right: 16,
                   top: 10,

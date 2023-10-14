@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:nob/core/utils/styles.dart';
 
 class Indicator extends StatelessWidget {
   const Indicator({
@@ -9,7 +10,7 @@ class Indicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Styles.backgroundColor,
       body: Center(
         child: LoadingAnimationWidget.discreteCircle(
             color: Colors.grey[300]!,
@@ -43,7 +44,7 @@ class ContactIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Styles.backgroundColor,
       body:Center(
       child: LoadingAnimationWidget.flickr(
         leftDotColor: Colors.blue,

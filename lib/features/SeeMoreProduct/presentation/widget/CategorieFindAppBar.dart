@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/utils/styles.dart';
 import '../../../../routes.dart';
 
 // ignore: non_constant_identifier_names
@@ -26,7 +27,7 @@ AppBar CategorieFindAppBar({required titel, required ontapArrow,context}) {
           ))
     ],
     elevation: .2,
-    backgroundColor: Colors.white,
+    backgroundColor: Styles.backgroundColor,
     centerTitle: true,
     title: Text(
       titel,

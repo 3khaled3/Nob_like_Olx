@@ -4,6 +4,7 @@ import 'package:nob/features/PersonalProfile/presentation/widget/profile_widget.
 import 'package:nob/features/Userprofile/presentation/widget/profile_app_bar.dart';
 import '../../../core/utils/Cubits/FitchProductCubit/fitch_product_cubit.dart';
 import '../../../core/utils/indicator.dart';
+import '../../../core/utils/styles.dart';
 import '../../home/data/product.dart';
 
 class Userprofile extends StatelessWidget {
@@ -30,7 +31,7 @@ class Userprofile extends StatelessWidget {
         }
         return Scaffold(
           appBar: userProfileAppBar(context),
-          backgroundColor: Colors.white,
+          backgroundColor: Styles.backgroundColor,
           body: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Column(

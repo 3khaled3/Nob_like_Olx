@@ -58,7 +58,6 @@ Future<void> main() async {
       ),
     ),
   );
-  
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
