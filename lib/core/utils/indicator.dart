@@ -13,7 +13,7 @@ class Indicator extends StatelessWidget {
       backgroundColor: Styles.backgroundColor,
       body: Center(
         child: LoadingAnimationWidget.discreteCircle(
-            color: Colors.grey[300]!,
+            color: Colors.white,
             size: 70,
             secondRingColor: Colors.green,
             thirdRingColor: Colors.purple),

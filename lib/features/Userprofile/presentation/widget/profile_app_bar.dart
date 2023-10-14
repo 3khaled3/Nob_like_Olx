@@ -7,11 +7,7 @@ AppBar userProfileAppBar(BuildContext context) {
   return AppBar(
     title: Text(
       "User Profile",
-      style: TextStyle(
-        fontSize: 22.0,
-        fontWeight: FontWeight.w800,
-        color: Colors.blue[500],
-      ),
+      style: Styles.style22BlueW800,
     ),
     centerTitle: true,
     backgroundColor: Styles.backgroundColor,

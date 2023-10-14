@@ -31,11 +31,10 @@ abstract class Styles {
     fontWeight: FontWeight.w700,
     height: 0,
   );
-  static TextStyle style12 = const TextStyle(
-    color: Colors.grey,
-    fontSize: 12,
-    fontFamily: 'Almarai',
-    fontWeight: FontWeight.w700,
+  static TextStyle style22BlueW800 = TextStyle(
+    fontSize: 22.0,
+    fontWeight: FontWeight.w800,
+    color: Colors.blue[500],
   );
   static ButtonStyle buttomStyle = const ButtonStyle(
     backgroundColor: MaterialStatePropertyAll(Colors.transparent),

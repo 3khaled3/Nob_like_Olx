@@ -7,11 +7,7 @@ AppBar searchAppBar(BuildContext context) {
   return AppBar(
     title: Text(
       "Search",
-      style: TextStyle(
-        fontSize: 22.0,
-        fontWeight: FontWeight.w800,
-        color: Colors.blue[500],
-      ),
+      style:Styles.style22BlueW800,
     ),
 
     backgroundColor: Styles.backgroundColor,

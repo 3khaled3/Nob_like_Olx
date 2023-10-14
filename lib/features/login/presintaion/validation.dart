@@ -127,7 +127,10 @@ class _OTPScreenState extends State<OTPScreen> {
         decoration: const InputDecoration(
           counterText: '',
           border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10))),
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
         ),
       ),
     );

@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nob/core/utils/styles.dart';
 import 'package:nob/routes.dart';
 
 class ProfileAppBar extends StatelessWidget {
@@ -16,11 +17,7 @@ class ProfileAppBar extends StatelessWidget {
         const SizedBox(width: 16),
         Text(
           "Profile",
-          style: TextStyle(
-            fontSize: 22.0,
-            fontWeight: FontWeight.w800,
-            color: Colors.blue[500],
-          ),
+          style: Styles.style22BlueW800
         ),
         const Spacer(),
         Padding(
