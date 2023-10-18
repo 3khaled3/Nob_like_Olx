@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:async';
 import 'package:camera/camera.dart';
-import 'package:nob/core/utils/Cubits/ChatCubit/chat_cubit.dart';
-import 'package:nob/core/utils/Cubits/FavCubit/fav_cubit.dart';
-import 'package:nob/core/utils/Cubits/FitchProductCubit/fitch_product_cubit.dart';
 import 'package:flutter/services.dart';
 import 'package:nob/core/utils/Cubits/UserOperationCubit/user_operation_cubit.dart';
 import 'core/utils/Cubits/ContactCubit/contact_cubit.dart';
@@ -30,17 +27,10 @@ Future<void> main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => FitchProductCubit(),
-        ),
-        BlocProvider(
           create: (context) => RegisterCubit(),
         ),
         BlocProvider(
           create: (context) => UserOperationCubit(),
-        ),
-       
-        BlocProvider(
-          create: (context) => FavCubit(),
         ),
         BlocProvider(
           create: (context) => ContactCubit(),
