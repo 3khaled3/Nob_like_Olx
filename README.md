@@ -1,6 +1,15 @@
 # Noble Marketplace App
-https://github.com/3khaled3/Nob_like_Olx/assets/99047350/80c5138e-4a6c-4205-a629-d66b9318824a
+## screens
+![1](https://github.com/3khaled3/Nob_like_Olx/assets/99047350/3cd1005a-b838-458a-8504-3e1996376007)
+![2](https://github.com/3khaled3/Nob_like_Olx/assets/99047350/b282fad6-7159-48a0-9996-42628835cae4)
+![3](https://github.com/3khaled3/Nob_like_Olx/assets/99047350/e64c7f72-95c8-4d3e-b989-3aa7234796ff)
+![4](https://github.com/3khaled3/Nob_like_Olx/assets/99047350/5dd0c9bc-663a-43c6-b096-c47152061f2e)
+![5](https://github.com/3khaled3/Nob_like_Olx/assets/99047350/4c37c7cc-4320-48ae-a84d-c64beb7ea262)
+![6](https://github.com/3khaled3/Nob_like_Olx/assets/99047350/2183cf56-f67a-443c-af56-c6aeddb57996)
+![7](https://github.com/3khaled3/Nob_like_Olx/assets/99047350/0dad8aed-1261-4a6c-9abf-fa73964c8137)
 
+## video
+https://github.com/3khaled3/Nob_like_Olx/assets/99047350/80c5138e-4a6c-4205-a629-d66b9318824a
 
 ## Features
 
